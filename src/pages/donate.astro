@@ -3,6 +3,404 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="donate — green°">
-  <!-- Donate content goes here -->
-  <p>Donate stub</p>
+
+<style is:global>
+  /* Donate page: full-viewport, no scroll */
+  body.dn-page { overflow: hidden; }
+</style>
+
+<style>
+/* ============================================================
+   DONATE PAGE — immersive pencil case funder
+   The lime fills the page as generosity grows.
+   ============================================================ */
+
+.dn-fill {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 0%;
+  background: var(--color-lime);
+  z-index: 0;
+  transition: height 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: height;
+}
+
+.dn-stage {
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px 120px;
+  text-align: center;
+}
+
+.dn-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-sage-deep);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.dn-eyebrow::before,
+.dn-eyebrow::after {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--color-sage-deep);
+}
+
+.dn-count-wrap {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+.dn-count {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(6rem, 22vw, 18rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), color 600ms;
+  will-change: transform;
+  user-select: none;
+}
+.dn-count.is-bumping { transform: scale(1.04); }
+.dn-count-label {
+  font-family: var(--font-ui);
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: var(--color-ink-soft);
+  align-self: flex-end;
+  padding-bottom: 20px;
+  white-space: nowrap;
+}
+
+.dn-cost {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin: 0 0 12px;
+  transition: color 600ms;
+}
+
+.dn-human {
+  font-family: var(--font-ui);
+  font-size: clamp(0.8rem, 1.5vw, 0.9375rem);
+  color: var(--color-ink-soft);
+  margin: 0 0 48px;
+  min-height: 1.5em;
+  transition: color 600ms;
+}
+
+.dn-controls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 56px;
+}
+.dn-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--color-rule);
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--color-ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 200ms, background 200ms, color 200ms;
+  user-select: none;
+  flex-shrink: 0;
+}
+.dn-btn:hover { border-color: var(--color-ink); background: var(--color-ink); color: var(--color-bg); }
+.dn-btn:active { transform: scale(0.94); }
+
+.dn-slider-wrap {
+  position: relative;
+  width: clamp(160px, 28vw, 320px);
+}
+.dn-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 1px;
+  background: var(--color-rule);
+  outline: none;
+  border-radius: 0;
+  cursor: pointer;
+}
+.dn-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-ink);
+  cursor: pointer;
+  transition: background 200ms, transform 200ms;
+}
+.dn-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+.dn-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-ink);
+  border: none;
+  cursor: pointer;
+}
+.dn-slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+.dn-slider-tick {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  color: var(--color-ink-faint);
+  letter-spacing: 0.06em;
+}
+
+.dn-cta {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  padding: 18px 36px;
+  background: var(--color-ink);
+  color: var(--color-bg);
+  text-decoration: none;
+  border: 1px solid var(--color-ink);
+  transition: background 200ms, color 200ms, border-color 200ms;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.dn-cta:hover { background: var(--color-sage-deep); border-color: var(--color-sage-deep); }
+.dn-cta__amount { font-weight: 400; text-transform: none; }
+.dn-cta__arrow { font-size: 18px; }
+
+.dn-fill-label {
+  position: fixed;
+  bottom: 0%; /* overridden by JS */
+  left: 40px;
+  z-index: 5;
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  padding-bottom: 16px;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 600ms;
+}
+.dn-fill-label.is-shown { opacity: 1; }
+
+@keyframes dn-label-bounce {
+  0%   { transform: rotate(180deg) scale(1);    color: var(--color-ink-faint); }
+  20%  { transform: rotate(180deg) scale(1.4);  color: var(--color-lime); }
+  50%  { transform: rotate(180deg) scale(0.85); color: var(--color-sage-deep); }
+  75%  { transform: rotate(180deg) scale(1.1);  color: var(--color-ink-faint); }
+  100% { transform: rotate(180deg) scale(1);    color: var(--color-ink-faint); }
+}
+.dn-fill-label.is-bouncing {
+  animation: dn-label-bounce 420ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.dn-note {
+  position: fixed;
+  bottom: 28px;
+  right: 40px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--color-ink-faint);
+  z-index: 10;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 640px) {
+  .dn-stage { padding: 80px 20px 100px; }
+  .dn-controls { gap: 16px; }
+  .dn-slider-wrap { width: 140px; }
+  .dn-note { display: none; }
+  .dn-fill-label { left: 12px; }
+}
+</style>
+
+<div class="dn-fill" id="dn-fill"></div>
+
+<main class="dn-stage">
+  <div class="dn-eyebrow">fill a pencil case</div>
+
+  <div class="dn-count-wrap">
+    <div class="dn-count" id="dn-count">5</div>
+    <div class="dn-count-label">pencil cases</div>
+  </div>
+
+  <p class="dn-cost" id="dn-cost">R750</p>
+  <p class="dn-human" id="dn-human">equips 5 children with stationery for the school year</p>
+
+  <div class="dn-controls">
+    <button class="dn-btn" id="dn-dec" aria-label="decrease">−</button>
+    <div class="dn-slider-wrap">
+      <input class="dn-slider" id="dn-slider" type="range" min="1" max="50" value="5" aria-label="number of pencil cases">
+      <div class="dn-slider-ticks">
+        <span class="dn-slider-tick">1</span>
+        <span class="dn-slider-tick">10</span>
+        <span class="dn-slider-tick">25</span>
+        <span class="dn-slider-tick">50</span>
+      </div>
+    </div>
+    <button class="dn-btn" id="dn-inc" aria-label="increase">+</button>
+  </div>
+
+  <a class="dn-cta" id="dn-cta" href="mailto:hello@greendegree.co.za?subject=Donation%20enquiry">
+    <span>donate</span>
+    <span class="dn-cta__amount" id="dn-cta-amount">R750</span>
+    <span class="dn-cta__arrow">→</span>
+  </a>
+</main>
+
+<div class="dn-fill-label" id="dn-fill-label">growing</div>
+<div class="dn-note">R150 per pencil case · 100% goes to the children</div>
+
+<script is:inline>
+(function () {
+  document.body.classList.add('dn-page');
+
+  var RATE    = 150;
+  var MAX     = 50;
+
+  var countEl     = document.getElementById('dn-count');
+  var costEl      = document.getElementById('dn-cost');
+  var humanEl     = document.getElementById('dn-human');
+  var fillEl      = document.getElementById('dn-fill');
+  var slider      = document.getElementById('dn-slider');
+  var decBtn      = document.getElementById('dn-dec');
+  var incBtn      = document.getElementById('dn-inc');
+  var ctaAmountEl = document.getElementById('dn-cta-amount');
+  var fillLabel   = document.getElementById('dn-fill-label');
+
+  var count = 5;
+
+  function fmt(n) { return 'R' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+
+  function humanLine(n) {
+    if (n === 1)  return 'equips 1 child with stationery for the school year';
+    if (n <= 9)   return 'equips ' + n + ' children with stationery for the school year';
+    if (n <= 29)  return 'equips ' + n + ' children — nearly a full classroom';
+    if (n === 30) return 'fills an entire classroom — every child, equipped.';
+    if (n < 50)   return 'equips ' + n + ' children. you\'re changing lives.';
+    return 'fifty pencil cases. a whole classroom and then some.';
+  }
+
+  function bounceFillLabel() {
+    fillLabel.classList.remove('is-bouncing');
+    void fillLabel.offsetWidth; /* reflow to restart animation */
+    fillLabel.classList.add('is-bouncing');
+  }
+
+  function bump() {
+    countEl.classList.add('is-bumping');
+    setTimeout(function () { countEl.classList.remove('is-bumping'); }, 200);
+  }
+
+  function update(newCount, fromSlider) {
+    count = Math.max(1, Math.min(MAX, newCount));
+
+    countEl.textContent = count;
+    var cost = count * RATE;
+    costEl.textContent = fmt(cost);
+    humanEl.textContent = humanLine(count);
+    ctaAmountEl.textContent = fmt(cost);
+
+    var fillPct = Math.round((count / MAX) * 100);
+    fillEl.style.height = fillPct + '%';
+    fillLabel.style.bottom = fillPct + '%';
+
+    if (!fromSlider) slider.value = Math.min(count, MAX);
+
+    if (count > 1) { fillLabel.classList.add('is-shown'); bounceFillLabel(); }
+    else           { fillLabel.classList.remove('is-shown'); }
+
+    bump();
+  }
+
+  update(count);
+
+  decBtn.addEventListener('click', function () { update(count - 1); });
+  incBtn.addEventListener('click', function () { update(count + 1); });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowUp'   || e.key === 'ArrowRight') { e.preventDefault(); update(count + 1); }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowLeft')  { e.preventDefault(); update(count - 1); }
+  });
+
+  slider.addEventListener('input', function () {
+    update(parseInt(slider.value, 10), true);
+  });
+
+  /* Scroll to change count — accumulate delta so trackpads feel natural */
+  var scrollAccum = 0;
+  var SCROLL_THRESHOLD = 60;
+  document.addEventListener('wheel', function (e) {
+    e.preventDefault();
+    scrollAccum += e.deltaY;
+    if (Math.abs(scrollAccum) >= SCROLL_THRESHOLD) {
+      update(count + (scrollAccum > 0 ? 1 : -1));
+      scrollAccum = 0;
+    }
+  }, { passive: false });
+
+  function holdRepeat(btn, dir) {
+    var timer, interval;
+    btn.addEventListener('mousedown', function () {
+      update(count + dir);
+      timer = setTimeout(function () {
+        interval = setInterval(function () { update(count + dir); }, 80);
+      }, 500);
+    });
+    function stop() { clearTimeout(timer); clearInterval(interval); }
+    btn.addEventListener('mouseup', stop);
+    btn.addEventListener('mouseleave', stop);
+    btn.addEventListener('touchstart', function (e) {
+      e.preventDefault();
+      update(count + dir);
+      timer = setTimeout(function () {
+        interval = setInterval(function () { update(count + dir); }, 80);
+      }, 500);
+    }, { passive: false });
+    btn.addEventListener('touchend', stop);
+  }
+  holdRepeat(incBtn, 1);
+  holdRepeat(decBtn, -1);
+})();
+</script>
+
 </Layout>
