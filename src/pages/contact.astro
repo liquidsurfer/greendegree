@@ -20,7 +20,7 @@ import Layout from '../layouts/Layout.astro';
       <input type="hidden" name="_cc" value="cheryl@greendegree.org">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_subject" value="green° — new message from website">
-      <input type="hidden" name="_next" value="https://greendegree.co.za/contact?sent=1">
+      <input type="hidden" name="_next" value={`${import.meta.env.SITE}/contact?sent=1`}>
       <!-- Honeypot: invisible to humans, bots fill it in and get rejected -->
       <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
 
