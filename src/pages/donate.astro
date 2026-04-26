@@ -325,7 +325,7 @@ const yocoPublicKey = import.meta.env.PUBLIC_YOCO_KEY ?? '';
   <p class="dn-success__sub" id="dn-success-sub">your pencil cases are on their way</p>
 </div>
 
-<script src="https://js.yoco.com/sdk/v1/yoco-sdk-web.js"></script>
+<script is:inline src="https://js.yoco.com/sdk/v1/yoco-sdk-web.js"></script>
 <script is:inline define:vars={{ yocoPublicKey }}>
 (function () {
   document.body.classList.add('dn-page');
