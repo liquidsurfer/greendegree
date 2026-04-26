@@ -1,6 +1,6 @@
 # green°
 
-green° is a Cape Town non-profit that upcycles kites, denim, and parachutes into bags. 100% of profits fund stationery for three Cape Flats primary schools.
+green° is a Cape Town non-profit that upcycles kites, denim, and parachutes into bags. 100% of profits fund stationery for three primary schools.
 
 **Site:** [greendegree.org](https://greendegree.org)
 
