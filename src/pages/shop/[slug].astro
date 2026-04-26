@@ -1,0 +1,516 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getProducts } from '../../lib/products';
+
+export async function getStaticPaths() {
+  const products = await getProducts();
+  return products
+    .filter(p => p.slug)
+    .map(p => ({ params: { slug: p.slug }, props: { product: p } }));
+}
+
+const { product } = Astro.props;
+const formattedPrice = `R ${product.price.toLocaleString('en-ZA')}`;
+const formEndpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT;
+---
+
+<Layout
+  title={`${product.name} — green°`}
+  description={product.description}
+>
+
+<div class="pd-wrap">
+
+  <!-- Back -->
+  <nav class="pd-back">
+    <a href="/shop" class="pd-back__link">← back to shop</a>
+  </nav>
+
+  <div class="pd-layout">
+
+    <!-- Images -->
+    <div class="pd-gallery">
+      <div class="pd-gallery__main">
+        {product.imageUrl ? (
+          <img
+            id="pd-main-img"
+            class="pd-gallery__img"
+            src={product.imageUrl}
+            alt={product.name}
+            loading="eager"
+            decoding="async"
+          />
+        ) : (
+          <div class="pd-gallery__placeholder">no image yet</div>
+        )}
+      </div>
+      {product.images.length > 1 && (
+        <div class="pd-gallery__thumbs">
+          {product.images.map((url, i) => (
+            <button
+              class={`pd-gallery__thumb${i === 0 ? ' pd-gallery__thumb--active' : ''}`}
+              data-src={url}
+              type="button"
+              aria-label={`View image ${i + 1}`}
+            >
+              <img src={url} alt="" loading="lazy" decoding="async" />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <!-- Info + Order form -->
+    <div class="pd-info">
+
+      <div class="pd-info__head">
+        <span class="pd-collection">{product.collection}</span>
+        <h1 class="pd-name">{product.name}</h1>
+        <p class="pd-price">{formattedPrice}</p>
+      </div>
+
+      <p class="pd-description">{product.description}</p>
+
+      <dl class="pd-meta">
+        {product.colourPattern && <><dt>Colour</dt><dd>{product.colourPattern}</dd></>}
+        <dt>Materials</dt>
+        <dd>{product.materials}</dd>
+        <dt>Collection</dt>
+        <dd>{product.collection}</dd>
+      </dl>
+
+      {product.inStock ? (
+        <form class="pd-form" id="pd-order-form" method="POST" action={formEndpoint || '#'}>
+          <input type="hidden" name="product" value={product.name} />
+          <input type="hidden" name="price" value={formattedPrice} />
+
+          <div class="pd-field">
+            <label class="pd-label" for="pd-qty">Quantity</label>
+            <input class="pd-input pd-input--short" type="number" id="pd-qty" name="quantity" min="1" max="10" value="1" required />
+          </div>
+
+          <div class="pd-field">
+            <label class="pd-label" for="pd-name">Your name</label>
+            <input class="pd-input" type="text" id="pd-name" name="name" placeholder="Anne Smith" required />
+          </div>
+
+          <div class="pd-field">
+            <label class="pd-label" for="pd-email">Email</label>
+            <input class="pd-input" type="email" id="pd-email" name="email" placeholder="you@example.com" required />
+          </div>
+
+          <div class="pd-field">
+            <label class="pd-label" for="pd-phone">Phone <span class="pd-optional">(optional)</span></label>
+            <input class="pd-input" type="tel" id="pd-phone" name="phone" placeholder="+27 ..." />
+          </div>
+
+          <div class="pd-field">
+            <label class="pd-label" for="pd-message">Message <span class="pd-optional">(optional)</span></label>
+            <textarea class="pd-input pd-input--textarea" id="pd-message" name="message" rows="3" placeholder="Any questions or special requests…"></textarea>
+          </div>
+
+          <div class="pd-form__footer">
+            <button class="pd-submit" type="submit" id="pd-submit-btn">
+              <span class="pd-submit__label">place order →</span>
+              <span class="pd-submit__sending" aria-hidden="true">sending…</span>
+            </button>
+          </div>
+
+          <div class="pd-form__success" id="pd-success" aria-live="polite" hidden>
+            <p>Order received — we will be in touch shortly to confirm and arrange payment.</p>
+          </div>
+
+          <div class="pd-form__error" id="pd-error" aria-live="polite" hidden>
+            <p>Something went wrong. Please try again or email <a href="mailto:anne@greendegree.org">anne@greendegree.org</a> directly.</p>
+          </div>
+        </form>
+      ) : (
+        <div class="pd-sold-out-msg">
+          <p>This product is currently sold out. <a href="mailto:anne@greendegree.org?subject=Stock enquiry — {product.name}">Email Anne</a> to be notified when it's back.</p>
+        </div>
+      )}
+
+    </div>
+  </div>
+</div>
+
+</Layout>
+
+<script>
+// Gallery thumbnails
+document.querySelectorAll<HTMLButtonElement>('.pd-gallery__thumb').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const mainImg = document.getElementById('pd-main-img') as HTMLImageElement | null;
+    if (mainImg && btn.dataset.src) {
+      mainImg.src = btn.dataset.src;
+    }
+    document.querySelectorAll('.pd-gallery__thumb').forEach(b => b.classList.remove('pd-gallery__thumb--active'));
+    btn.classList.add('pd-gallery__thumb--active');
+  });
+});
+
+// Order form — submit via fetch if Formspree endpoint is set
+const form = document.getElementById('pd-order-form') as HTMLFormElement | null;
+const submitBtn = document.getElementById('pd-submit-btn') as HTMLButtonElement | null;
+const successEl = document.getElementById('pd-success') as HTMLElement | null;
+const errorEl = document.getElementById('pd-error') as HTMLElement | null;
+
+if (form && form.action !== window.location.href.replace(/#$/, '') + '#' && form.action !== '#') {
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!submitBtn) return;
+
+    submitBtn.dataset.sending = 'true';
+    submitBtn.disabled = true;
+    if (successEl) successEl.hidden = true;
+    if (errorEl) errorEl.hidden = true;
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+
+      if (res.ok) {
+        form.reset();
+        if (successEl) successEl.hidden = false;
+      } else {
+        if (errorEl) errorEl.hidden = false;
+        submitBtn.disabled = false;
+      }
+    } catch {
+      if (errorEl) errorEl.hidden = false;
+      submitBtn.disabled = false;
+    } finally {
+      delete submitBtn.dataset.sending;
+    }
+  });
+}
+</script>
+
+<style>
+/* ============================================================
+   PRODUCT DETAIL PAGE
+   ============================================================ */
+
+.pd-wrap {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 100px var(--page-pad) 96px;
+}
+
+.pd-back {
+  margin-bottom: 40px;
+}
+
+.pd-back__link {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--color-ink-soft);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 160ms;
+}
+
+.pd-back__link:hover { color: var(--color-ink); }
+
+/* Two-column layout */
+
+.pd-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* Gallery */
+
+.pd-gallery__main {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--color-bg-tint);
+  border: 1px solid var(--color-rule);
+}
+
+.pd-gallery__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pd-gallery__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--color-ink-faint);
+  letter-spacing: 0.06em;
+}
+
+.pd-gallery__thumbs {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.pd-gallery__thumb {
+  width: 72px;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--color-rule);
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 160ms;
+}
+
+.pd-gallery__thumb--active,
+.pd-gallery__thumb:hover { opacity: 1; }
+
+.pd-gallery__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Info panel */
+
+.pd-info {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.pd-info__head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pd-collection {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-sage-deep);
+}
+
+.pd-name {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.pd-price {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.pd-description {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-ink-soft);
+  margin: 0;
+}
+
+.pd-meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 24px;
+  font-size: 13px;
+  margin: 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-rule);
+}
+
+.pd-meta dt {
+  color: var(--color-ink-faint);
+  letter-spacing: 0.04em;
+  font-weight: 500;
+}
+
+.pd-meta dd {
+  color: var(--color-ink-soft);
+  margin: 0;
+}
+
+/* Order form */
+
+.pd-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-rule);
+}
+
+.pd-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pd-label {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+.pd-optional {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--color-ink-faint);
+}
+
+.pd-input {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  color: var(--color-ink);
+  background: var(--color-bg);
+  border: 1px solid var(--color-rule);
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color 160ms;
+  width: 100%;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+
+.pd-input:focus { border-color: var(--color-sage-deep); }
+
+.pd-input--short { max-width: 100px; }
+
+.pd-input--textarea { resize: vertical; min-height: 80px; }
+
+/* Colour chips */
+
+.pd-colours {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pd-colour-chip {
+  cursor: pointer;
+}
+
+.pd-colour-chip input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.pd-colour-chip span {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--color-ink-soft);
+  border: 1px solid var(--color-rule);
+  padding: 6px 14px;
+  transition: border-color 160ms, color 160ms, background 160ms;
+}
+
+.pd-colour-chip input:checked + span {
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+  background: var(--color-bg-tint);
+}
+
+.pd-colour-chip:hover span {
+  border-color: var(--color-ink-soft);
+}
+
+/* Submit button */
+
+.pd-form__footer {
+  padding-top: 8px;
+}
+
+.pd-submit {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-bg);
+  background: var(--color-ink);
+  border: none;
+  padding: 14px 32px;
+  cursor: pointer;
+  transition: background 160ms;
+  position: relative;
+}
+
+.pd-submit:hover { background: var(--color-sage-deep); }
+.pd-submit:disabled { opacity: 0.6; cursor: default; }
+
+.pd-submit__sending { display: none; }
+.pd-submit[data-sending] .pd-submit__label { display: none; }
+.pd-submit[data-sending] .pd-submit__sending { display: inline; }
+
+/* Success / error */
+
+.pd-form__success,
+.pd-form__error {
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 16px;
+  border: 1px solid;
+}
+
+.pd-form__success {
+  color: var(--color-sage-deep);
+  border-color: var(--color-sage-deep);
+  background: rgba(122, 132, 101, 0.06);
+}
+
+.pd-form__error {
+  color: #8b3a2a;
+  border-color: #c9785f;
+  background: rgba(139, 58, 42, 0.06);
+}
+
+.pd-form__error a { color: #8b3a2a; }
+
+/* Sold out */
+
+.pd-sold-out-msg {
+  font-size: 15px;
+  color: var(--color-ink-soft);
+  padding-top: 24px;
+  border-top: 1px solid var(--color-rule);
+}
+
+.pd-sold-out-msg a { color: var(--color-denim); }
+
+/* Responsive */
+
+@media (max-width: 840px) {
+  .pd-layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+@media (max-width: 560px) {
+  .pd-wrap {
+    padding: 80px var(--page-pad-mobile) 64px;
+  }
+}
+</style>
