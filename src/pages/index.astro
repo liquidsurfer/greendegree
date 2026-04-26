@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Image, getImage } from 'astro:assets';
+import { routes } from '../config/routes.ts';
 import imgHero        from '../assets/images/why-capricorn-primary.jpg';
 import imgHowCollect  from '../assets/images/how-01-collect.avif';
 import imgHowCreate   from '../assets/images/how-02-create.jpg';
@@ -253,7 +254,7 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
     <div class="hp-unit-lime__inner">
       <p class="hp-unit-lime__line">every bag sold<span class="hp-unit-lime__eq">→</span>fills pencil cases.</p>
       <p class="hp-unit-lime__sub">over 12,800+ pencil cases handed out since december 2019.</p>
-      <a href="/donate" class="hp-unit-lime__cta">donate →</a>
+      <a href={routes.donate} class="hp-unit-lime__cta">donate →</a>
     </div>
   </section>
 </div>
@@ -277,10 +278,10 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
           <h2 class="hp-collections__title">three collections.</h2>
           <p class="hp-collections__intro">kites become beach bags. denim becomes jackets. parachutes become hand bags.</p>
         </div>
-        <a href="/coming-soon" class="hp-collections__shop">shop</a>
+        <a href={routes.shop} class="hp-collections__shop">shop</a>
       </div>
       <div class="hp-tiles" id="collections-track">
-        <a class="hp-tile" href="/coming-soon">
+        <a class="hp-tile" href={routes.shop}>
           <div class="hp-tile__img-wrap">
             <Image class="hp-tile__img" src={imgKiteTrio} alt="three kite-fabric cooler bags in orange, pink and blue" width={1200} format="webp" />
           </div>
@@ -288,7 +289,7 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
           <div class="hp-tile__meta">beach bags, coolers, and smaller carry — cut and stitched from recycled kitesurfing sails.</div>
           <div class="hp-tile__price">beach bags R 750  ·  coolers R 1,000  ·  smaller R 350–500</div>
         </a>
-        <a class="hp-tile" href="/coming-soon">
+        <a class="hp-tile" href={routes.shop}>
           <div class="hp-tile__img-wrap">
             <Image class="hp-tile__img" src={imgDenim} alt="patched denim jacket — close up on buttons and lining" width={1200} format="webp" />
           </div>
@@ -296,7 +297,7 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
           <div class="hp-tile__meta">one-of-a-kind patched jackets, cut from donated jeans. no two alike.</div>
           <div class="hp-tile__price">R 2,000–3,500</div>
         </a>
-        <a class="hp-tile" href="/coming-soon">
+        <a class="hp-tile" href={routes.shop}>
           <div class="hp-tile__img-wrap">
             <Image class="hp-tile__img" src={imgParachute} alt="crocheted tote made from strips of recycled plastic — yellow, green, blue and white" width={1200} format="webp" />
           </div>
@@ -370,8 +371,8 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
           we invite everyone to please join us, and become part of the green<span class="gn-deg">°</span> story.
         </blockquote>
         <div class="hp-invite__cta-row">
-          <a class="hp-invite__cta" href="/donate">donate</a>
-          <a class="hp-invite__cta hp-invite__cta--ghost" href="#collections">shop</a>
+          <a class="hp-invite__cta" href={routes.donate}>donate</a>
+          <a class="hp-invite__cta hp-invite__cta--ghost" href={routes.shop}>shop</a>
         </div>
       </div>
       <div class="hp-invite-track hp-m-only" id="invite-track">
@@ -384,8 +385,8 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
             we invite everyone to please join us, and become part of the green<span class="gn-deg">°</span> story.
           </blockquote>
           <div class="hp-invite__cta-row">
-            <a class="hp-invite__cta" href="/donate">donate</a>
-            <a class="hp-invite__cta hp-invite__cta--ghost" href="#collections">shop</a>
+            <a class="hp-invite__cta" href={routes.donate}>donate</a>
+            <a class="hp-invite__cta hp-invite__cta--ghost" href={routes.shop}>shop</a>
           </div>
         </div>
       </div>

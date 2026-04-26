@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { routes } from '../config/routes.ts';
 
 interface Props {
   title: string;
@@ -37,12 +38,12 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html
       <div class="g-bar__inner">
         <a href="/" class="g-bar__brand" aria-label="green° — home">green<span class="gn-deg">°</span></a>
         <nav class="g-bar__links" aria-label="primary">
-          <a href="/our-story" class="g-bar__link">our story</a>
-          <a href="/coming-soon" class="g-bar__link">shop</a>
-          <a href="/articles" class="g-bar__link">articles</a>
-          <a href="/contact" class="g-bar__link">contact</a>
+          <a href={routes.ourStory} class="g-bar__link">our story</a>
+          <a href={routes.shop} class="g-bar__link">shop</a>
+          <a href={routes.articles} class="g-bar__link">articles</a>
+          <a href={routes.contact} class="g-bar__link">contact</a>
         </nav>
-        <a href="/donate" class="g-bar__donate">donate</a>
+        <a href={routes.donate} class="g-bar__donate">donate</a>
       </div>
     </header>
 
@@ -58,13 +59,13 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html
 
     <aside class="g-menu" id="g-menu" aria-hidden="true" role="dialog" aria-modal="true" aria-label="site menu">
       <nav class="g-menu__links" aria-label="primary">
-        <a href="/" class="g-menu__link" data-close>home</a>
-        <a href="/our-story" class="g-menu__link" data-close>our story</a>
-        <a href="/coming-soon" class="g-menu__link" data-close>shop</a>
-        <a href="/articles" class="g-menu__link" data-close>articles</a>
-        <a href="/contact" class="g-menu__link" data-close>contact</a>
+        <a href={routes.home} class="g-menu__link" data-close>home</a>
+        <a href={routes.ourStory} class="g-menu__link" data-close>our story</a>
+        <a href={routes.shop} class="g-menu__link" data-close>shop</a>
+        <a href={routes.articles} class="g-menu__link" data-close>articles</a>
+        <a href={routes.contact} class="g-menu__link" data-close>contact</a>
       </nav>
-      <a href="/donate" class="g-menu__cta" data-close>donate →</a>
+      <a href={routes.donate} class="g-menu__cta" data-close>donate →</a>
     </aside>
 
     <slot />
