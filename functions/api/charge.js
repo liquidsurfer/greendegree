@@ -17,7 +17,12 @@ export async function onRequestPost(context) {
     return json({ error: 'Amount out of range' }, 400);
   }
 
+  // context.request.url is Cloudflare-controlled — safe to use as the allowed origin
   const origin = new URL(context.request.url).origin;
+  const requestOrigin = context.request.headers.get('Origin');
+  if (requestOrigin && requestOrigin !== origin) {
+    return json({ error: 'Forbidden' }, 403);
+  }
 
   const yocoRes = await fetch('https://payments.yoco.com/api/checkouts', {
     method: 'POST',
