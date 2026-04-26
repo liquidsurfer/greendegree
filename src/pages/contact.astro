@@ -1,0 +1,313 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="contact — green°">
+
+<header class="ct-hero">
+  <span class="gn-eyebrow ct-hero__eyebrow">contact</span>
+  <h1 class="ct-hero__title">say <em>hello.</em></h1>
+</header>
+
+<main class="ct-body">
+  <div class="ct-intro">
+    <p>Whether you're keen to donate, explore a stockist partnership, connect with us for press, or simply say hello — Anne and Cheryl would love to hear from you.</p>
+  </div>
+
+  <div class="ct-form-wrap" id="ct-form-wrap">
+    <form class="ct-form" action="https://formsubmit.co/anne@greendegree.org" method="POST">
+      <!-- Formsubmit config -->
+      <input type="hidden" name="_cc" value="cheryl@greendegree.org">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="green° — new message from website">
+      <input type="hidden" name="_next" value="https://greendegree.co.za/contact?sent=1">
+      <!-- Honeypot: invisible to humans, bots fill it in and get rejected -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+
+      <div class="ct-field">
+        <label class="ct-label" for="ct-name">name</label>
+        <input class="ct-input" id="ct-name" name="name" type="text" autocomplete="name" required placeholder="your name">
+      </div>
+
+      <div class="ct-field">
+        <label class="ct-label" for="ct-email">email</label>
+        <input class="ct-input" id="ct-email" name="email" type="email" autocomplete="email" required placeholder="your@email.com">
+      </div>
+
+      <div class="ct-field">
+        <label class="ct-label" for="ct-subject">subject</label>
+        <div class="ct-select-wrap">
+          <select class="ct-input ct-select" id="ct-subject" name="subject" required>
+            <option value="" disabled selected>choose one</option>
+            <option value="donation">donation</option>
+            <option value="stockist enquiry">stockist enquiry</option>
+            <option value="press">press</option>
+            <option value="school partnership">school partnership</option>
+            <option value="something else">something else</option>
+          </select>
+          <span class="ct-select__arrow" aria-hidden="true">↓</span>
+        </div>
+      </div>
+
+      <div class="ct-field">
+        <label class="ct-label" for="ct-message">message</label>
+        <textarea class="ct-input ct-textarea" id="ct-message" name="message" required placeholder="say anything" rows="6"></textarea>
+      </div>
+
+      <div class="ct-submit-row">
+        <button class="ct-submit" type="submit">send message →</button>
+      </div>
+    </form>
+
+    <div class="ct-success" id="ct-success" aria-live="polite" hidden>
+      <p class="ct-success__title">thank you.</p>
+      <p class="ct-success__sub">Anne and Cheryl will be in touch soon.</p>
+      <a href="/contact" class="ct-success__reset">send another →</a>
+    </div>
+  </div>
+</main>
+
+<section class="ct-invite">
+  <div class="ct-invite__inner">
+    <span class="gn-eyebrow ct-invite__eyebrow">get involved</span>
+    <blockquote class="ct-invite__quote">
+      every bag sold, every message sent — it all adds up to something <em>beautiful.</em>
+    </blockquote>
+    <a href="/donate" class="ct-invite__cta">donate →</a>
+  </div>
+</section>
+
+<footer class="ct-foot">
+  <div class="ct-foot__dot" aria-hidden="true"></div>
+  <div class="ct-foot__copy">green° — cape town — founded december 2019 by anne &amp; cheryl.</div>
+  <div class="ct-foot__copy"><a href="/" class="ct-foot__back">← homepage</a></div>
+</footer>
+
+<script is:inline>
+(function () {
+  if (new URLSearchParams(window.location.search).get('sent') === '1') {
+    var wrap = document.getElementById('ct-form-wrap');
+    var success = document.getElementById('ct-success');
+    if (wrap && success) {
+      wrap.querySelector('.ct-form').hidden = true;
+      success.hidden = false;
+    }
+  }
+})();
+</script>
+
+<style>
+/* ---- Hero ---- */
+.ct-hero {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 144px var(--page-pad) 80px;
+}
+.ct-hero__eyebrow { margin-bottom: 32px; }
+.ct-hero__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+  margin: 0;
+  max-width: 14ch;
+  text-wrap: balance;
+}
+.ct-hero__title em { font-style: italic; color: var(--color-sage-deep); }
+@media (max-width: 720px) { .ct-hero { padding: 64px var(--page-pad-mobile) 48px; } }
+
+/* ---- Two-column body ---- */
+.ct-body {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-pad) 120px;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* ---- Intro col ---- */
+.ct-intro { position: sticky; top: 88px; }
+.ct-intro p {
+  font-family: var(--font-ui);
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--color-ink-soft);
+  margin: 0 0 1.4em;
+  text-wrap: pretty;
+}
+
+/* ---- Form ---- */
+.ct-form { display: grid; gap: 28px; }
+
+.ct-field { display: flex; flex-direction: column; gap: 8px; }
+
+.ct-label {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-sage-deep);
+}
+
+.ct-input {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  color: var(--color-ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--color-rule);
+  border-radius: 0;
+  outline: none;
+  padding: 12px 0;
+  width: 100%;
+  transition: border-color 200ms;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.ct-input::placeholder { color: var(--color-ink-faint); }
+.ct-input:focus { border-bottom-color: var(--color-ink); }
+
+.ct-select-wrap { position: relative; }
+.ct-select { padding-right: 24px; cursor: pointer; }
+.ct-select__arrow {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  color: var(--color-ink-faint);
+  pointer-events: none;
+}
+
+.ct-textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
+
+.ct-submit-row { padding-top: 12px; }
+.ct-submit {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  padding: 16px 28px;
+  background: var(--color-ink);
+  color: var(--color-bg);
+  border: 1px solid var(--color-ink);
+  cursor: pointer;
+  transition: background 200ms, border-color 200ms;
+}
+.ct-submit:hover { background: var(--color-sage-deep); border-color: var(--color-sage-deep); }
+
+/* ---- Success state ---- */
+.ct-success { display: flex; flex-direction: column; gap: 16px; padding: 48px 0; }
+.ct-success__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3rem, 7vw, 5rem);
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+  line-height: 1;
+  margin: 0;
+}
+.ct-success__sub {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  color: var(--color-ink-soft);
+  margin: 0;
+}
+.ct-success__reset {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-denim);
+  text-decoration: none;
+  margin-top: 16px;
+  transition: color 160ms;
+}
+.ct-success__reset:hover { color: var(--color-ink); }
+
+/* ---- Close / invite section ---- */
+.ct-invite {
+  background: var(--color-ink);
+  padding: 120px var(--page-pad) 100px;
+  text-align: center;
+}
+.ct-invite__inner { max-width: 760px; margin: 0 auto; }
+.ct-invite__eyebrow {
+  color: rgba(232,225,203,0.6);
+  margin-bottom: 40px;
+  display: inline-flex;
+}
+.ct-invite__quote {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--color-bg);
+  margin: 0 0 48px;
+  text-wrap: balance;
+}
+.ct-invite__quote em { font-style: italic; color: var(--color-lime); }
+.ct-invite__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  padding: 16px 28px;
+  background: var(--color-lime);
+  color: var(--color-ink);
+  text-decoration: none;
+  transition: background 200ms;
+}
+.ct-invite__cta:hover { background: #bfe070; color: var(--color-ink); }
+@media (max-width: 720px) { .ct-invite { padding: 80px var(--page-pad-mobile) 64px; } }
+
+/* ---- Footer ---- */
+.ct-foot {
+  background: var(--color-ink);
+  padding: 32px var(--page-pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.ct-foot__copy {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: rgba(232,225,203,0.4);
+  letter-spacing: 0.04em;
+}
+.ct-foot__back {
+  color: rgba(232,225,203,0.4);
+  text-decoration: none;
+  transition: color 160ms;
+}
+.ct-foot__back:hover { color: var(--color-bg); }
+.ct-foot__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-lime);
+}
+@media (max-width: 720px) {
+  .ct-foot { padding: 24px var(--page-pad-mobile); flex-direction: column; gap: 12px; text-align: center; }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 820px) {
+  .ct-body { grid-template-columns: 1fr; gap: 48px; padding: 0 var(--page-pad-mobile) 80px; }
+  .ct-intro { position: static; }
+}
+</style>
+
+</Layout>
