@@ -76,6 +76,32 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html
 
     <slot />
 
+    <div class="g-scroll-cue" id="g-scroll-cue" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </div>
+
+    <style>
+      .g-scroll-cue {
+        position: fixed;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 90;
+        color: var(--color-ink, #1a1a17);
+        opacity: 0;
+        transition: opacity 400ms ease;
+        pointer-events: none;
+        animation: g-cue-bounce 1.6s ease-in-out infinite;
+      }
+      .g-scroll-cue.g-scroll-cue--visible { opacity: 0.45; }
+      @keyframes g-cue-bounce {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50%       { transform: translateX(-50%) translateY(5px); }
+      }
+    </style>
+
     <script is:inline>
     (function () {
       var html = document.documentElement;
@@ -121,6 +147,24 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && html.classList.contains('menu-open')) closeMenu();
       });
+    })();
+
+    (function () {
+      var cue = document.getElementById('g-scroll-cue');
+      if (!cue) return;
+      function updateCue() {
+        var scrolled = window.scrollY;
+        var atBottom = scrolled + window.innerHeight >= document.body.scrollHeight - 120;
+        var canScroll = document.body.scrollHeight > window.innerHeight + 40;
+        if (canScroll && !atBottom) {
+          cue.classList.add('g-scroll-cue--visible');
+        } else {
+          cue.classList.remove('g-scroll-cue--visible');
+        }
+      }
+      updateCue();
+      window.addEventListener('scroll', updateCue, { passive: true });
+      window.addEventListener('resize', updateCue, { passive: true });
     })();
     </script>
 
