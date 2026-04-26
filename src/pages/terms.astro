@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { brand } from '../config/brand.ts';
 ---
 
 <Layout title="Terms of Service — green°">
@@ -23,7 +24,7 @@ import Layout from '../layouts/Layout.astro';
         <section class="legal-section">
           <h2>Products and purchases</h2>
           <p>Because every piece is made from rescued and donated materials, no two items are identical. Product descriptions and photos are as accurate as we can make them, but small variations in colour, texture, and finish are part of what makes each bag unique.</p>
-          <p>For pricing and to place an order, contact us at <a href="mailto:hello@greendegree.co.za">hello@greendegree.co.za</a>. South African consumer rights under the <strong>Consumer Protection Act 68 of 2008</strong> apply to all product sales — which means if something arrives faulty or not as described, we'll make it right.</p>
+          <p>For pricing and to place an order, contact us at <a href={brand.email.contactHref}>{brand.email.contactLabel}</a>. South African consumer rights under the <strong>Consumer Protection Act 68 of 2008</strong> apply to all product sales — which means if something arrives faulty or not as described, we'll make it right.</p>
         </section>
 
         <section class="legal-section">
@@ -39,7 +40,7 @@ import Layout from '../layouts/Layout.astro';
 
         <section class="legal-section">
           <h2>Links to other sites</h2>
-          <p>We link to third-party services including <a href="https://www.instagram.com/greendegree_/" target="_blank" rel="noopener">Instagram (@greendegree_)</a> and <a href="https://www.yoco.com" target="_blank" rel="noopener">Yoco</a> for payments. Once you leave our site, their own terms and privacy policies apply — we have no control over their content or practices.</p>
+          <p>We link to third-party services including <a href={brand.social.instagramHref} target="_blank" rel="noopener">Instagram (@{brand.social.instagramHandle})</a> and <a href="https://www.yoco.com" target="_blank" rel="noopener">Yoco</a> for payments. Once you leave our site, their own terms and privacy policies apply — we have no control over their content or practices.</p>
         </section>
 
         <section class="legal-section">
@@ -49,7 +50,7 @@ import Layout from '../layouts/Layout.astro';
 
         <section class="legal-section">
           <h2>Questions?</h2>
-          <p>If anything here is unclear, or you have a question about an order or donation, email us at <a href="mailto:hello@greendegree.co.za">hello@greendegree.co.za</a> and we'll get back to you as soon as we can.</p>
+          <p>If anything here is unclear, or you have a question about an order or donation, email us at <a href={brand.email.contactHref}>{brand.email.contactLabel}</a> and we'll get back to you as soon as we can.</p>
         </section>
 
       </div>

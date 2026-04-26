@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { Image, getImage } from 'astro:assets';
 import { routes } from '../config/routes.ts';
+import { brand } from '../config/brand.ts';
 import imgHero        from '../assets/images/why-capricorn-primary.jpg';
 import imgHowCollect  from '../assets/images/how-01-collect.avif';
 import imgHowCreate   from '../assets/images/how-02-create.jpg';
@@ -411,6 +412,7 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
     </div>
   </div>
 </section>
+
 
 </Layout>
 

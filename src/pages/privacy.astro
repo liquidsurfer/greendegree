@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { brand } from '../config/brand.ts';
 ---
 
 <Layout title="Privacy Policy — green°">
@@ -28,7 +29,7 @@ import Layout from '../layouts/Layout.astro';
 
         <section class="legal-section">
           <h2>How your information is stored</h2>
-          <p>Contact form submissions are delivered to <a href="mailto:hello@greendegree.co.za">hello@greendegree.co.za</a> via <a href="https://formsubmit.co" target="_blank" rel="noopener">formsubmit.co</a>, a third-party form delivery service. We don't run a database — your message arrives in our inbox and that's where it lives.</p>
+          <p>Contact form submissions are delivered to <a href={brand.email.contactHref}>{brand.email.contactLabel}</a> via <a href="https://formsubmit.co" target="_blank" rel="noopener">formsubmit.co</a>, a third-party form delivery service. We don't run a database — your message arrives in our inbox and that's where it lives.</p>
           <p>We keep enquiry emails only as long as is reasonably necessary to handle your request.</p>
         </section>
 
@@ -56,7 +57,7 @@ import Layout from '../layouts/Layout.astro';
             <li>Request deletion of your information</li>
             <li>Object to how we process your information</li>
           </ul>
-          <p>To exercise any of these rights, email us at <a href="mailto:hello@greendegree.co.za">hello@greendegree.co.za</a> and we'll respond promptly.</p>
+          <p>To exercise any of these rights, email us at <a href={brand.email.contactHref}>{brand.email.contactLabel}</a> and we'll respond promptly.</p>
         </section>
 
         <section class="legal-section">
@@ -66,7 +67,7 @@ import Layout from '../layouts/Layout.astro';
 
         <section class="legal-section">
           <h2>Questions?</h2>
-          <p>If you have any privacy questions or concerns, reach us at <a href="mailto:hello@greendegree.co.za">hello@greendegree.co.za</a>.</p>
+          <p>If you have any privacy questions or concerns, reach us at <a href={brand.email.contactHref}>{brand.email.contactLabel}</a>.</p>
         </section>
 
       </div>

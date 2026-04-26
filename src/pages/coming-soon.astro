@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { brand } from '../config/brand.ts';
 ---
 
 <Layout title="coming soon — green°" description="this corner of the green° site is still in the works. say hi in the meantime.">
@@ -13,7 +14,7 @@ import Layout from '../layouts/Layout.astro';
     </p>
 
     <div class="cs-actions">
-      <a class="cs-cta cs-cta--ghost" href="https://www.instagram.com/greendegree_/" target="_blank" rel="noopener">follow on instagram →</a>
+      <a class="cs-cta cs-cta--ghost" href={brand.social.instagramHref} target="_blank" rel="noopener">follow on instagram →</a>
     </div>
 
     <a class="cs-back" href="/">← back to the homepage</a>
