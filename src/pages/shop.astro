@@ -1,0 +1,162 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { getProducts } from '../lib/products';
+
+const products = await getProducts();
+const inStock = products.filter(p => p.inStock);
+const soldOut = products.filter(p => !p.inStock);
+const ordered = [...inStock, ...soldOut];
+---
+
+<Layout
+  title="shop — green°"
+  description="Upcycled bags handcrafted in Cape Town from rescued kites, denim and parachutes. 100% of profits supply stationery to Cape Flats primary schools."
+>
+
+<header class="sh-hero">
+  <span class="gn-eyebrow sh-hero__eyebrow">shop</span>
+  <h1 class="sh-hero__title">every purchase<br>equips a child<span class="gn-deg">.</span></h1>
+  <p class="sh-hero__sub">Bags handcrafted in Cape Town from rescued kites, denim and parachutes.<br>100% of profits go directly to stationery for Cape Flats schools.</p>
+</header>
+
+<section class="sh-grid-section">
+  {ordered.length === 0 ? (
+    <p class="sh-empty">No products available right now — check back soon.</p>
+  ) : (
+    <ul class="sh-grid" role="list">
+      {ordered.map(product => (
+        <li>
+          <ProductCard product={product} />
+        </li>
+      ))}
+    </ul>
+  )}
+</section>
+
+<section class="sh-note">
+  <div class="sh-note__inner">
+    <span class="gn-eyebrow sh-note__eyebrow">how it works</span>
+    <p class="sh-note__text">
+      We sell at our annual open day and by enquiry year-round. To order, hit <strong>enquire</strong> on any product and Anne will be in touch to arrange payment and collection.
+    </p>
+  </div>
+</section>
+
+</Layout>
+
+<style>
+/* ============================================================
+   SHOP PAGE
+   ============================================================ */
+
+.sh-hero {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 144px var(--page-pad) 80px;
+}
+
+.sh-hero__eyebrow {
+  margin-bottom: 32px;
+}
+
+.sh-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+  margin: 0 0 24px;
+}
+
+.sh-hero__sub {
+  font-size: 17px;
+  color: var(--color-ink-soft);
+  line-height: 1.65;
+  max-width: 560px;
+  margin: 0;
+}
+
+/* Grid */
+
+.sh-grid-section {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-pad) 96px;
+}
+
+.sh-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sh-grid li {
+  display: flex;
+  flex-direction: column;
+}
+
+.sh-empty {
+  color: var(--color-ink-soft);
+  font-size: 17px;
+  padding: 48px 0;
+}
+
+/* How it works note */
+
+.sh-note {
+  background: var(--color-bg-tint);
+  border-top: 1px solid var(--color-rule);
+  padding: 64px var(--page-pad);
+}
+
+.sh-note__inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sh-note__text {
+  font-size: 17px;
+  color: var(--color-ink-soft);
+  max-width: 600px;
+  margin: 0;
+  line-height: 1.65;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .sh-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .sh-hero {
+    padding-top: 96px;
+    padding-left: var(--page-pad-mobile);
+    padding-right: var(--page-pad-mobile);
+  }
+
+  .sh-grid-section {
+    padding-left: var(--page-pad-mobile);
+    padding-right: var(--page-pad-mobile);
+  }
+
+  .sh-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sh-note {
+    padding-left: var(--page-pad-mobile);
+    padding-right: var(--page-pad-mobile);
+  }
+}
+</style>
