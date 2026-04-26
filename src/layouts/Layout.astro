@@ -76,6 +76,34 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html
 
     <slot />
 
+    <footer class="hp-foot" id="foot">
+      <div class="hp-foot__inner">
+        <div class="hp-foot__col">
+          <div class="hp-foot__brand">green<span class="gn-deg">°</span></div>
+          <p class="hp-foot__blurb">made in cape town from rescued kites, denim, and parachutes. every bag sold funds a filled pencil case for a child at a western cape primary school.</p>
+        </div>
+        <div class="hp-foot__col hp-foot__col--nav">
+          <nav class="hp-foot__nav" aria-label="footer navigation">
+            <a href={routes.ourStory} class="hp-foot__navlink">our story</a>
+            <a href={routes.shop} class="hp-foot__navlink">shop</a>
+            <a href={routes.articles} class="hp-foot__navlink">articles</a>
+            <a href={routes.contact} class="hp-foot__navlink">contact</a>
+            <a href={routes.donate} class="hp-foot__navlink">donate</a>
+          </nav>
+          <button class="hp-foot__top" id="hp-foot-top" type="button" aria-label="scroll to top of page">↑ top</button>
+        </div>
+      </div>
+      <div class="hp-foot__legal">
+        <div class="hp-foot__dot" aria-hidden="true"></div>
+        <div class="hp-foot__copy">green<span class="gn-deg">°</span> — cape town — founded december 2019.</div>
+        <div class="hp-foot__tos-row">
+          <a href="/terms" class="hp-foot__tos">terms</a>
+          <span class="hp-foot__sep" aria-hidden="true">·</span>
+          <a href="/privacy" class="hp-foot__tos">privacy</a>
+        </div>
+      </div>
+    </footer>
+
     <script is:inline>
     (function () {
       var html = document.documentElement;
@@ -121,6 +149,13 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && html.classList.contains('menu-open')) closeMenu();
       });
+
+      var topBtn = document.getElementById('hp-foot-top');
+      if (topBtn) {
+        topBtn.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
     })();
     </script>
 
