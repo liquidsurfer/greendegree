@@ -842,37 +842,9 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
 }
 @media (min-width: 861px) { .hp-diagram-mobile { display: none; } }
 
-/* ---- Mobile sentence — tap mode ---- */
+/* ---- Mobile sentence — show progress dots as 1-of-3 cue ---- */
 @media (max-width: 860px) {
-  /* Convert sticky scroll section to normal flow */
-  .hp-diagram-outer { height: auto !important; }
-  .hp-diagram-sticky {
-    position: relative !important; top: auto !important;
-    height: auto !important; overflow: visible !important;
-    padding: 80px var(--page-pad-mobile) 56px !important;
-    justify-content: flex-start !important;
-  }
-  .hp-diagram-mobile { height: auto !important; overflow: visible !important; }
-  .hp-mob-sentence-wrap {
-    transform: none !important; will-change: auto !important;
-    padding: 0 0 28px !important;
-    border-bottom: 1px solid var(--color-rule);
-    flex-shrink: 0;
-  }
-  /* Branches: hidden by default, shown by JS via is-active */
-  .hp-mob-branch-area { position: relative !important; overflow: visible !important; flex: none !important; }
-  .hp-mob-branch {
-    position: relative !important; inset: auto !important;
-    display: none !important; opacity: 1 !important;
-    pointer-events: all !important; justify-content: flex-start !important;
-    padding: 28px 0 8px !important; transition: none !important;
-  }
-  .hp-mob-branch.is-active { display: flex !important; }
-  /* Keywords look tappable */
-  .hp-mob-kw {
-    cursor: pointer;
-    border-bottom: 1px solid rgba(95,107,76,0.5) !important;
-  }
+  .hp-diagram-dots { display: flex !important; }
 }
 
 /* ============================================================
@@ -1400,39 +1372,50 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
 })();
 
 /* ============================================================
-   MOBILE SENTENCE — tap to expand
+   MOBILE SENTENCE — scroll-driven, equal thirds per branch
    ============================================================ */
 (function () {
   if (!window.matchMedia('(max-width: 860px)').matches) return;
+  var outer = document.getElementById('diagram');
+  if (!outer) return;
 
-  var tabs = [
-    { kwId: 'mob-sustainably', branchId: 'mob-branch-s' },
-    { kwId: 'mob-raise-funds', branchId: 'mob-branch-r' },
-    { kwId: 'mob-education',   branchId: 'mob-branch-e' },
+  var phases = [
+    { start: 0.0,  end: 0.34, branchId: 'mob-branch-s', kwId: 'mob-sustainably', dotIdx: 0 },
+    { start: 0.34, end: 0.67, branchId: 'mob-branch-r', kwId: 'mob-raise-funds', dotIdx: 1 },
+    { start: 0.67, end: 1.0,  branchId: 'mob-branch-e', kwId: 'mob-education',   dotIdx: 2 },
   ];
 
-  function activate(idx) {
-    tabs.forEach(function (tab, i) {
-      var kw = document.getElementById(tab.kwId);
-      var br = document.getElementById(tab.branchId);
-      var active = i === idx;
-      if (kw) kw.classList.toggle('is-kw-active', active);
-      if (br) br.classList.toggle('is-active', active);
+  var dots = outer.querySelectorAll('.hp-diagram-dot');
+
+  function update() {
+    var scrollable = outer.offsetHeight - window.innerHeight;
+    if (scrollable <= 0) return;
+    var p = Math.max(0, Math.min(1, -outer.getBoundingClientRect().top / scrollable));
+
+    var activeIdx = 0;
+    for (var i = phases.length - 1; i >= 0; i--) {
+      if (p >= phases[i].start) { activeIdx = i; break; }
+    }
+
+    phases.forEach(function (ph, idx) {
+      var active   = idx === activeIdx;
+      var branchEl = document.getElementById(ph.branchId);
+      var kwEl     = document.getElementById(ph.kwId);
+      if (branchEl) branchEl.classList.toggle('is-active', active);
+      if (kwEl)     kwEl.classList.toggle('is-kw-active', active);
+      if (dots[ph.dotIdx]) dots[ph.dotIdx].classList.toggle('is-active', active);
     });
   }
 
-  tabs.forEach(function (tab, idx) {
-    var kw = document.getElementById(tab.kwId);
-    if (!kw) return;
-    kw.setAttribute('role', 'button');
-    kw.setAttribute('tabindex', '0');
-    kw.addEventListener('click', function () { activate(idx); });
-    kw.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(idx); }
-    });
-  });
+  var scheduled = false;
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(function () { scheduled = false; update(); });
+  }
 
-  activate(0); // sustainably open by default
+  window.addEventListener('scroll', schedule, { passive: true });
+  update();
 })();
 
 /* ============================================================
