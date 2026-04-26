@@ -49,10 +49,9 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html
     <div class="g-fab-wrap">
       <button class="g-fab" id="g-fab" type="button" aria-label="open menu" aria-expanded="false" aria-controls="g-menu">
         <span class="g-fab__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="22" height="22">
-            <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
+          <span class="g-fab__bar"></span>
+          <span class="g-fab__bar"></span>
+          <span class="g-fab__bar"></span>
         </span>
       </button>
     </div>
