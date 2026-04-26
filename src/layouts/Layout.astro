@@ -7,7 +7,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'green° — cape town. rescued kites, denim, parachutes.' } = Astro.props;
+const { title, description = 'green° — cape town. sustainability, upcycling and education.' } = Astro.props;
 const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html';
 ---
 
@@ -123,7 +123,7 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html
       <div class="hp-foot__inner">
         <div class="hp-foot__col">
           <div class="hp-foot__brand">green<span class="gn-deg">°</span></div>
-          <p class="hp-foot__blurb">made in cape town from rescued kites, denim, and parachutes. every bag sold funds a filled pencil case for a child at a western cape primary school.</p>
+          <p class="hp-foot__blurb">made in cape town from upcycled kites, denim, and parachutes. every bag sold funds a filled pencil case for a child at a western cape primary school.</p>
         </div>
         <div class="hp-foot__col hp-foot__col--nav">
           <nav class="hp-foot__nav" aria-label="footer navigation">
