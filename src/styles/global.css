@@ -394,6 +394,7 @@ img { display: block; }
   filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 4px rgba(0, 0, 0, 0.35));
 }
 :root.nav-revealed .hp-hero-outer .hp-hero__scroll-cue { opacity: 0 !important; pointer-events: none; }
+:root.menu-open .hp-hero__scroll-cue { opacity: 0 !important; pointer-events: none; }
 @keyframes hp-cue {
   0%, 100% { transform: translateY(-6px); opacity: 0.45; }
   50%       { transform: translateY(6px);  opacity: 1; }
