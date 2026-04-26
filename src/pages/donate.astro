@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+const yocoPublicKey = import.meta.env.PUBLIC_YOCO_KEY ?? '';
 ---
 
 <Layout title="donate — green°">
@@ -325,11 +326,11 @@ import Layout from '../layouts/Layout.astro';
 </div>
 
 <script src="https://js.yoco.com/sdk/v1/yoco-sdk-web.js"></script>
-<script is:inline>
+<script is:inline define:vars={{ yocoPublicKey }}>
 (function () {
   document.body.classList.add('dn-page');
 
-  var YOCO_PUBLIC_KEY = 'pk_test_8a6a8168V4Yjm2Y16924';
+  var YOCO_PUBLIC_KEY = yocoPublicKey;
 
   var RATE = 150;
   var MAX  = 50;
