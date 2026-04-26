@@ -8,7 +8,7 @@ export async function onRequestPost(context) {
 
   const { amountInCents } = body;
 
-  if (typeof amountInCents !== 'number') {
+  if (!Number.isInteger(amountInCents)) {
     return json({ error: 'Missing amount' }, 400);
   }
 
@@ -35,7 +35,12 @@ export async function onRequestPost(context) {
   });
 
   const data = await yocoRes.json();
-  return json(data, yocoRes.status);
+
+  if (!yocoRes.ok) {
+    return json({ error: 'Payment provider error' }, 502);
+  }
+
+  return json({ redirectUrl: data.redirectUrl }, 200);
 }
 
 function json(data, status = 200) {
