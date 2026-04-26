@@ -501,14 +501,18 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   will-change: transform;
 }
 .hp-hero-outer .hp-hero__eyebrow {
-  opacity: 0.6;
-  transform: translateY(4px);
+  opacity: 1;
   will-change: opacity, transform;
+  animation: hp-hero-fadein 900ms var(--ease-out) 1.6s both;
 }
 .hp-hero-outer .hp-hero__title {
-  opacity: 0.8;
-  transform: translateY(8px);
+  opacity: 1;
   will-change: opacity, transform;
+  animation: hp-hero-fadein 1100ms var(--ease-out) 1.8s both;
+}
+@keyframes hp-hero-fadein {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .hp-hero-outer .hp-hero__caption {
   opacity: 0;
@@ -741,11 +745,11 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   transform: scale(1.4);
 }
 
-/* Word reveal */
+/* Word reveal — start visible, animate in on load */
 .hp-word {
-  opacity: 0;
+  opacity: 1;
   display: inline-block;
-  transform: translateY(8px);
+  transform: translateY(0);
   transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
 }
 .hp-word.is-revealed { opacity: 1; transform: translateY(0); }
@@ -824,7 +828,7 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
     color: var(--color-ink-soft);
     padding: 11px 0; border-bottom: 1px solid var(--color-rule);
     width: 100%; text-align: center;
-    opacity: 0; transform: translateY(8px);
+    opacity: 1; transform: translateY(0);
     transition: opacity 380ms var(--ease-out), transform 380ms var(--ease-out);
   }
   .hp-mob-leaf.is-revealed { opacity: 1; transform: translateY(0); }
@@ -1226,12 +1230,11 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
     img.style.transform = 'scale(' + lerp(1.07, 1.0, ease(prog(p, 0, 0.4))) + ')';
     var oa = lerp(0.6, 0.2, ease(prog(p, 0, 0.35)));
     overlay.style.background = 'linear-gradient(180deg,rgba(0,0,0,' + oa + ') 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 55%,rgba(0,0,0,' + (oa + 0.35) + ') 100%)';
-    var ep = ease(prog(p, 0.28, 0.45));
-    eyebrow.style.opacity   = lerp(0.6, 1.0, ep);
-    eyebrow.style.transform = 'translateY(' + lerp(4, 0, ep) + 'px)';
-    var tp = ease(prog(p, 0.38, 0.58));
-    title.style.opacity   = lerp(0.8, 1.0, tp);
-    title.style.transform = 'translateY(' + lerp(8, 0, tp) + 'px)';
+    /* Hero text always fully visible — no scroll-gated fade */
+    eyebrow.style.opacity   = '1';
+    eyebrow.style.transform = 'translateY(0)';
+    title.style.opacity   = '1';
+    title.style.transform = 'translateY(0)';
     if (cue) cue.style.opacity = 1 - ease(prog(p, 0, 0.18));
     if (text) {
       var rp = ease(prog(p, 0.58, 1.0));
@@ -1280,6 +1283,7 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
     els.forEach(function (el) { el.classList.add('is-visible'); });
     return;
   }
+  /* Trigger as soon as element enters viewport — no scroll threshold */
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
@@ -1287,7 +1291,7 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
         io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
   els.forEach(function (el) { io.observe(el); });
 })();
 
@@ -1373,9 +1377,9 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   var sentenceWrap = outer.querySelector('.hp-mob-sentence-wrap');
 
   var phases = [
-    { start: 0.46, end: 0.64, branchId: 'mob-branch-s', kwId: 'mob-sustainably' },
-    { start: 0.66, end: 0.80, branchId: 'mob-branch-r', kwId: 'mob-raise-funds' },
-    { start: 0.82, end: 0.96, branchId: 'mob-branch-e', kwId: 'mob-education'   }
+    { start: 0.05, end: 0.38, branchId: 'mob-branch-s', kwId: 'mob-sustainably' },
+    { start: 0.42, end: 0.66, branchId: 'mob-branch-r', kwId: 'mob-raise-funds' },
+    { start: 0.70, end: 0.92, branchId: 'mob-branch-e', kwId: 'mob-education'   }
   ];
 
   phases.forEach(function (ph) {
