@@ -26,6 +26,12 @@ This prevents agents from trampling each other's work when running in parallel.
 | `/articles` | `src/pages/articles.astro` | Done |
 | `/donate` | `src/pages/donate.astro` | Done |
 
+## Brand contacts
+
+- Instagram: https://www.instagram.com/greendegree_/
+- Email (Anne): anne@greendegree.org
+- Email (Cheryl): cheryl@greendegree.org
+
 ## Design reference
 
 Prototype files are in `/Users/sam/Downloads/green-website/project/`. The primary design is `Homepage v7.html`. Match it pixel-faithfully — dimensions, colours and layout rules are all in the HTML/CSS source.
