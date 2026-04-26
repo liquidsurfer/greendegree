@@ -350,6 +350,16 @@ const yocoPublicKey = import.meta.env.PUBLIC_YOCO_KEY ?? '';
 
   var count = 5;
   var sdk = null;
+  var popupOpen = false;
+  var stageEl = document.querySelector('.dn-stage');
+
+  function lockControls(on) {
+    popupOpen = on;
+    slider.disabled = on;
+    decBtn.disabled = on;
+    incBtn.disabled = on;
+    if (stageEl) stageEl.style.zIndex = on ? '0' : '';
+  }
 
   function fmt(n) { return 'R' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 
@@ -413,13 +423,14 @@ const yocoPublicKey = import.meta.env.PUBLIC_YOCO_KEY ?? '';
   ctaBtn.addEventListener('click', function () {
     var amountInCents = count * RATE * 100;
     if (!sdk) sdk = new YocoSDK({ publicKey: YOCO_PUBLIC_KEY });
+    lockControls(true);
     sdk.showPopup({
       amountInCents: amountInCents,
       currency: 'ZAR',
       name: 'green°',
       description: count + ' pencil case' + (count === 1 ? '' : 's') + ' for Cape Flats children',
       callback: function (result) {
-        if (result.error) { return; }
+        if (result.error) { lockControls(false); return; }
         setLoading(true);
         fetch('/api/charge', {
           method: 'POST',
@@ -449,6 +460,7 @@ const yocoPublicKey = import.meta.env.PUBLIC_YOCO_KEY ?? '';
   incBtn.addEventListener('click', function () { update(count + 1); });
 
   document.addEventListener('keydown', function (e) {
+    if (popupOpen) return;
     if (e.key === 'ArrowUp'   || e.key === 'ArrowRight') { e.preventDefault(); update(count + 1); }
     if (e.key === 'ArrowDown' || e.key === 'ArrowLeft')  { e.preventDefault(); update(count - 1); }
   });
@@ -461,6 +473,7 @@ const yocoPublicKey = import.meta.env.PUBLIC_YOCO_KEY ?? '';
   var SCROLL_THRESHOLD = 60;
   document.addEventListener('wheel', function (e) {
     e.preventDefault();
+    if (popupOpen) return;
     scrollAccum += e.deltaY;
     if (Math.abs(scrollAccum) >= SCROLL_THRESHOLD) {
       update(count + (scrollAccum > 0 ? 1 : -1));
