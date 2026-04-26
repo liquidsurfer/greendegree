@@ -1,8 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image, getImage } from 'astro:assets';
+import imgHero        from '../assets/images/why-capricorn-primary.jpg';
+import imgHowCollect  from '../assets/images/how-01-collect.avif';
+import imgHowCreate   from '../assets/images/how-02-create.jpg';
+import imgHowContrib  from '../assets/images/how-03-contribute.jpg';
+import imgTangibility from '../assets/images/10-tangibility-flatlay.jpg';
+import imgTransition  from '../assets/images/01-kite-cederberg.jpg';
+import imgKiteTrio    from '../assets/images/02b-hero-kite-trio.jpg';
+import imgDenim       from '../assets/images/04-collection-denim.jpg';
+import imgParachute   from '../assets/images/14-parachute-tote.jpeg';
+import imgFounders    from '../assets/images/12-founders.jpg';
+import imgClassroom   from '../assets/images/classroom-pencil-cases-sepia.jpg';
+
+const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 });
 ---
 
 <Layout title="green° — cape town. rescued kites, denim, parachutes.">
+  <link slot="head" rel="preload" href={heroPreload.src} as="image" type="image/webp" />
 
 <!-- LOADER -->
 <div class="gd-loader" id="gd-loader">
@@ -13,7 +28,7 @@ import Layout from '../layouts/Layout.astro';
 <!-- BEAT 1 — Hero journey -->
 <div class="hp-hero-outer" id="hero-outer">
   <section class="hp-hero">
-    <img class="hp-hero__img" src="/images/why-capricorn-primary.jpg" alt="children at capricorn primary holding up green° denim pencil cases">
+    <Image class="hp-hero__img" src={imgHero} alt="children at capricorn primary holding up green° denim pencil cases" width={1920} loading="eager" format="webp" />
     <div class="hp-hero__overlay"></div>
     <div class="hp-hero__text">
       <div>
@@ -143,7 +158,7 @@ import Layout from '../layouts/Layout.astro';
         <article class="hp-how__step">
           <div class="hp-how__num">01</div>
           <div class="hp-how__img-wrap">
-            <img class="hp-how__img" src="/images/how-01-collect.avif" alt="a pile of donated denim, waiting to be sorted">
+            <Image class="hp-how__img" src={imgHowCollect} alt="a pile of donated denim, waiting to be sorted" width={800} format="webp" />
           </div>
           <h3 class="hp-how__step-title">donated kites, paragliders and denims</h3>
           <p class="hp-how__step-line">upcycle — transform waste.</p>
@@ -151,7 +166,7 @@ import Layout from '../layouts/Layout.astro';
         <article class="hp-how__step">
           <div class="hp-how__num">02</div>
           <div class="hp-how__img-wrap">
-            <img class="hp-how__img" src="/images/how-02-create.jpg" alt="an artisan's hands laying out bright kite sail ready for cutting">
+            <Image class="hp-how__img" src={imgHowCreate} alt="an artisan's hands laying out bright kite sail ready for cutting" width={800} format="webp" />
           </div>
           <h3 class="hp-how__step-title">hand-made unique lifestyle products</h3>
           <p class="hp-how__step-line">create employment.<br>upskill people.</p>
@@ -159,7 +174,7 @@ import Layout from '../layouts/Layout.astro';
         <article class="hp-how__step">
           <div class="hp-how__num">03</div>
           <div class="hp-how__img-wrap">
-            <img class="hp-how__img" src="/images/how-03-contribute.jpg" alt="children at a cape flats primary holding up denim pencil cases">
+            <Image class="hp-how__img" src={imgHowContrib} alt="children at a cape flats primary holding up denim pencil cases" width={800} format="webp" />
           </div>
           <h3 class="hp-how__step-title">2,500 children each year</h3>
           <p class="hp-how__step-line">support 3 schools with stationery every year.<br>contribute to local economy.</p>
@@ -219,7 +234,7 @@ import Layout from '../layouts/Layout.astro';
             </ul>
           </div>
           <div class="hp-tangibility__img-wrap hp-reveal hp-reveal--delay-1">
-            <img class="hp-tangibility__img" src="/images/10-tangibility-flatlay.jpg" alt="flatlay of denim pencil cases with pencils, erasers and exercise books">
+            <Image class="hp-tangibility__img" src={imgTangibility} alt="flatlay of denim pencil cases with pencils, erasers and exercise books" width={1000} format="webp" />
           </div>
         </div>
       </section>
@@ -245,7 +260,7 @@ import Layout from '../layouts/Layout.astro';
 
 <!-- TRANSITION -->
 <section class="hp-transition" aria-hidden="false">
-  <img class="hp-transition__img" src="/images/01-kite-cederberg.jpg" alt="man carrying an orange kite bag through the Cederberg">
+  <Image class="hp-transition__img" src={imgTransition} alt="man carrying an orange kite bag through the Cederberg" width={1920} format="webp" />
   <div class="hp-transition__scrim"></div>
   <div class="hp-transition__text">
     <div class="hp-transition__sub">the collections</div>
@@ -267,7 +282,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="hp-tiles" id="collections-track">
         <a class="hp-tile" href="/coming-soon">
           <div class="hp-tile__img-wrap">
-            <img class="hp-tile__img" src="/images/02b-hero-kite-trio.jpg" alt="three kite-fabric cooler bags in orange, pink and blue">
+            <Image class="hp-tile__img" src={imgKiteTrio} alt="three kite-fabric cooler bags in orange, pink and blue" width={1200} format="webp" />
           </div>
           <div class="hp-tile__name">kite collection</div>
           <div class="hp-tile__meta">beach bags, coolers, and smaller carry — cut and stitched from recycled kitesurfing sails.</div>
@@ -275,7 +290,7 @@ import Layout from '../layouts/Layout.astro';
         </a>
         <a class="hp-tile" href="/coming-soon">
           <div class="hp-tile__img-wrap">
-            <img class="hp-tile__img" src="/images/04-collection-denim.jpg" alt="patched denim jacket — close up on buttons and lining">
+            <Image class="hp-tile__img" src={imgDenim} alt="patched denim jacket — close up on buttons and lining" width={1200} format="webp" />
           </div>
           <div class="hp-tile__name">denim collection</div>
           <div class="hp-tile__meta">one-of-a-kind patched jackets, cut from donated jeans. no two alike.</div>
@@ -283,7 +298,7 @@ import Layout from '../layouts/Layout.astro';
         </a>
         <a class="hp-tile" href="/coming-soon">
           <div class="hp-tile__img-wrap">
-            <img class="hp-tile__img" src="/images/14-parachute-tote.jpeg" alt="crocheted tote made from strips of recycled plastic — yellow, green, blue and white">
+            <Image class="hp-tile__img" src={imgParachute} alt="crocheted tote made from strips of recycled plastic — yellow, green, blue and white" width={1200} format="webp" />
           </div>
           <div class="hp-tile__name">parachute collection</div>
           <div class="hp-tile__meta">moon bags and space bags from donated parachutes — crocheted and stitched in the workshop.</div>
@@ -304,7 +319,7 @@ import Layout from '../layouts/Layout.astro';
   <div class="hp-journey__sticky">
     <section class="hp-founders" id="founders-track">
       <div class="hp-founders__img-wrap hp-reveal">
-        <img class="hp-founders__img" src="/images/12-founders.jpg" alt="anne and cheryl, each holding armfuls of denim pieces mid-sort">
+        <Image class="hp-founders__img" src={imgFounders} alt="anne and cheryl, each holding armfuls of denim pieces mid-sort" width={800} format="webp" />
       </div>
       <div class="hp-founders__text">
         <span class="gn-eyebrow hp-reveal hp-reveal--delay-1">a note from the founders</span>
@@ -347,7 +362,7 @@ import Layout from '../layouts/Layout.astro';
 <div class="hp-journey hp-journey--invite" id="journey-invite" data-journey-cards="2">
   <div class="hp-journey__sticky">
     <section class="hp-invite hp-invite--photo" id="mission">
-      <img class="hp-invite__bg hp-d-only" src="/images/classroom-pencil-cases-sepia.jpg" alt="children in a classroom holding up green° denim pencil cases">
+      <Image class="hp-invite__bg hp-d-only" src={imgClassroom} alt="children in a classroom holding up green° denim pencil cases" width={1920} format="webp" />
       <div class="hp-invite__scrim hp-d-only"></div>
       <div class="hp-invite__inner hp-d-only">
         <span class="gn-eyebrow hp-invite__eyebrow" style="color:rgba(253,251,245,0.72)">the invitation</span>
@@ -361,7 +376,7 @@ import Layout from '../layouts/Layout.astro';
       </div>
       <div class="hp-invite-track hp-m-only" id="invite-track">
         <div class="hp-invite-card hp-invite-card--photo">
-          <img src="/images/classroom-pencil-cases-sepia.jpg" alt="children in a classroom holding up green° denim pencil cases">
+          <Image src={imgClassroom} alt="children in a classroom holding up green° denim pencil cases" width={1200} format="webp" />
         </div>
         <div class="hp-invite-card hp-invite-card--text">
           <span class="gn-eyebrow">the invitation</span>
