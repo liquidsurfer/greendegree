@@ -842,10 +842,24 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
 }
 @media (min-width: 861px) { .hp-diagram-mobile { display: none; } }
 
-/* ---- Mobile sentence — show progress dots as 1-of-3 cue ---- */
+/* ---- Mobile sentence — scroll progress underline + layout ---- */
 @media (max-width: 860px) {
   .hp-diagram-dots { display: flex !important; }
   .hp-diagram-mobile { padding-top: 28vh; box-sizing: border-box; }
+  /* Growing underline driven by --ul CSS custom property set by JS */
+  .hp-mob-kw {
+    border-bottom: none !important;
+    background-image: linear-gradient(
+      to right,
+      var(--color-sage-deep) var(--ul, 0%),
+      rgba(95,107,76,0.18) var(--ul, 0%)
+    );
+    background-size: 100% 2px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    padding-bottom: 3px;
+    transition: color 240ms;
+  }
 }
 
 /* ============================================================
@@ -1405,6 +1419,13 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
       if (branchEl) branchEl.classList.toggle('is-active', active);
       if (kwEl)     kwEl.classList.toggle('is-kw-active', active);
       if (dots[ph.dotIdx]) dots[ph.dotIdx].classList.toggle('is-active', active);
+      /* Progressive underline: grows while active, stays full when past */
+      if (kwEl) {
+        var ul = p < ph.start  ? 0
+               : p >= ph.end   ? 100
+               : ((p - ph.start) / (ph.end - ph.start)) * 100;
+        kwEl.style.setProperty('--ul', ul + '%');
+      }
     });
   }
 
