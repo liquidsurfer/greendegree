@@ -842,6 +842,39 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
 }
 @media (min-width: 861px) { .hp-diagram-mobile { display: none; } }
 
+/* ---- Mobile sentence — tap mode ---- */
+@media (max-width: 860px) {
+  /* Convert sticky scroll section to normal flow */
+  .hp-diagram-outer { height: auto !important; }
+  .hp-diagram-sticky {
+    position: relative !important; top: auto !important;
+    height: auto !important; overflow: visible !important;
+    padding: 80px var(--page-pad-mobile) 56px !important;
+    justify-content: flex-start !important;
+  }
+  .hp-diagram-mobile { height: auto !important; overflow: visible !important; }
+  .hp-mob-sentence-wrap {
+    transform: none !important; will-change: auto !important;
+    padding: 0 0 28px !important;
+    border-bottom: 1px solid var(--color-rule);
+    flex-shrink: 0;
+  }
+  /* Branches: hidden by default, shown by JS via is-active */
+  .hp-mob-branch-area { position: relative !important; overflow: visible !important; flex: none !important; }
+  .hp-mob-branch {
+    position: relative !important; inset: auto !important;
+    display: none !important; opacity: 1 !important;
+    pointer-events: all !important; justify-content: flex-start !important;
+    padding: 28px 0 8px !important; transition: none !important;
+  }
+  .hp-mob-branch.is-active { display: flex !important; }
+  /* Keywords look tappable */
+  .hp-mob-kw {
+    cursor: pointer;
+    border-bottom: 1px solid rgba(95,107,76,0.5) !important;
+  }
+}
+
 /* ============================================================
    IMMERSIVE SCROLL JOURNEY
    ============================================================ */
@@ -1367,82 +1400,39 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
 })();
 
 /* ============================================================
-   MOBILE SENTENCE — word reveal + branches
+   MOBILE SENTENCE — tap to expand
    ============================================================ */
 (function () {
   if (!window.matchMedia('(max-width: 860px)').matches) return;
-  var outer = document.getElementById('diagram');
-  if (!outer) return;
 
-  var sentenceWrap = outer.querySelector('.hp-mob-sentence-wrap');
-
-  var phases = [
-    { start: 0.05, end: 0.38, branchId: 'mob-branch-s', kwId: 'mob-sustainably' },
-    { start: 0.42, end: 0.66, branchId: 'mob-branch-r', kwId: 'mob-raise-funds' },
-    { start: 0.70, end: 0.92, branchId: 'mob-branch-e', kwId: 'mob-education'   }
+  var tabs = [
+    { kwId: 'mob-sustainably', branchId: 'mob-branch-s' },
+    { kwId: 'mob-raise-funds', branchId: 'mob-branch-r' },
+    { kwId: 'mob-education',   branchId: 'mob-branch-e' },
   ];
 
-  phases.forEach(function (ph) {
-    var branchEl = document.getElementById(ph.branchId);
-    if (!branchEl) return;
-    var leaves = branchEl.querySelectorAll('.hp-mob-leaf');
-    var span   = ph.end - ph.start - 0.04;
-    leaves.forEach(function (el, i) {
-      el._leafP = ph.start + 0.04 + (i / Math.max(leaves.length, 1)) * span;
+  function activate(idx) {
+    tabs.forEach(function (tab, i) {
+      var kw = document.getElementById(tab.kwId);
+      var br = document.getElementById(tab.branchId);
+      var active = i === idx;
+      if (kw) kw.classList.toggle('is-kw-active', active);
+      if (br) br.classList.toggle('is-active', active);
+    });
+  }
+
+  tabs.forEach(function (tab, idx) {
+    var kw = document.getElementById(tab.kwId);
+    if (!kw) return;
+    kw.setAttribute('role', 'button');
+    kw.setAttribute('tabindex', '0');
+    kw.addEventListener('click', function () { activate(idx); });
+    kw.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(idx); }
     });
   });
 
-  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
-  function easeOut3(t) { return 1 - Math.pow(1 - t, 3); }
-
-  function getP() {
-    var scrollable = outer.offsetHeight - window.innerHeight;
-    if (scrollable <= 0) return 0;
-    return Math.max(0, Math.min(1, -outer.getBoundingClientRect().top / scrollable));
-  }
-
-  function update() {
-    var p = getP();
-    if (sentenceWrap) {
-      var wrapH = sentenceWrap.offsetHeight;
-      var vh    = window.innerHeight;
-      var centerOffset = Math.max(0, (vh - wrapH) / 2);
-      // Hold centred for 0–0.25, lift over 0.25–0.45, settled past 0.45
-      var liftP   = easeOut3(clamp((p - 0.25) / 0.20, 0, 1));
-      var ty = centerOffset * (1 - liftP);
-      var sc = 1 - 0.32 * liftP;
-      sentenceWrap.style.transform = 'translateY(' + ty + 'px) scale(' + sc + ')';
-    }
-    var activeIdx = -1;
-    for (var i = phases.length - 1; i >= 0; i--) {
-      if (p >= phases[i].start) { activeIdx = i; break; }
-    }
-    phases.forEach(function (ph, idx) {
-      var isActive  = idx === activeIdx;
-      var branchEl  = document.getElementById(ph.branchId);
-      var kwEl      = document.getElementById(ph.kwId);
-      if (branchEl) branchEl.classList.toggle('is-active', isActive);
-      if (kwEl)     kwEl.classList.toggle('is-kw-active', isActive);
-      if (branchEl) {
-        branchEl.querySelectorAll('.hp-mob-leaf').forEach(function (el) {
-          el.classList.toggle('is-revealed', isActive && p >= (el._leafP || 1));
-        });
-      }
-    });
-  }
-
-  var scheduled = false;
-  function schedule() {
-    if (scheduled) return;
-    scheduled = true;
-    window.requestAnimationFrame(function () {
-      scheduled = false;
-      update();
-    });
-  }
-  window.addEventListener('scroll', schedule, { passive: true });
-  window.addEventListener('resize', schedule, { passive: true });
-  update();
+  activate(0); // sustainably open by default
 })();
 
 /* ============================================================
