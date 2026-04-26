@@ -405,7 +405,7 @@ img { display: block; }
 }
 @media (max-width: 720px) {
   .hp-hero { height: 88vh; min-height: 520px; }
-  .hp-hero__text { padding-inline: var(--page-pad-mobile); flex-direction: column; align-items: flex-start; gap: 12px; }
+  .hp-hero__text { padding-inline: var(--page-pad-mobile); flex-direction: column; align-items: flex-start; gap: 12px; bottom: 120px; }
   .hp-hero__scroll-cue { align-self: flex-end; }
 }
 
