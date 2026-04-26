@@ -253,6 +253,7 @@ import Layout from '../layouts/Layout.astro';
   align-items: center;
   justify-content: center;
   gap: 16px;
+  background: var(--color-lime);
   opacity: 0;
   pointer-events: none;
   transition: opacity 600ms;
@@ -346,17 +347,6 @@ import Layout from '../layouts/Layout.astro';
 
   var count = 5;
 
-  // Show success state if Yoco redirected back after payment
-  var params = new URLSearchParams(window.location.search);
-  if (params.get('donated') === 'true') {
-    fillEl.style.transition = 'none';
-    fillEl.style.height = '100%';
-    successSub.textContent = 'your donation is on its way. thank you.';
-    successEl.setAttribute('aria-hidden', 'false');
-    successEl.classList.add('is-shown');
-    history.replaceState(null, '', '/donate');
-  }
-
   function fmt(n) { return 'R' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 
   function humanLine(n) {
@@ -429,6 +419,17 @@ import Layout from '../layouts/Layout.astro';
   });
 
   update(count);
+
+  // Show success state if Yoco redirected back after payment
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('donated') === 'true') {
+    fillEl.style.transition = 'none';
+    fillEl.style.height = '100%';
+    successSub.textContent = 'your donation is on its way. thank you.';
+    successEl.setAttribute('aria-hidden', 'false');
+    successEl.classList.add('is-shown');
+    history.replaceState(null, '', '/donate');
+  }
 
   decBtn.addEventListener('click', function () { update(count - 1); });
   incBtn.addEventListener('click', function () { update(count + 1); });
