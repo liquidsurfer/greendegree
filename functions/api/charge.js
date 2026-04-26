@@ -6,10 +6,10 @@ export async function onRequestPost(context) {
     return json({ error: 'Invalid request body' }, 400);
   }
 
-  const { token, amountInCents } = body;
+  const { amountInCents } = body;
 
-  if (!token || typeof amountInCents !== 'number') {
-    return json({ error: 'Missing token or amount' }, 400);
+  if (typeof amountInCents !== 'number') {
+    return json({ error: 'Missing amount' }, 400);
   }
 
   // R150–R7 500 (1–50 pencil cases)
@@ -17,13 +17,21 @@ export async function onRequestPost(context) {
     return json({ error: 'Amount out of range' }, 400);
   }
 
-  const yocoRes = await fetch('https://online.yoco.com/v1/charges/', {
+  const origin = new URL(context.request.url).origin;
+
+  const yocoRes = await fetch('https://payments.yoco.com/api/checkouts', {
     method: 'POST',
     headers: {
-      'X-Auth-Secret-Key': context.env.YOCO_SECRET_KEY,
+      'Authorization': `Bearer ${context.env.YOCO_SECRET_KEY}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ token, amountInCents, currency: 'ZAR' }),
+    body: JSON.stringify({
+      amount: amountInCents,
+      currency: 'ZAR',
+      successUrl: `${origin}/donate?donated=true`,
+      cancelUrl: `${origin}/donate`,
+      failureUrl: `${origin}/donate?failed=true`,
+    }),
   });
 
   const data = await yocoRes.json();
