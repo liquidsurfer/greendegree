@@ -775,7 +775,7 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   }
   .hp-mob-sentence-wrap {
     flex-shrink: 0;
-    padding: 32px 28px 22px;
+    padding: 32px 28px 36px;
     text-align: center;
     border-bottom: 1px solid var(--color-rule);
     will-change: transform;
@@ -805,8 +805,8 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   .hp-mob-branch {
     position: absolute; inset: 0;
     display: flex; flex-direction: column; align-items: center;
-    justify-content: center;
-    padding: 16px 28px 28px;
+    justify-content: flex-start;
+    padding: 36px 28px 28px;
     opacity: 0;
     transition: opacity 360ms var(--ease-standard);
     pointer-events: none;

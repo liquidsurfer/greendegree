@@ -77,8 +77,8 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html
     <slot />
 
     <div class="g-scroll-cue" id="g-scroll-cue" aria-hidden="true">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M6 9l6 6 6-6"/>
+      <svg viewBox="0 0 24 24" width="26" height="26" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 4v15m0 0l-6-6m6 6l6-6"/>
       </svg>
     </div>
 
@@ -86,19 +86,36 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html
       .g-scroll-cue {
         position: fixed;
         bottom: 28px;
-        left: 50%;
-        transform: translateX(-50%);
+        right: var(--page-pad, 32px);
         z-index: 90;
         color: var(--color-ink, #1a1a17);
         opacity: 0;
         transition: opacity 400ms ease;
         pointer-events: none;
-        animation: g-cue-bounce 1.6s ease-in-out infinite;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
       }
-      .g-scroll-cue.g-scroll-cue--visible { opacity: 0.45; }
-      @keyframes g-cue-bounce {
-        0%, 100% { transform: translateX(-50%) translateY(0); }
-        50%       { transform: translateX(-50%) translateY(5px); }
+      @media (max-width: 720px) {
+        .g-scroll-cue { right: var(--page-pad-mobile, 20px); }
+      }
+      .g-scroll-cue::before {
+        content: "scroll";
+        font-family: var(--font-ui, 'Inter', sans-serif);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        opacity: 0.5;
+      }
+      .g-scroll-cue svg {
+        animation: hp-cue 2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+        opacity: 0.65;
+      }
+      .g-scroll-cue.g-scroll-cue--visible { opacity: 1; }
+      @media (prefers-reduced-motion: reduce) {
+        .g-scroll-cue svg { animation: none; }
       }
     </style>
 
@@ -152,11 +169,13 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html
     (function () {
       var cue = document.getElementById('g-scroll-cue');
       if (!cue) return;
+      var hasHeroScroll = !!document.getElementById('nav-reveal-sentinel');
       function updateCue() {
         var scrolled = window.scrollY;
         var atBottom = scrolled + window.innerHeight >= document.body.scrollHeight - 120;
         var canScroll = document.body.scrollHeight > window.innerHeight + 40;
-        if (canScroll && !atBottom) {
+        var heroCueGone = !hasHeroScroll || document.documentElement.classList.contains('nav-revealed');
+        if (canScroll && !atBottom && heroCueGone) {
           cue.classList.add('g-scroll-cue--visible');
         } else {
           cue.classList.remove('g-scroll-cue--visible');
