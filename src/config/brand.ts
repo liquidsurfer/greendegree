@@ -1,6 +1,6 @@
 export const brand = {
   name:   'green°',
-  domain: 'greendegree.co.za',
+  domain: 'greendegree.org',
 
   email: {
     anne:   'anne@greendegree.org',
