@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+const yocoPublicKey = import.meta.env.PUBLIC_YOCO_KEY ?? '';
 ---
 
 <Layout title="donate — green°">
@@ -191,20 +192,20 @@ import Layout from '../layouts/Layout.astro';
   padding: 18px 36px;
   background: var(--color-ink);
   color: var(--color-bg);
-  text-decoration: none;
   border: 1px solid var(--color-ink);
-  transition: background 200ms, color 200ms, border-color 200ms;
+  transition: background 200ms, color 200ms, border-color 200ms, opacity 200ms;
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 }
-.dn-cta:hover { background: var(--color-sage-deep); border-color: var(--color-sage-deep); }
+.dn-cta:hover:not(:disabled) { background: var(--color-sage-deep); border-color: var(--color-sage-deep); }
 .dn-cta__amount { font-weight: 400; text-transform: none; }
 .dn-cta__arrow { font-size: 18px; }
 
 .dn-fill-label {
   position: fixed;
-  bottom: 0%; /* overridden by JS */
+  bottom: 0%;
   left: 40px;
   z-index: 5;
   font-family: var(--font-ui);
@@ -244,6 +245,35 @@ import Layout from '../layouts/Layout.astro';
   letter-spacing: 0.04em;
 }
 
+.dn-success {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 600ms;
+}
+.dn-success.is-shown { opacity: 1; pointer-events: auto; }
+.dn-success__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(4rem, 14vw, 10rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--color-ink);
+}
+.dn-success__sub {
+  font-family: var(--font-ui);
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  color: var(--color-ink-soft);
+  letter-spacing: 0.04em;
+}
+
 @media (max-width: 640px) {
   .dn-stage { padding: 80px var(--page-pad-mobile) 100px; }
   .dn-controls { gap: 16px; }
@@ -267,7 +297,7 @@ import Layout from '../layouts/Layout.astro';
   <p class="dn-human" id="dn-human">equips 5 children with stationery for the school year</p>
 
   <div class="dn-controls">
-    <button class="dn-btn" id="dn-dec" aria-label="decrease">−</button>
+    <button class="dn-btn" id="dn-dec" aria-label="decrease">&minus;</button>
     <div class="dn-slider-wrap">
       <input class="dn-slider" id="dn-slider" type="range" min="1" max="50" value="5" aria-label="number of pencil cases">
       <div class="dn-slider-ticks">
@@ -280,22 +310,30 @@ import Layout from '../layouts/Layout.astro';
     <button class="dn-btn" id="dn-inc" aria-label="increase">+</button>
   </div>
 
-  <a class="dn-cta" id="dn-cta" href="mailto:hello@greendegree.co.za?subject=Donation%20enquiry">
+  <button class="dn-cta" id="dn-cta" type="button">
     <span>donate</span>
     <span class="dn-cta__amount" id="dn-cta-amount">R750</span>
-    <span class="dn-cta__arrow">→</span>
-  </a>
+    <span class="dn-cta__arrow">&rarr;</span>
+  </button>
 </main>
 
 <div class="dn-fill-label" id="dn-fill-label">growing</div>
-<div class="dn-note">R150 per pencil case · 100% goes to the children</div>
+<div class="dn-note">R150 per pencil case &middot; 100% goes to the children</div>
 
-<script is:inline>
+<div class="dn-success" id="dn-success" aria-live="polite" aria-hidden="true">
+  <p class="dn-success__title">thank you</p>
+  <p class="dn-success__sub" id="dn-success-sub">your pencil cases are on their way</p>
+</div>
+
+<script src="https://js.yoco.com/sdk/v1/yoco-sdk-web.js"></script>
+<script is:inline define:vars={{ yocoPublicKey }}>
 (function () {
   document.body.classList.add('dn-page');
 
-  var RATE    = 150;
-  var MAX     = 50;
+  var YOCO_PUBLIC_KEY = yocoPublicKey;
+
+  var RATE = 150;
+  var MAX  = 50;
 
   var countEl     = document.getElementById('dn-count');
   var costEl      = document.getElementById('dn-cost');
@@ -304,12 +342,17 @@ import Layout from '../layouts/Layout.astro';
   var slider      = document.getElementById('dn-slider');
   var decBtn      = document.getElementById('dn-dec');
   var incBtn      = document.getElementById('dn-inc');
+  var ctaBtn      = document.getElementById('dn-cta');
   var ctaAmountEl = document.getElementById('dn-cta-amount');
   var fillLabel   = document.getElementById('dn-fill-label');
+  var successEl   = document.getElementById('dn-success');
+  var successSub  = document.getElementById('dn-success-sub');
 
   var count = 5;
 
-  function fmt(n) { return 'R' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+  var sdk = new YocoSDK({ publicKey: YOCO_PUBLIC_KEY });
+
+  function fmt(n) { return 'R' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 
   function humanLine(n) {
     if (n === 1)  return 'equips 1 child with stationery for the school year';
@@ -322,7 +365,7 @@ import Layout from '../layouts/Layout.astro';
 
   function bounceFillLabel() {
     fillLabel.classList.remove('is-bouncing');
-    void fillLabel.offsetWidth; /* reflow to restart animation */
+    void fillLabel.offsetWidth;
     fillLabel.classList.add('is-bouncing');
   }
 
@@ -352,6 +395,54 @@ import Layout from '../layouts/Layout.astro';
     bump();
   }
 
+  function showSuccess() {
+    var n = count;
+    fillEl.style.transition = 'height 1200ms cubic-bezier(0.16, 1, 0.3, 1)';
+    fillEl.style.height = '100%';
+    successSub.textContent = n === 1
+      ? "you've filled 1 pencil case. a child is ready."
+      : "you've filled " + n + ' pencil case' + (n === 1 ? '' : 's') + '. thank you.';
+    successEl.setAttribute('aria-hidden', 'false');
+    successEl.classList.add('is-shown');
+  }
+
+  function setLoading(on) {
+    ctaBtn.disabled = on;
+    ctaBtn.style.opacity = on ? '0.5' : '';
+  }
+
+  ctaBtn.addEventListener('click', function () {
+    var amountInCents = count * RATE * 100;
+    sdk.showPopup({
+      amountInCents: amountInCents,
+      currency: 'ZAR',
+      name: 'green°',
+      description: count + ' pencil case' + (count === 1 ? '' : 's') + ' for Cape Flats children',
+      callback: function (result) {
+        if (result.error) { return; }
+        setLoading(true);
+        fetch('/api/charge', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: result.id, amountInCents: amountInCents }),
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (data.status === 'successful') {
+              showSuccess();
+            } else {
+              setLoading(false);
+              alert('Payment failed. Please try again.');
+            }
+          })
+          .catch(function () {
+            setLoading(false);
+            alert('Something went wrong. Please try again.');
+          });
+      },
+    });
+  });
+
   update(count);
 
   decBtn.addEventListener('click', function () { update(count - 1); });
@@ -366,7 +457,6 @@ import Layout from '../layouts/Layout.astro';
     update(parseInt(slider.value, 10), true);
   });
 
-  /* Scroll to change count — accumulate delta so trackpads feel natural */
   var scrollAccum = 0;
   var SCROLL_THRESHOLD = 60;
   document.addEventListener('wheel', function (e) {

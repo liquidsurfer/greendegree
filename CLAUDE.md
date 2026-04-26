@@ -21,7 +21,7 @@ This prevents agents from trampling each other's work when running in parallel.
 
 | Route | File | Status |
 |---|---|---|
-| `/` | `src/pages/index.astro` | In progress |
+| `/` | `src/pages/index.astro` | Done |
 | `/our-story` | `src/pages/our-story.astro` | Done |
 | `/articles` | `src/pages/articles.astro` | Done |
 | `/donate` | `src/pages/donate.astro` | Done |
