@@ -349,8 +349,7 @@ const yocoPublicKey = import.meta.env.PUBLIC_YOCO_KEY ?? '';
   var successSub  = document.getElementById('dn-success-sub');
 
   var count = 5;
-
-  var sdk = new YocoSDK({ publicKey: YOCO_PUBLIC_KEY });
+  var sdk = null;
 
   function fmt(n) { return 'R' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 
@@ -413,6 +412,7 @@ const yocoPublicKey = import.meta.env.PUBLIC_YOCO_KEY ?? '';
 
   ctaBtn.addEventListener('click', function () {
     var amountInCents = count * RATE * 100;
+    if (!sdk) sdk = new YocoSDK({ publicKey: YOCO_PUBLIC_KEY });
     sdk.showPopup({
       amountInCents: amountInCents,
       currency: 'ZAR',
