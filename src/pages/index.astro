@@ -10,41 +10,6 @@ import Layout from '../layouts/Layout.astro';
   <div class="gd-loader__rule"></div>
 </div>
 
-<!-- Mobile menu overlay -->
-<div class="hp-mobile-menu" id="mobile-menu" aria-hidden="true" role="dialog" aria-label="navigation">
-  <div class="hp-mobile-menu__top">
-    <span class="hp-mobile-menu__brand">green<span class="gn-deg">°</span></span>
-    <button class="hp-mobile-menu__close" id="mobile-menu-close" aria-label="close menu">close</button>
-  </div>
-  <nav class="hp-mobile-menu__links">
-    <a href="#how" class="hp-mobile-menu__link" data-close-menu>our process</a>
-    <a href="#collections" class="hp-mobile-menu__link" data-close-menu>shop</a>
-    <a href="/our-story" class="hp-mobile-menu__link" data-close-menu>our story</a>
-    <a href="/articles" class="hp-mobile-menu__link" data-close-menu>articles</a>
-    <a href="#foot" class="hp-mobile-menu__link" data-close-menu>contact</a>
-  </nav>
-  <a href="/donate" class="hp-mobile-menu__cta" data-close-menu>donate</a>
-</div>
-
-<!-- Nav -->
-<div class="hp-nav-wrap">
-  <nav class="gn-nav">
-    <a href="/" class="gn-nav__brand">green<span class="gn-deg">°</span></a>
-    <div class="gn-nav__menu">
-      <a href="/our-story" class="gn-nav__link">our story</a>
-      <a href="#collections" class="gn-nav__link">shop</a>
-      <a href="/articles" class="gn-nav__link">articles</a>
-      <a href="#foot" class="gn-nav__link">contact</a>
-    </div>
-    <a href="/donate" class="hp-nav-cta">donate</a>
-    <button class="hp-nav-burger" id="nav-burger" aria-label="open menu" aria-expanded="false">
-      <span class="hp-nav-burger__bar"></span>
-      <span class="hp-nav-burger__bar"></span>
-      <span class="hp-nav-burger__bar"></span>
-    </button>
-  </nav>
-</div>
-
 <!-- BEAT 1 — Hero journey -->
 <div class="hp-hero-outer" id="hero-outer">
   <section class="hp-hero">
@@ -55,10 +20,17 @@ import Layout from '../layouts/Layout.astro';
         <div class="hp-hero__eyebrow">capricorn primary · 26 january 2023</div>
         <h1 class="hp-hero__title">creatively crafting change<span class="gn-deg">.</span></h1>
       </div>
-      <div class="hp-hero__scroll-cue" aria-hidden="true">scroll</div>
+    </div>
+    <div class="hp-hero__scroll-cue" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="26" height="26" focusable="false">
+        <path d="M12 4v15m0 0l-6-6m6 6l6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
   </section>
 </div>
+
+<!-- Reveals the global nav as we enter BEAT 1.5 -->
+<div id="nav-reveal-sentinel" aria-hidden="true"></div>
 
 <!-- BEAT 1.5 — THE INTERACTIVE SENTENCE -->
 <section class="hp-diagram-outer" id="diagram">
@@ -68,7 +40,6 @@ import Layout from '../layouts/Layout.astro';
       <span class="gn-eyebrow">the why · the how · the what</span>
     </div>
 
-    <svg class="hp-diagram-svg" aria-hidden="true"></svg>
 
     <div class="hp-diagram-stage">
 
@@ -278,7 +249,7 @@ import Layout from '../layouts/Layout.astro';
   <div class="hp-transition__scrim"></div>
   <div class="hp-transition__text">
     <div class="hp-transition__sub">the collections</div>
-    <p class="hp-transition__headline">built for purpose.</p>
+    <p class="hp-transition__headline">fun, funky, and functional.</p>
   </div>
 </section>
 
@@ -505,122 +476,6 @@ import Layout from '../layouts/Layout.astro';
 }
 
 /* ============================================================
-   MOBILE BURGER MENU
-   ============================================================ */
-.hp-nav-burger {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  color: var(--color-ink);
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  width: 36px;
-  height: 36px;
-  flex-shrink: 0;
-}
-.hp-nav-burger__bar {
-  display: block;
-  width: 22px;
-  height: 1.5px;
-  background: currentColor;
-  transition: transform 280ms var(--ease-out), opacity 180ms;
-  transform-origin: center;
-}
-.hp-mobile-menu {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: var(--color-ink);
-  display: flex;
-  flex-direction: column;
-  padding: 40px 32px 56px;
-  transform: translateX(100%);
-  transition: transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-}
-.hp-mobile-menu.is-open {
-  transform: translateX(0);
-  pointer-events: all;
-}
-.hp-mobile-menu__top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 64px;
-}
-.hp-mobile-menu__brand {
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  color: var(--color-bg);
-}
-.hp-mobile-menu__brand .gn-deg { color: var(--color-lime); }
-.hp-mobile-menu__close {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--color-bg);
-  font-family: var(--font-ui);
-  font-size: 13px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 8px 0;
-  opacity: 0.7;
-  transition: opacity 160ms;
-}
-.hp-mobile-menu__close:hover { opacity: 1; }
-.hp-mobile-menu__links {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  flex: 1;
-}
-.hp-mobile-menu__link {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(2.2rem, 9vw, 3.5rem);
-  letter-spacing: -0.025em;
-  color: var(--color-bg);
-  text-decoration: none;
-  border: none;
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  transition: color 160ms;
-  line-height: 1;
-}
-.hp-mobile-menu__link:hover { color: var(--color-lime); }
-.hp-mobile-menu__cta {
-  margin-top: 40px;
-  font-family: var(--font-ui);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: lowercase;
-  padding: 16px 24px;
-  border: 1px solid rgba(255,255,255,0.4);
-  color: var(--color-bg);
-  text-decoration: none;
-  text-align: center;
-  transition: background 160ms, border-color 160ms;
-  align-self: flex-start;
-}
-.hp-mobile-menu__cta:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.7); }
-
-@media (max-width: 720px) {
-  .hp-nav-burger { display: flex; }
-  .hp-nav-wrap .gn-nav__menu { display: none; }
-  .hp-nav-wrap .hp-nav-cta { display: none; }
-  .hp-nav-burger.is-open .hp-nav-burger__bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-  .hp-nav-burger.is-open .hp-nav-burger__bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
-  .hp-nav-burger.is-open .hp-nav-burger__bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-}
-
-/* ============================================================
    HERO — SCROLL JOURNEY
    ============================================================ */
 .hp-hero-outer {
@@ -653,7 +508,7 @@ import Layout from '../layouts/Layout.astro';
   will-change: opacity, transform;
 }
 .hp-hero-outer .hp-hero__scroll-cue {
-  opacity: 0;
+  opacity: 1;
   will-change: opacity;
 }
 .hp-hero-outer .hp-hero__text {
@@ -677,8 +532,8 @@ import Layout from '../layouts/Layout.astro';
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 56px; /* offset for fixed global nav so optical centre sits below it */
 }
-.hp-diagram-svg { display: none; }
 .hp-diagram-eye {
   position: absolute;
   top: 52px;
@@ -844,6 +699,7 @@ import Layout from '../layouts/Layout.astro';
   transform: translate(0, 0);
 }
 .hp-diagram-progress-wrap {
+  display: none;
   position: absolute;
   bottom: 0;
   left: 0; right: 0;
@@ -907,23 +763,23 @@ import Layout from '../layouts/Layout.astro';
   }
   .hp-mob-sentence-wrap {
     flex-shrink: 0;
-    padding: 52px 28px 22px;
+    padding: 32px 28px 22px;
     text-align: center;
     border-bottom: 1px solid var(--color-rule);
     will-change: transform;
+    transform-origin: top center;
   }
   .hp-mob-sentence-text {
     font-family: var(--font-display);
     font-weight: 300;
-    font-size: clamp(1.55rem, 5.8vw, 2.2rem);
-    line-height: 1.28;
-    letter-spacing: -0.025em;
+    font-size: clamp(2.2rem, 9.5vw, 3.4rem);
+    line-height: 1.18;
+    letter-spacing: -0.028em;
     color: var(--color-ink);
     text-wrap: balance;
     margin: 0;
   }
-  .hp-mob-word { display: inline; opacity: 0; transition: opacity 520ms var(--ease-out); }
-  .hp-mob-word.is-revealed { opacity: 1; }
+  .hp-mob-word { display: inline; }
   .hp-mob-kw {
     display: inline;
     border-bottom: 1px solid transparent;
@@ -978,6 +834,8 @@ import Layout from '../layouts/Layout.astro';
    IMMERSIVE SCROLL JOURNEY
    ============================================================ */
 .hp-journey__dots { display: none; }
+.hp-journey--how { background: var(--color-sand); }
+.hp-journey--impact { background: var(--color-bg-tint); }
 .hp-journey__dot {
   width: 5px; height: 5px;
   border-radius: 999px;
@@ -1085,9 +943,9 @@ import Layout from '../layouts/Layout.astro';
     background: var(--color-ink);
     display: flex; flex-direction: column;
     justify-content: flex-end;
-    padding: 48px 28px 60px; gap: 28px;
+    padding: 48px var(--page-pad-mobile) 60px; gap: 28px;
   }
-  .hp-invite-card--text .gn-eyebrow { color: rgba(245,241,232,0.6); }
+  .hp-invite-card--text .gn-eyebrow { color: rgba(232,225,203,0.6); }
   .hp-invite-card--text .hp-invite__quote {
     color: var(--color-bg); max-width: 100%;
     font-size: clamp(1.7rem, 6vw, 2.2rem);
@@ -1096,8 +954,8 @@ import Layout from '../layouts/Layout.astro';
     background: var(--color-bg); color: var(--color-ink); border-color: var(--color-bg);
   }
   .hp-invite-card--text .hp-invite__cta--ghost {
-    background: transparent; color: rgba(245,241,232,0.85);
-    border-color: rgba(245,241,232,0.4);
+    background: transparent; color: rgba(232,225,203,0.85);
+    border-color: rgba(232,225,203,0.4);
   }
   .hp-journey--invite .hp-journey__dots {
     position: absolute; bottom: 20px; left: 50%;
@@ -1124,7 +982,7 @@ import Layout from '../layouts/Layout.astro';
 .hp-unit-lime__eq { font-style: italic; padding: 0 6px; }
 .hp-unit-lime__sub {
   font-family: var(--font-ui); font-size: 13px; font-style: italic;
-  color: rgba(245,241,232,0.6); margin: 0; letter-spacing: 0.04em;
+  color: rgba(232,225,203,0.6); margin: 0; letter-spacing: 0.04em;
 }
 .hp-unit-lime__cta {
   font-family: var(--font-ui); font-size: 13px; font-weight: 500;
@@ -1157,22 +1015,23 @@ import Layout from '../layouts/Layout.astro';
 .hp-unit-outer .hp-unit-lime__inner {
   position: relative; z-index: 1;
   width: 100%;
+  margin: 0 auto;
   padding-top: 80px;
-  padding-inline: 32px;
-  max-width: 1040px;
+  padding-inline: var(--page-pad);
+  max-width: var(--page-max);
   padding-bottom: 0;
 }
 .hp-unit-lime__sub { margin-top: 32px; }
 @media (max-width: 820px) {
-  .hp-unit-lime { padding: 64px 20px; }
-  .hp-unit-outer .hp-unit-lime__inner { padding-top: 56px; padding-inline: 20px; }
+  .hp-unit-lime { padding: 64px var(--page-pad-mobile); }
+  .hp-unit-outer .hp-unit-lime__inner { padding-top: 56px; padding-inline: var(--page-pad-mobile); }
 }
 
 /* ============================================================
    TRANSITION (homepage override)
    ============================================================ */
 .hp-transition {
-  height: 72vh; min-height: 480px; max-height: 860px; background: #2a2a26;
+  height: 100vh; min-height: 0; max-height: none; background: #2a2a26;
 }
 .hp-transition__img { object-position: center 30%; }
 .hp-transition__scrim {
@@ -1180,7 +1039,7 @@ import Layout from '../layouts/Layout.astro';
 }
 .hp-transition__text {
   position: absolute; left: 0; right: 0; bottom: 52px;
-  max-width: 1040px; margin: 0 auto; padding-inline: 32px; color: #fff;
+  max-width: var(--page-max); margin: 0 auto; padding-inline: var(--page-pad); color: #fff;
 }
 .hp-transition__sub {
   font-family: var(--font-ui); font-size: 11px; font-weight: 500;
@@ -1197,8 +1056,8 @@ import Layout from '../layouts/Layout.astro';
   text-wrap: balance;
 }
 @media (max-width: 720px) {
-  .hp-transition { height: 90vh; min-height: 560px; max-height: none; }
-  .hp-transition__text { padding-inline: 20px; bottom: 40px; }
+  .hp-transition { height: 100svh; min-height: 0; max-height: none; }
+  .hp-transition__text { padding-inline: var(--page-pad-mobile); bottom: 40px; }
 }
 
 /* ============================================================
@@ -1299,11 +1158,12 @@ import Layout from '../layouts/Layout.astro';
     flex: 0 0 100vw; max-width: none;
     height: 100%; overflow-y: hidden;
     background: var(--color-bg-tint);
-    padding-left: 28px !important; padding-right: 28px !important;
+    padding-left: var(--page-pad-mobile) !important; padding-right: var(--page-pad-mobile) !important;
     box-sizing: border-box;
   }
   .hp-journey--impact .hp-schools { padding-top: 52px; }
-  .hp-journey--impact .hp-tangibility { background: var(--color-bg); padding-top: 52px; }
+  .hp-journey--impact .hp-tangibility { padding-top: 52px; }
+  .hp-journey--impact .hp-schools__inner { padding-inline: 0 !important; }
   .hp-journey--impact .hp-tangibility__inner { padding-inline: 0 !important; grid-template-columns: 1fr; gap: 24px; }
   .hp-journey--impact .hp-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
   #impact-track { gap: 0 !important; }
@@ -1364,7 +1224,7 @@ import Layout from '../layouts/Layout.astro';
     var tp = ease(prog(p, 0.38, 0.58));
     title.style.opacity   = tp;
     title.style.transform = 'translateY(' + lerp(28, 0, tp) + 'px)';
-    if (cue) cue.style.opacity = ease(prog(p, 0.55, 0.75));
+    if (cue) cue.style.opacity = 1 - ease(prog(p, 0, 0.18));
     if (text) {
       var rp = ease(prog(p, 0.58, 1.0));
       text.style.transform = 'translateY(-' + (rp * window.innerHeight * 0.4) + 'px)';
@@ -1504,18 +1364,10 @@ import Layout from '../layouts/Layout.astro';
 
   var sentenceWrap = outer.querySelector('.hp-mob-sentence-wrap');
 
-  var words = [
-    { id: 'mob-we',          p: 0.02 },
-    { id: 'mob-sustainably', p: 0.06 },
-    { id: 'mob-raise-funds', p: 0.11 },
-    { id: 'mob-education',   p: 0.16 },
-    { id: 'mob-insa',        p: 0.20 }
-  ];
-
   var phases = [
-    { start: 0.24, end: 0.46, branchId: 'mob-branch-s', kwId: 'mob-sustainably' },
-    { start: 0.50, end: 0.64, branchId: 'mob-branch-r', kwId: 'mob-raise-funds' },
-    { start: 0.68, end: 0.88, branchId: 'mob-branch-e', kwId: 'mob-education'   }
+    { start: 0.46, end: 0.64, branchId: 'mob-branch-s', kwId: 'mob-sustainably' },
+    { start: 0.66, end: 0.80, branchId: 'mob-branch-r', kwId: 'mob-raise-funds' },
+    { start: 0.82, end: 0.96, branchId: 'mob-branch-e', kwId: 'mob-education'   }
   ];
 
   phases.forEach(function (ph) {
@@ -1528,6 +1380,9 @@ import Layout from '../layouts/Layout.astro';
     });
   });
 
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+  function easeOut3(t) { return 1 - Math.pow(1 - t, 3); }
+
   function getP() {
     var scrollable = outer.offsetHeight - window.innerHeight;
     if (scrollable <= 0) return 0;
@@ -1537,12 +1392,15 @@ import Layout from '../layouts/Layout.astro';
   function update() {
     var p = getP();
     if (sentenceWrap) {
-      sentenceWrap.style.transform = 'translateY(-' + (p * window.innerHeight * 0.20) + 'px)';
+      var wrapH = sentenceWrap.offsetHeight;
+      var vh    = window.innerHeight;
+      var centerOffset = Math.max(0, (vh - wrapH) / 2);
+      // Hold centred for 0–0.25, lift over 0.25–0.45, settled past 0.45
+      var liftP   = easeOut3(clamp((p - 0.25) / 0.20, 0, 1));
+      var ty = centerOffset * (1 - liftP);
+      var sc = 1 - 0.32 * liftP;
+      sentenceWrap.style.transform = 'translateY(' + ty + 'px) scale(' + sc + ')';
     }
-    words.forEach(function (w) {
-      var el = document.getElementById(w.id);
-      if (el) el.classList.toggle('is-revealed', p >= w.p);
-    });
     var activeIdx = -1;
     for (var i = phases.length - 1; i >= 0; i--) {
       if (p >= phases[i].start) { activeIdx = i; break; }
@@ -1561,7 +1419,17 @@ import Layout from '../layouts/Layout.astro';
     });
   }
 
-  window.addEventListener('scroll', update, { passive: true });
+  var scheduled = false;
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(function () {
+      scheduled = false;
+      update();
+    });
+  }
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
   update();
 })();
 
@@ -1612,133 +1480,52 @@ import Layout from '../layouts/Layout.astro';
 })();
 
 /* ============================================================
-   BURGER MENU
-   ============================================================ */
-(function () {
-  var burger = document.getElementById('nav-burger');
-  var menu   = document.getElementById('mobile-menu');
-  var close  = document.getElementById('mobile-menu-close');
-  if (!burger || !menu) return;
-
-  function openMenu() {
-    menu.classList.add('is-open');
-    menu.setAttribute('aria-hidden', 'false');
-    burger.classList.add('is-open');
-    burger.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeMenu() {
-    menu.classList.remove('is-open');
-    menu.setAttribute('aria-hidden', 'true');
-    burger.classList.remove('is-open');
-    burger.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
-
-  burger.addEventListener('click', openMenu);
-  if (close) close.addEventListener('click', closeMenu);
-  menu.querySelectorAll('[data-close-menu]').forEach(function (el) {
-    el.addEventListener('click', closeMenu);
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeMenu();
-  });
-})();
-
-/* ============================================================
-   INTERACTIVE SENTENCE — scroll + hover (desktop)
+   INTERACTIVE SENTENCE — leaf reveal on scroll (desktop)
    ============================================================ */
 (function () {
   if (!window.matchMedia('(min-width: 861px)').matches) return;
-  var outer  = document.getElementById('diagram');
-  var bar    = document.getElementById('diagram-bar');
-  var hint   = document.getElementById('diagram-hint');
-  var dots   = document.querySelectorAll('.hp-diagram-dot');
-  var center = document.querySelector('.hp-diagram-center');
+  var outer = document.getElementById('diagram');
+  var hint  = document.getElementById('diagram-hint');
+  if (!outer) return;
 
   var CONFIGS = [
-    { key: 'sustainably', kwId: 'dkw-sustainably', grpId: 'dgrp-sustainably' },
-    { key: 'raise-funds', kwId: 'dkw-raise-funds', grpId: 'dgrp-raise-funds' },
-    { key: 'education',   kwId: 'dkw-education',   grpId: 'dgrp-education'   }
+    { key: 'sustainably', kwId: 'dkw-sustainably', grpId: 'dgrp-sustainably', start: 0.12, end: 0.32 },
+    { key: 'raise-funds', kwId: 'dkw-raise-funds', grpId: 'dgrp-raise-funds', start: 0.36, end: 0.56 },
+    { key: 'education',   kwId: 'dkw-education',   grpId: 'dgrp-education',   start: 0.60, end: 0.80 }
   ];
 
-  var PHASE_KEYS = [null, 'sustainably', 'raise-funds', 'education'];
-  var currentPhase = 0;
-  var hoverKey     = null;
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
 
   function getProgress() {
-    if (!outer) return 0;
     var scrollable = outer.offsetHeight - window.innerHeight;
     if (scrollable <= 0) return 0;
-    return Math.max(0, Math.min(1, -outer.getBoundingClientRect().top / scrollable));
+    return clamp(-outer.getBoundingClientRect().top / scrollable, 0, 1);
   }
 
-  function progressToPhase(p) {
-    if (p < 0.12) return 0;
-    if (p < 0.45) return 1;
-    if (p < 0.75) return 2;
-    return 3;
-  }
-
-  function activateGroup(activeKey) {
-    CONFIGS.forEach(function (cfg) {
-      var kwEl  = document.getElementById(cfg.kwId);
-      var grpEl = document.getElementById(cfg.grpId);
-      var on = (cfg.key === activeKey);
-      if (kwEl)  kwEl.classList.toggle('is-active', on);
-      if (grpEl) grpEl.classList.toggle('is-active', on);
-    });
-  }
-
-  function updateDots(phase) {
-    dots.forEach(function (d) {
-      d.classList.toggle('is-active', parseInt(d.dataset.phase, 10) === phase);
-    });
-  }
-
-  function setScrollPhase(phase) {
-    currentPhase = phase;
-    if (hoverKey) return;
-    activateGroup(PHASE_KEYS[phase]);
-    updateDots(phase);
-    if (phase > 0 && hint) hint.classList.add('is-hidden');
-  }
-
-  function onScroll() {
+  function update() {
     var p = getProgress();
-    setScrollPhase(progressToPhase(p));
-    if (bar) bar.style.width = (p * 100) + '%';
-    if (center) center.style.transform = 'translateY(-' + (p * window.innerHeight * 0.30) + 'px)';
+    CONFIGS.forEach(function (cfg) {
+      var local = clamp((p - cfg.start) / (cfg.end - cfg.start), 0, 1);
+      var revealed = local > 0;
+      var grp = document.getElementById(cfg.grpId);
+      var kw  = document.getElementById(cfg.kwId);
+      if (grp) grp.classList.toggle('is-active', revealed);
+      if (kw)  kw.classList.toggle('is-active', revealed);
+    });
+    if (hint && p > 0.05) hint.classList.add('is-hidden');
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
+  var scheduled = false;
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(function () {
+      scheduled = false;
+      update();
+    });
+  }
 
-  CONFIGS.forEach(function (cfg) {
-    var kwEl = document.getElementById(cfg.kwId);
-    if (!kwEl) return;
-    kwEl.addEventListener('mouseenter', function () {
-      hoverKey = cfg.key;
-      activateGroup(cfg.key);
-      updateDots(PHASE_KEYS.indexOf(cfg.key));
-    });
-    kwEl.addEventListener('mouseleave', function () {
-      hoverKey = null;
-      activateGroup(PHASE_KEYS[currentPhase]);
-      updateDots(currentPhase);
-    });
-    kwEl.addEventListener('click', function () {
-      if (kwEl.classList.contains('is-active') && hoverKey === cfg.key) {
-        hoverKey = null;
-        activateGroup(PHASE_KEYS[currentPhase]);
-        updateDots(currentPhase);
-      } else {
-        hoverKey = cfg.key;
-        activateGroup(cfg.key);
-        updateDots(PHASE_KEYS.indexOf(cfg.key));
-      }
-    });
-  });
-
-  onScroll();
+  window.addEventListener('scroll', schedule, { passive: true });
+  update();
 })();
 </script>

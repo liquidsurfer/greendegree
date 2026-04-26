@@ -2,7 +2,106 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="coming soon — green°">
-  <!-- Coming Soon content goes here -->
-  <p>Coming Soon stub</p>
+<Layout title="coming soon — green°" description="this corner of the green° site is still in the works. say hi in the meantime.">
+
+<main class="cs-stage">
+  <div class="cs-inner">
+    <span class="gn-eyebrow cs-eyebrow">green<span class="gn-deg">°</span> · in the works</span>
+    <h1 class="cs-title">we're<br>still <em>stitching<br>this one</em> together.</h1>
+    <p class="cs-lede">
+      our shop and contact pages are still coming together. in the meantime, the easiest way to reach us — for orders, partnerships or just a chat — is straight to the inbox.
+    </p>
+
+    <div class="cs-actions">
+      <a class="cs-cta cs-cta--primary" href="mailto:hello@greendegree.co.za">hello@greendegree.co.za</a>
+      <a class="cs-cta cs-cta--ghost" href="https://www.instagram.com/greendegree" target="_blank" rel="noopener">follow on instagram →</a>
+    </div>
+
+    <a class="cs-back" href="/">← back to the homepage</a>
+  </div>
+</main>
+
 </Layout>
+
+<style>
+.cs-stage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 144px var(--page-pad) 96px;
+  background: var(--color-bg);
+}
+.cs-inner {
+  max-width: 720px;
+  width: 100%;
+}
+.cs-eyebrow { display: inline-block; margin-bottom: 40px; }
+.cs-title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+  margin: 0 0 40px;
+}
+.cs-title em {
+  font-style: normal;
+  color: var(--color-sage-deep);
+}
+.cs-lede {
+  font-family: var(--font-body);
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.55;
+  color: var(--color-ink-soft);
+  max-width: 56ch;
+  margin: 0 0 48px;
+}
+.cs-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 64px;
+}
+.cs-cta {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  padding: 14px 22px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 200ms, color 200ms, border-color 200ms;
+  white-space: nowrap;
+}
+.cs-cta--primary {
+  background: var(--color-ink);
+  color: var(--color-bg);
+  border: 1px solid var(--color-ink);
+}
+.cs-cta--primary:hover { background: var(--color-sage-deep); border-color: var(--color-sage-deep); }
+.cs-cta--ghost {
+  background: transparent;
+  color: var(--color-ink);
+  border: 1px solid rgba(26, 26, 23, 0.35);
+}
+.cs-cta--ghost:hover { border-color: var(--color-ink); background: rgba(26, 26, 23, 0.04); }
+.cs-back {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 160ms, border-color 160ms;
+}
+.cs-back:hover { color: var(--color-ink); border-bottom-color: var(--color-ink); }
+
+@media (max-width: 720px) {
+  .cs-stage { padding: 120px var(--page-pad-mobile) 80px; }
+  .cs-lede { margin-bottom: 36px; }
+  .cs-actions { margin-bottom: 48px; }
+}
+</style>

@@ -4,19 +4,6 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="articles — green°">
 
-<!-- Nav -->
-<div class="ar-nav-wrap">
-  <nav class="ar-nav">
-    <a href="/" class="ar-nav__brand">green<span class="gn-deg">°</span></a>
-    <div class="ar-nav__links">
-      <a href="/our-story" class="ar-nav__link">our story</a>
-      <a href="/#collections" class="ar-nav__link">shop</a>
-      <a href="/#foot" class="ar-nav__link">contact</a>
-    </div>
-    <a href="/donate" class="ar-nav__cta">donate</a>
-  </nav>
-</div>
-
 <!-- Header -->
 <header class="ar-header">
   <div>
@@ -80,57 +67,11 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-/* Nav */
-.ar-nav-wrap { max-width: 1200px; margin: 0 auto; padding-inline: 40px; }
-.ar-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 28px 0;
-  border-bottom: 1px solid var(--color-rule);
-}
-.ar-nav__brand {
-  font-family: var(--font-display);
-  font-size: 26px;
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  color: var(--color-ink);
-  text-decoration: none;
-  border: none;
-}
-.ar-nav__links { display: flex; align-items: center; gap: 36px; }
-.ar-nav__link {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  color: var(--color-ink-soft);
-  text-decoration: none;
-  border: none;
-  transition: color 160ms;
-}
-.ar-nav__link:hover { color: var(--color-ink); }
-.ar-nav__cta {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: lowercase;
-  padding: 10px 18px;
-  border: 1px solid var(--color-ink);
-  color: var(--color-ink);
-  text-decoration: none;
-  transition: background 160ms, color 160ms;
-}
-.ar-nav__cta:hover { background: var(--color-ink); color: var(--color-bg); }
-@media (max-width: 720px) {
-  .ar-nav-wrap { padding-inline: 20px; }
-  .ar-nav__links { display: none; }
-}
-
 /* Header */
 .ar-header {
-  max-width: 1200px;
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding: 96px 40px 72px;
+  padding: 144px var(--page-pad) 72px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 48px;
@@ -156,14 +97,14 @@ import Layout from '../layouts/Layout.astro';
   padding-bottom: 8px;
 }
 @media (max-width: 720px) {
-  .ar-header { padding: 64px 20px 48px; grid-template-columns: 1fr; gap: 24px; }
+  .ar-header { padding: 64px var(--page-pad-mobile) 48px; grid-template-columns: 1fr; gap: 24px; }
 }
 
 /* Articles grid */
 .ar-grid {
-  max-width: 1200px;
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding: 0 40px 120px;
+  padding: 0 var(--page-pad) 120px;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -268,7 +209,7 @@ import Layout from '../layouts/Layout.astro';
 .ar-article__cta::after { content: "→"; font-size: 14px; }
 
 @media (max-width: 820px) {
-  .ar-grid { padding: 0 20px 80px; }
+  .ar-grid { padding: 0 var(--page-pad-mobile) 80px; }
   .ar-article { grid-template-columns: 1fr; gap: 16px; padding: 36px 0; }
   .ar-article__cta { display: none; }
 }
@@ -277,7 +218,7 @@ import Layout from '../layouts/Layout.astro';
 .ar-foot {
   background: var(--color-bg-tint);
   border-top: 1px solid var(--color-rule);
-  padding: 48px 40px;
+  padding: 48px var(--page-pad);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -301,6 +242,6 @@ import Layout from '../layouts/Layout.astro';
 }
 .ar-foot__back:hover { color: var(--color-ink); }
 @media (max-width: 720px) {
-  .ar-foot { padding: 32px 20px; flex-direction: column; text-align: center; }
+  .ar-foot { padding: 32px var(--page-pad-mobile); flex-direction: column; text-align: center; }
 }
 </style>

@@ -33,7 +33,7 @@ import Layout from '../layouts/Layout.astro';
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px 40px 120px;
+  padding: 80px var(--page-pad) 120px;
   text-align: center;
 }
 
@@ -245,7 +245,7 @@ import Layout from '../layouts/Layout.astro';
 }
 
 @media (max-width: 640px) {
-  .dn-stage { padding: 80px 20px 100px; }
+  .dn-stage { padding: 80px var(--page-pad-mobile) 100px; }
   .dn-controls { gap: 16px; }
   .dn-slider-wrap { width: 140px; }
   .dn-note { display: none; }

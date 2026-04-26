@@ -4,19 +4,6 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="our story — green°">
 
-<!-- Nav -->
-<div class="os-nav-wrap">
-  <nav class="os-nav">
-    <a href="/" class="os-nav__brand">green<span class="gn-deg">°</span></a>
-    <div class="os-nav__links">
-      <a href="/#collections" class="os-nav__link">shop</a>
-      <a href="/articles" class="os-nav__link">articles</a>
-      <a href="/#foot" class="os-nav__link">contact</a>
-    </div>
-    <a href="/donate" class="os-nav__cta">donate</a>
-  </nav>
-</div>
-
 <!-- Hero -->
 <header class="os-hero">
   <span class="gn-eyebrow os-hero__eyebrow">our story</span>
@@ -110,65 +97,11 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-/* Nav */
-.os-nav-wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-inline: 40px;
-}
-.os-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 28px 0;
-  border-bottom: 1px solid var(--color-rule);
-}
-.os-nav__brand {
-  font-family: var(--font-display);
-  font-size: 26px;
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  color: var(--color-ink);
-  text-decoration: none;
-  border: none;
-}
-.os-nav__links {
-  display: flex;
-  align-items: center;
-  gap: 36px;
-}
-.os-nav__link {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  color: var(--color-ink-soft);
-  text-decoration: none;
-  border: none;
-  transition: color 160ms;
-}
-.os-nav__link:hover { color: var(--color-ink); }
-.os-nav__cta {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: lowercase;
-  padding: 10px 18px;
-  border: 1px solid var(--color-ink);
-  color: var(--color-ink);
-  text-decoration: none;
-  transition: background 160ms, color 160ms;
-}
-.os-nav__cta:hover { background: var(--color-ink); color: var(--color-bg); }
-@media (max-width: 720px) {
-  .os-nav-wrap { padding-inline: 20px; }
-  .os-nav__links { display: none; }
-}
-
 /* Hero */
 .os-hero {
-  max-width: 1200px;
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding: 96px 40px 80px;
+  padding: 144px var(--page-pad) 80px;
 }
 .os-hero__eyebrow { margin-bottom: 32px; }
 .os-hero__title {
@@ -186,13 +119,13 @@ import Layout from '../layouts/Layout.astro';
   font-style: italic;
   color: var(--color-sage-deep);
 }
-@media (max-width: 720px) { .os-hero { padding: 64px 20px 48px; } }
+@media (max-width: 720px) { .os-hero { padding: 64px var(--page-pad-mobile) 48px; } }
 
 /* Story body */
 .os-body {
   max-width: 720px;
   margin: 0 auto;
-  padding: 0 40px 120px;
+  padding: 0 var(--page-pad) 120px;
 }
 .os-body p {
   font-family: var(--font-ui);
@@ -234,7 +167,7 @@ import Layout from '../layouts/Layout.astro';
 }
 
 @media (max-width: 720px) {
-  .os-body { padding: 0 20px 80px; }
+  .os-body { padding: 0 var(--page-pad-mobile) 80px; }
   .os-body p { font-size: 16px; }
 }
 
@@ -244,9 +177,9 @@ import Layout from '../layouts/Layout.astro';
   padding: 96px 0;
 }
 .os-mission__inner {
-  max-width: 1100px;
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding-inline: 40px;
+  padding-inline: var(--page-pad);
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
   gap: 80px;
@@ -277,15 +210,15 @@ import Layout from '../layouts/Layout.astro';
 }
 @media (max-width: 820px) {
   .os-mission { padding: 64px 0; }
-  .os-mission__inner { grid-template-columns: 1fr; gap: 40px; padding-inline: 20px; }
+  .os-mission__inner { grid-template-columns: 1fr; gap: 40px; padding-inline: var(--page-pad-mobile); }
   .os-mission__label { position: static; }
 }
 
 /* Values */
 .os-values {
-  max-width: 1100px;
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding: 96px 40px 120px;
+  padding: 96px var(--page-pad) 120px;
 }
 .os-values__head {
   display: flex;
@@ -330,19 +263,19 @@ import Layout from '../layouts/Layout.astro';
   line-height: 1;
 }
 @media (max-width: 720px) {
-  .os-values { padding: 64px 20px 80px; }
+  .os-values { padding: 64px var(--page-pad-mobile) 80px; }
   .os-values__item { padding: 24px 0; }
 }
 
 /* Invitation close */
 .os-invite {
   background: var(--color-ink);
-  padding: 120px 40px 100px;
+  padding: 120px var(--page-pad) 100px;
   text-align: center;
 }
 .os-invite__inner { max-width: 760px; margin: 0 auto; }
 .os-invite__eyebrow {
-  color: rgba(245,241,232,0.6);
+  color: rgba(232,225,203,0.6);
   margin-bottom: 40px;
 }
 .os-invite__quote {
@@ -372,12 +305,12 @@ import Layout from '../layouts/Layout.astro';
   transition: background 200ms;
 }
 .os-invite__cta:hover { background: #bfe070; color: var(--color-ink); }
-@media (max-width: 720px) { .os-invite { padding: 80px 20px 64px; } }
+@media (max-width: 720px) { .os-invite { padding: 80px var(--page-pad-mobile) 64px; } }
 
 /* Footer */
 .os-foot {
   background: var(--color-ink);
-  padding: 32px 40px;
+  padding: 32px var(--page-pad);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -386,11 +319,11 @@ import Layout from '../layouts/Layout.astro';
 .os-foot__copy {
   font-family: var(--font-ui);
   font-size: 12px;
-  color: rgba(245,241,232,0.4);
+  color: rgba(232,225,203,0.4);
   letter-spacing: 0.04em;
 }
 .os-foot__back {
-  color: rgba(245,241,232,0.4);
+  color: rgba(232,225,203,0.4);
   text-decoration: none;
   border: none;
   transition: color 160ms;
@@ -403,6 +336,6 @@ import Layout from '../layouts/Layout.astro';
   background: var(--color-lime);
 }
 @media (max-width: 720px) {
-  .os-foot { padding: 24px 20px; flex-direction: column; gap: 12px; text-align: center; }
+  .os-foot { padding: 24px var(--page-pad-mobile); flex-direction: column; gap: 12px; text-align: center; }
 }
 </style>
