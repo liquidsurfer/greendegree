@@ -1,0 +1,238 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Privacy Policy — green°">
+  <main class="legal-page">
+    <div class="legal-page__inner">
+
+      <header class="legal-page__header">
+        <span class="legal-page__eyebrow">legal</span>
+        <h1 class="legal-page__title">Privacy Policy</h1>
+        <p class="legal-page__updated">Last updated: April 2026</p>
+      </header>
+
+      <div class="legal-page__body">
+
+        <section class="legal-section">
+          <h2>The short version</h2>
+          <p>We collect as little as possible. If you fill in our contact form, we receive your name and email address. If you make a donation, your payment is handled entirely by Yoco — we never see your card details. We don't run analytics, and we don't sell data to anyone.</p>
+        </section>
+
+        <section class="legal-section">
+          <h2>What we collect and why</h2>
+          <p><strong>Contact form:</strong> When you send us a message via the contact form, we receive your name, email address, and whatever you wrote. We use this solely to reply to your enquiry.</p>
+          <p><strong>Donation payments:</strong> Payments are processed by <a href="https://www.yoco.com" target="_blank" rel="noopener">Yoco</a>. green° never receives or stores your card number, CVV, or any payment credentials — that all stays with Yoco.</p>
+          <p>We don't collect any other personal information. There are no accounts to create, no newsletter sign-up (at this stage), and no tracking pixels.</p>
+        </section>
+
+        <section class="legal-section">
+          <h2>How your information is stored</h2>
+          <p>Contact form submissions are delivered to <a href="mailto:hello@greendegree.co.za">hello@greendegree.co.za</a> via <a href="https://formsubmit.co" target="_blank" rel="noopener">formsubmit.co</a>, a third-party form delivery service. We don't run a database — your message arrives in our inbox and that's where it lives.</p>
+          <p>We keep enquiry emails only as long as is reasonably necessary to handle your request.</p>
+        </section>
+
+        <section class="legal-section">
+          <h2>Third parties we use</h2>
+          <p>We work with two external services that may process your data:</p>
+          <ul>
+            <li><strong>formsubmit.co</strong> — routes contact form submissions to our email. See their <a href="https://formsubmit.co/privacy.pdf" target="_blank" rel="noopener">privacy policy</a>.</li>
+            <li><strong>Yoco</strong> — processes donation payments. See <a href="https://www.yoco.com/za/legal/privacy-policy/" target="_blank" rel="noopener">Yoco's privacy policy</a>.</li>
+          </ul>
+          <p>We don't use Google Analytics, Facebook Pixel, or any other tracking or advertising services.</p>
+        </section>
+
+        <section class="legal-section">
+          <h2>Cookies</h2>
+          <p>This site doesn't set any cookies of its own. Your browser may set technical cookies as part of normal operation (for example, to handle secure connections), but we don't use cookies for tracking, advertising, or analytics.</p>
+        </section>
+
+        <section class="legal-section">
+          <h2>Your rights under POPIA</h2>
+          <p>South Africa's <strong>Protection of Personal Information Act (POPIA)</strong> gives you the right to:</p>
+          <ul>
+            <li>Know what personal information we hold about you</li>
+            <li>Request a correction if any information is inaccurate</li>
+            <li>Request deletion of your information</li>
+            <li>Object to how we process your information</li>
+          </ul>
+          <p>To exercise any of these rights, email us at <a href="mailto:hello@greendegree.co.za">hello@greendegree.co.za</a> and we'll respond promptly.</p>
+        </section>
+
+        <section class="legal-section">
+          <h2>Changes to this policy</h2>
+          <p>If we make meaningful changes to how we handle your data, we'll update this page and revise the "last updated" date at the top.</p>
+        </section>
+
+        <section class="legal-section">
+          <h2>Questions?</h2>
+          <p>If you have any privacy questions or concerns, reach us at <a href="mailto:hello@greendegree.co.za">hello@greendegree.co.za</a>.</p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .legal-page {
+    padding-top: 96px; /* clear the fixed nav */
+    padding-bottom: 120px;
+    min-height: 100vh;
+  }
+
+  .legal-page__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding-inline: var(--page-pad);
+  }
+
+  /* ---- Header ---- */
+  .legal-page__header {
+    padding: 64px 0 56px;
+    border-bottom: 1px solid var(--color-rule);
+    margin-bottom: 64px;
+  }
+
+  .legal-page__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-ui);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-sage-deep);
+    margin-bottom: 20px;
+  }
+
+  .legal-page__eyebrow::after {
+    content: "";
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--color-sage-deep);
+  }
+
+  .legal-page__title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -0.028em;
+    color: var(--color-ink);
+    margin: 0 0 16px;
+    text-wrap: balance;
+  }
+
+  .legal-page__updated {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--color-ink-faint);
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+
+  /* ---- Body ---- */
+  .legal-page__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .legal-section {
+    padding-bottom: 48px;
+    margin-bottom: 48px;
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .legal-section:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .legal-section h2 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+    letter-spacing: -0.018em;
+    color: var(--color-ink);
+    margin: 0 0 18px;
+    line-height: 1.2;
+  }
+
+  .legal-section p {
+    font-family: var(--font-ui);
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--color-ink-soft);
+    margin: 0 0 16px;
+    max-width: 68ch;
+  }
+
+  .legal-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .legal-section ul {
+    font-family: var(--font-ui);
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--color-ink-soft);
+    margin: 0 0 16px;
+    padding-left: 0;
+    list-style: none;
+    max-width: 68ch;
+  }
+
+  .legal-section ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--color-rule);
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .legal-section ul li::before {
+    content: "·";
+    position: absolute;
+    left: 4px;
+    color: var(--color-ink-faint);
+  }
+
+  .legal-section ul li:last-child {
+    border-bottom: 0;
+  }
+
+  .legal-section a {
+    color: var(--color-denim);
+    border-bottom: 1px solid rgba(61, 76, 102, 0.3);
+    transition: border-color 160ms;
+  }
+
+  .legal-section a:hover {
+    border-bottom-color: var(--color-denim);
+  }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 640px) {
+    .legal-page {
+      padding-top: 72px;
+      padding-bottom: 80px;
+    }
+
+    .legal-page__inner {
+      padding-inline: var(--page-pad-mobile);
+    }
+
+    .legal-page__header {
+      padding: 40px 0 40px;
+      margin-bottom: 48px;
+    }
+
+    .legal-section {
+      padding-bottom: 36px;
+      margin-bottom: 36px;
+    }
+  }
+</style>
