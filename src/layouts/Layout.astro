@@ -60,21 +60,23 @@ const organizationSchema = {
         <nav class="g-bar__links" aria-label="primary">
           <a href={routes.ourStory} class="g-bar__link">our story</a>
           <a href={routes.shop} class="g-bar__link">shop</a>
-          <a href={routes.articles} class="g-bar__link">articles</a>
+          <a href={routes.about} class="g-bar__link">about</a>
           <a href={routes.contact} class="g-bar__link">contact</a>
         </nav>
         <a href={routes.donate} class="g-bar__donate">donate</a>
       </div>
     </header>
 
-    <div class="g-fab-wrap">
-      <button class="g-fab" id="g-fab" type="button" aria-label="open menu" aria-expanded="false" aria-controls="g-menu">
-        <span class="g-fab__icon" aria-hidden="true">
-          <span class="g-fab__bar"></span>
-          <span class="g-fab__bar"></span>
-          <span class="g-fab__bar"></span>
+    <div class="g-bot" id="g-bot">
+      <button class="g-bot__menu" id="g-bot-menu" type="button" aria-label="open menu" aria-expanded="false" aria-controls="g-menu">
+        <span class="g-bot__menu-icon" aria-hidden="true">
+          <span class="g-bot__bar"></span>
+          <span class="g-bot__bar"></span>
+          <span class="g-bot__bar"></span>
         </span>
+        <span class="g-bot__menu-label">explore</span>
       </button>
+      <a href={routes.donate} class="g-bot__donate">donate →</a>
     </div>
 
     <aside class="g-menu" id="g-menu" aria-hidden="true" role="dialog" aria-modal="true" aria-label="site menu">
@@ -82,7 +84,7 @@ const organizationSchema = {
         <a href={routes.home} class="g-menu__link" data-close>home</a>
         <a href={routes.ourStory} class="g-menu__link" data-close>our story</a>
         <a href={routes.shop} class="g-menu__link" data-close>shop</a>
-        <a href={routes.articles} class="g-menu__link" data-close>articles</a>
+        <a href={routes.about} class="g-menu__link" data-close>about</a>
         <a href={routes.contact} class="g-menu__link" data-close>contact</a>
       </nav>
       <a href={routes.donate} class="g-menu__cta" data-close>donate →</a>
@@ -143,6 +145,7 @@ const organizationSchema = {
           <nav class="hp-foot__nav" aria-label="footer navigation">
             <a href={routes.ourStory} class="hp-foot__navlink">our story</a>
             <a href={routes.shop} class="hp-foot__navlink">shop</a>
+            <a href={routes.about} class="hp-foot__navlink">about</a>
             <a href={routes.articles} class="hp-foot__navlink">articles</a>
             <a href={routes.contact} class="hp-foot__navlink">contact</a>
             <a href={routes.donate} class="hp-foot__navlink">donate</a>
@@ -180,7 +183,7 @@ const organizationSchema = {
         html.classList.add('nav-revealed');
       }
 
-      var fab  = document.getElementById('g-fab');
+      var fab  = document.getElementById('g-bot-menu');
       var menu = document.getElementById('g-menu');
       if (!fab || !menu) return;
 

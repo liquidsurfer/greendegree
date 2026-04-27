@@ -4,15 +4,10 @@ import { Image, getImage } from 'astro:assets';
 import { routes } from '../config/routes.ts';
 import { brand } from '../config/brand.ts';
 import imgHero        from '../assets/images/why-capricorn-primary.jpg';
-import imgHowCollect  from '../assets/images/how-01-collect.avif';
-import imgHowCreate   from '../assets/images/how-02-create.jpg';
-import imgHowContrib  from '../assets/images/how-03-contribute.jpg';
-import imgTangibility from '../assets/images/10-tangibility-flatlay.jpg';
 import imgTransition  from '../assets/images/01-kite-cederberg.jpg';
 import imgKiteTrio    from '../assets/images/02b-hero-kite-trio.jpg';
 import imgDenim       from '../assets/images/04-collection-denim.jpg';
 import imgParachute   from '../assets/images/14-parachute-tote.jpeg';
-import imgFounders    from '../assets/images/12-founders.jpg';
 import imgClassroom   from '../assets/images/classroom-pencil-cases-sepia.jpg';
 
 const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 });
@@ -27,7 +22,7 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   <div class="gd-loader__rule"></div>
 </div>
 
-<!-- BEAT 1 — Hero journey -->
+<!-- HERO -->
 <div class="hp-hero-outer" id="hero-outer">
   <section class="hp-hero">
     <Image class="hp-hero__img" src={imgHero} alt="children at capricorn primary holding up green° denim pencil cases" width={1920} loading="eager" format="webp" />
@@ -46,17 +41,12 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   </section>
 </div>
 
-<!-- Reveals the global nav as we enter BEAT 1.5 -->
+<!-- nav-reveal-sentinel: triggers the global nav to appear -->
 <div id="nav-reveal-sentinel" aria-hidden="true"></div>
 
-<!-- BEAT 1.5 — THE INTERACTIVE SENTENCE -->
+<!-- INTERACTIVE SENTENCE -->
 <section class="hp-diagram-outer" id="diagram">
   <div class="hp-diagram-sticky">
-
-    <div class="hp-diagram-eye">
-      <span class="gn-eyebrow">the why · the how · the what</span>
-    </div>
-
 
     <div class="hp-diagram-stage">
 
@@ -72,11 +62,11 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
 
       <div class="hp-diagram-center">
         <p class="hp-diagram-sentence">
-          <span class="hp-word" id="word-we">we</span>
+          <span class="hp-word">we</span>
           <button class="hp-diagram-kw hp-word" id="dkw-sustainably" data-group="sustainably">sustainably</button>
           <button class="hp-diagram-kw hp-word" id="dkw-raise-funds" data-group="raise-funds">raise funds</button>
           <button class="hp-diagram-kw hp-word" id="dkw-education" data-group="education">for education</button>
-          <span class="hp-word" id="word-insa">in SA<span class="gn-deg">.</span></span>
+          <span class="hp-word">in SA<span class="gn-deg">.</span></span>
         </p>
         <div class="hp-diagram-hint" id="diagram-hint">hover to explore</div>
       </div>
@@ -102,25 +92,22 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
     </div>
 
     <div class="hp-diagram-dots" aria-hidden="true">
-      <div class="hp-diagram-dot" data-phase="1"></div>
+      <div class="hp-diagram-dot is-active" data-phase="1"></div>
       <div class="hp-diagram-dot" data-phase="2"></div>
       <div class="hp-diagram-dot" data-phase="3"></div>
-    </div>
-
-    <div class="hp-diagram-progress-wrap">
-      <div class="hp-diagram-progress-bar" id="diagram-bar"></div>
     </div>
 
     <!-- MOBILE SENTENCE -->
     <div class="hp-diagram-mobile" aria-hidden="false">
       <div class="hp-mob-sentence-wrap">
         <p class="hp-mob-sentence-text">
-          <span class="hp-mob-word" id="mob-we">we</span>
+          <span class="hp-mob-word">we</span>
           <span class="hp-mob-word hp-mob-kw" id="mob-sustainably">sustainably</span>
           <span class="hp-mob-word hp-mob-kw" id="mob-raise-funds">raise funds</span>
           <span class="hp-mob-word hp-mob-kw" id="mob-education">for education</span>
-          <span class="hp-mob-word" id="mob-insa">in SA<span class="gn-deg">.</span></span>
+          <span class="hp-mob-word">in SA<span class="gn-deg">.</span></span>
         </p>
+        <div class="hp-mob-hint" id="mob-hint">tap a word to explore</div>
       </div>
       <div class="hp-mob-branch-area">
         <div class="hp-mob-branch" id="mob-branch-s">
@@ -148,106 +135,6 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   </div>
 </section>
 
-<!-- BEAT 2 — HOW -->
-<div class="hp-journey hp-journey--how" id="journey-how">
-  <div class="hp-journey__sticky">
-    <section class="hp-how" id="how">
-      <div class="hp-how__head">
-        <span class="gn-eyebrow">the process</span>
-        <h2 class="hp-how__title">collect, create, contribute.</h2>
-      </div>
-      <div class="hp-how__steps" id="how-track">
-        <article class="hp-how__step">
-          <div class="hp-how__num">01</div>
-          <div class="hp-how__img-wrap">
-            <Image class="hp-how__img" src={imgHowCollect} alt="a pile of donated denim, waiting to be sorted" width={800} format="webp" />
-          </div>
-          <h3 class="hp-how__step-title">donated kites, paragliders and denims</h3>
-          <p class="hp-how__step-line">upcycle — transform waste.</p>
-        </article>
-        <article class="hp-how__step">
-          <div class="hp-how__num">02</div>
-          <div class="hp-how__img-wrap">
-            <Image class="hp-how__img" src={imgHowCreate} alt="an artisan's hands laying out bright kite sail ready for cutting" width={800} format="webp" />
-          </div>
-          <h3 class="hp-how__step-title">hand-made unique lifestyle products</h3>
-          <p class="hp-how__step-line">create employment.<br>upskill people.</p>
-        </article>
-        <article class="hp-how__step">
-          <div class="hp-how__num">03</div>
-          <div class="hp-how__img-wrap">
-            <Image class="hp-how__img" src={imgHowContrib} alt="children at a cape flats primary holding up denim pencil cases" width={800} format="webp" />
-          </div>
-          <h3 class="hp-how__step-title">2,500 children each year</h3>
-          <p class="hp-how__step-line">support 3 schools with stationery every year.<br>contribute to local economy.</p>
-        </article>
-      </div>
-      <div class="hp-journey__dots" aria-hidden="true">
-        <div class="hp-journey__dot is-active"></div>
-        <div class="hp-journey__dot"></div>
-        <div class="hp-journey__dot"></div>
-      </div>
-    </section>
-  </div>
-</div>
-
-<!-- IMPACT JOURNEY: schools → tangibility -->
-<div class="hp-journey hp-journey--impact" id="journey-impact">
-  <div class="hp-journey__sticky">
-    <div class="hp-impact-track" id="impact-track" style="display:flex;flex-direction:row;height:100%;will-change:transform;">
-      <section class="hp-schools">
-        <div class="hp-schools__inner">
-          <div class="hp-schools__head">
-            <span class="gn-eyebrow">the schools</span>
-            <h2 class="hp-schools__title">three schools.<br>one cape town.</h2>
-          </div>
-          <div class="hp-schools__list">
-            <div class="hp-schools__school">
-              <div class="hp-schools__num">01</div>
-              <div class="hp-schools__name">Capricorn Primary</div>
-              <div class="hp-schools__loc">Capricorn, Cape Flats</div>
-            </div>
-            <div class="hp-schools__school">
-              <div class="hp-schools__num">02</div>
-              <div class="hp-schools__name">Caravelle Primary</div>
-              <div class="hp-schools__loc">Strandfontein</div>
-            </div>
-            <div class="hp-schools__school">
-              <div class="hp-schools__num">03</div>
-              <div class="hp-schools__name">Westlake Primary</div>
-              <div class="hp-schools__loc">Westlake, Southern Suburbs</div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="hp-tangibility">
-        <div class="hp-tangibility__inner">
-          <div class="hp-tangibility__text">
-            <span class="gn-eyebrow hp-reveal">what "one set" means</span>
-            <h3 class="hp-tangibility__title hp-reveal hp-reveal--delay-1">a denim pencil case, one set of stationery, for the year</h3>
-            <p class="hp-tangibility__body hp-reveal hp-reveal--delay-2">we take profits from sales, and fill pencil cases.</p>
-            <ul class="hp-kit-list">
-              <li>1 denim pencil case</li>
-              <li>colouring crayons</li>
-              <li>pens</li>
-              <li>pencils</li>
-              <li>erasers</li>
-              <li>sharpener</li>
-            </ul>
-          </div>
-          <div class="hp-tangibility__img-wrap hp-reveal hp-reveal--delay-1">
-            <Image class="hp-tangibility__img" src={imgTangibility} alt="flatlay of denim pencil cases with pencils, erasers and exercise books" width={1000} format="webp" />
-          </div>
-        </div>
-      </section>
-    </div>
-    <div class="hp-journey__dots hp-m-only" aria-hidden="true">
-      <div class="hp-journey__dot is-active"></div>
-      <div class="hp-journey__dot"></div>
-    </div>
-  </div>
-</div>
-
 <!-- LIME UNIT MOMENT -->
 <div class="hp-unit-outer" id="unit-outer">
   <section class="hp-unit-lime">
@@ -260,7 +147,7 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   </section>
 </div>
 
-<!-- TRANSITION -->
+<!-- PRODUCT HERO -->
 <section class="hp-transition" aria-hidden="false">
   <Image class="hp-transition__img" src={imgTransition} alt="man carrying an orange kite bag through the Cederberg" width={1920} format="webp" />
   <div class="hp-transition__scrim"></div>
@@ -270,134 +157,58 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   </div>
 </section>
 
-<!-- BEAT 3 — COLLECTIONS -->
-<div class="hp-journey hp-journey--collections" id="journey-collections">
-  <div class="hp-journey__sticky">
-    <section class="hp-collections" id="collections">
-      <div class="hp-collections__head">
-        <div>
-          <h2 class="hp-collections__title">three collections.</h2>
-          <p class="hp-collections__intro">kites become beach bags. denim becomes jackets. parachutes become hand bags.</p>
-        </div>
-        <a href={routes.shop} class="hp-collections__shop">shop</a>
-      </div>
-      <div class="hp-tiles" id="collections-track">
-        <a class="hp-tile" href={routes.shop}>
-          <div class="hp-tile__img-wrap">
-            <Image class="hp-tile__img" src={imgKiteTrio} alt="three kite-fabric cooler bags in orange, pink and blue" width={1200} format="webp" />
-          </div>
-          <div class="hp-tile__name">kite collection</div>
-          <div class="hp-tile__meta">beach bags, coolers, and smaller carry — cut and stitched from recycled kitesurfing sails.</div>
-          <div class="hp-tile__price">beach bags R 750  ·  coolers R 1,000  ·  smaller R 350–500</div>
-        </a>
-        <a class="hp-tile" href={routes.shop}>
-          <div class="hp-tile__img-wrap">
-            <Image class="hp-tile__img" src={imgDenim} alt="patched denim jacket — close up on buttons and lining" width={1200} format="webp" />
-          </div>
-          <div class="hp-tile__name">denim collection</div>
-          <div class="hp-tile__meta">one-of-a-kind patched jackets, cut from donated jeans. no two alike.</div>
-          <div class="hp-tile__price">R 2,000–3,500</div>
-        </a>
-        <a class="hp-tile" href={routes.shop}>
-          <div class="hp-tile__img-wrap">
-            <Image class="hp-tile__img" src={imgParachute} alt="crocheted tote made from strips of recycled plastic — yellow, green, blue and white" width={1200} format="webp" />
-          </div>
-          <div class="hp-tile__name">parachute collection</div>
-          <div class="hp-tile__meta">moon bags and space bags from donated parachutes — crocheted and stitched in the workshop.</div>
-          <div class="hp-tile__price">moon bags R 500  ·  space bags R 2,500</div>
-        </a>
-      </div>
-      <div class="hp-journey__dots" aria-hidden="true">
-        <div class="hp-journey__dot is-active"></div>
-        <div class="hp-journey__dot"></div>
-        <div class="hp-journey__dot"></div>
-      </div>
-    </section>
-  </div>
-</div>
-
-<!-- FOUNDERS -->
-<div class="hp-journey hp-journey--founders" id="founders">
-  <div class="hp-journey__sticky">
-    <section class="hp-founders" id="founders-track">
-      <div class="hp-founders__img-wrap hp-reveal">
-        <Image class="hp-founders__img" src={imgFounders} alt="anne and cheryl, each holding armfuls of denim pieces mid-sort" width={800} format="webp" />
-      </div>
-      <div class="hp-founders__text">
-        <span class="gn-eyebrow hp-reveal hp-reveal--delay-1">a note from the founders</span>
-        <p class="hp-founders__origin">
-          we had our first fundraising function, a small gathering of friends and family where we collected old denim and raised R12,000 in the form of pencil case sponsorship — and so began a creative, challenging and uplifting journey.
-        </p>
-        <h3 class="hp-founders__title">we'd never be able to do this without our families, friends, and the community — those who donate, purchase, support and collaborate.</h3>
-        <div class="hp-founders__sig">anne &amp; cheryl · cape town · december 2019</div>
-      </div>
-      <div class="hp-journey__dots hp-m-only" aria-hidden="true">
-        <div class="hp-journey__dot is-active"></div>
-        <div class="hp-journey__dot"></div>
-      </div>
-    </section>
-  </div>
-</div>
-
-<!-- COUNTERS -->
-<section class="hp-counters">
-  <div class="hp-counters__inner">
-    <div class="hp-counters__grid">
-      <article class="hp-counter">
-        <span class="hp-counter__num" data-target="12810" data-duration="2200">0</span>
-        <span class="hp-counter__label">pencil cases delivered</span>
-      </article>
-      <article class="hp-counter">
-        <span class="hp-counter__num" data-target="1083" data-duration="1800">0</span>
-        <span class="hp-counter__label">pairs of denim jeans upcycled</span>
-      </article>
-      <article class="hp-counter">
-        <span class="hp-counter__num" data-target="151" data-duration="1400">0</span>
-        <span class="hp-counter__label">kites given a second life</span>
-      </article>
+<!-- COLLECTIONS -->
+<section class="hp-collections" id="collections">
+  <div class="hp-collections__head">
+    <div>
+      <h2 class="hp-collections__title">three collections.</h2>
+      <p class="hp-collections__intro">kites become beach bags. denim becomes jackets. parachutes become hand bags.</p>
     </div>
-    <p class="hp-counters__stamp">as of 2026 · cape town</p>
+    <a href={routes.shop} class="hp-collections__shop">shop</a>
+  </div>
+  <div class="hp-tiles">
+    <a class="hp-tile" href={routes.shop}>
+      <div class="hp-tile__img-wrap">
+        <Image class="hp-tile__img" src={imgKiteTrio} alt="three kite-fabric cooler bags in orange, pink and blue" width={1200} format="webp" />
+      </div>
+      <div class="hp-tile__name">kite collection</div>
+      <div class="hp-tile__meta">beach bags, coolers, and smaller carry — cut and stitched from recycled kitesurfing sails.</div>
+      <div class="hp-tile__price">beach bags R 750  ·  coolers R 1,000  ·  smaller R 350–500</div>
+    </a>
+    <a class="hp-tile" href={routes.shop}>
+      <div class="hp-tile__img-wrap">
+        <Image class="hp-tile__img" src={imgDenim} alt="patched denim jacket — close up on buttons and lining" width={1200} format="webp" />
+      </div>
+      <div class="hp-tile__name">denim collection</div>
+      <div class="hp-tile__meta">one-of-a-kind patched jackets, cut from donated jeans. no two alike.</div>
+      <div class="hp-tile__price">R 2,000–3,500</div>
+    </a>
+    <a class="hp-tile" href={routes.shop}>
+      <div class="hp-tile__img-wrap">
+        <Image class="hp-tile__img" src={imgParachute} alt="crocheted tote made from strips of recycled plastic — yellow, green, blue and white" width={1200} format="webp" />
+      </div>
+      <div class="hp-tile__name">parachute collection</div>
+      <div class="hp-tile__meta">moon bags and space bags from donated parachutes — crocheted and stitched in the workshop.</div>
+      <div class="hp-tile__price">moon bags R 500  ·  space bags R 2,500</div>
+    </a>
   </div>
 </section>
 
 <!-- INVITE -->
-<div class="hp-journey hp-journey--invite" id="journey-invite">
-  <div class="hp-journey__sticky">
-    <section class="hp-invite hp-invite--photo" id="mission">
-      <Image class="hp-invite__bg hp-d-only" src={imgClassroom} alt="children in a classroom holding up green° denim pencil cases" width={1920} format="webp" />
-      <div class="hp-invite__scrim hp-d-only"></div>
-      <div class="hp-invite__inner hp-d-only">
-        <span class="gn-eyebrow hp-invite__eyebrow" style="color:rgba(232,225,203,0.72)">the invitation</span>
-        <blockquote class="hp-invite__quote">
-          we invite everyone to please join us, and become part of the green<span class="gn-deg">°</span> story.
-        </blockquote>
-        <div class="hp-invite__cta-row">
-          <a class="hp-invite__cta" href={routes.donate}>donate</a>
-          <a class="hp-invite__cta hp-invite__cta--ghost" href={routes.shop}>shop</a>
-        </div>
-      </div>
-      <div class="hp-invite-track hp-m-only" id="invite-track">
-        <div class="hp-invite-card hp-invite-card--photo">
-          <Image src={imgClassroom} alt="children in a classroom holding up green° denim pencil cases" width={1200} format="webp" />
-        </div>
-        <div class="hp-invite-card hp-invite-card--text">
-          <span class="gn-eyebrow">the invitation</span>
-          <blockquote class="hp-invite__quote">
-            we invite everyone to please join us, and become part of the green<span class="gn-deg">°</span> story.
-          </blockquote>
-          <div class="hp-invite__cta-row">
-            <a class="hp-invite__cta" href={routes.donate}>donate</a>
-            <a class="hp-invite__cta hp-invite__cta--ghost" href={routes.shop}>shop</a>
-          </div>
-        </div>
-      </div>
-      <div class="hp-journey__dots hp-m-only" aria-hidden="true">
-        <div class="hp-journey__dot is-active"></div>
-        <div class="hp-journey__dot"></div>
-      </div>
-    </section>
+<section class="hp-invite hp-invite--photo" id="mission">
+  <Image class="hp-invite__bg" src={imgClassroom} alt="children in a classroom holding up green° denim pencil cases" width={1920} format="webp" />
+  <div class="hp-invite__scrim"></div>
+  <div class="hp-invite__inner">
+    <span class="gn-eyebrow" style="color:rgba(232,225,203,0.72)">the invitation</span>
+    <blockquote class="hp-invite__quote">
+      we invite everyone to please join us, and become part of the green<span class="gn-deg">°</span> story.
+    </blockquote>
+    <div class="hp-invite__cta-row">
+      <a class="hp-invite__cta" href={routes.donate}>donate</a>
+      <a class="hp-invite__cta hp-invite__cta--ghost" href={routes.shop}>shop</a>
+    </div>
   </div>
-</div>
+</section>
 
 <!-- PRESS BAR -->
 <section class="hp-press">
@@ -412,7 +223,6 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
     </div>
   </div>
 </section>
-
 
 </Layout>
 
@@ -489,11 +299,6 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.hp-hero-outer .hp-hero__caption {
-  opacity: 0;
-  transform: translateY(16px);
-  will-change: opacity, transform;
-}
 .hp-hero-outer .hp-hero__scroll-cue {
   opacity: 1;
 }
@@ -502,30 +307,22 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
 }
 
 /* ============================================================
-   SENTENCE — INTERACTIVE SECTION
+   SENTENCE — INTERACTIVE SECTION (desktop)
    ============================================================ */
 .hp-diagram-outer {
   position: relative;
-  height: 360vh;
+  min-height: 100vh;
   background: var(--color-bg-tint);
 }
 .hp-diagram-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
+  position: relative;
+  min-height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 56px; /* offset for fixed global nav so optical centre sits below it */
-}
-.hp-diagram-eye {
-  position: absolute;
-  top: 52px;
-  left: 0; right: 0;
-  display: flex;
-  justify-content: center;
+  padding-top: 56px;
 }
 .hp-diagram-stage {
   position: relative;
@@ -544,7 +341,6 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   grid-row: 1;
   text-align: center;
   padding: 32px 0;
-  will-change: transform;
 }
 .hp-diagram-sentence {
   font-family: var(--font-display);
@@ -684,26 +480,12 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   opacity: 1;
   transform: translate(0, 0);
 }
-.hp-diagram-progress-wrap {
-  display: none;
-  position: absolute;
-  bottom: 0;
-  left: 0; right: 0;
-  height: 2px;
-  background: var(--color-rule);
-}
-.hp-diagram-progress-bar {
-  height: 100%;
-  width: 0%;
-  background: var(--color-sage-deep);
-  transition: width 60ms linear;
-}
 .hp-diagram-dots {
   position: absolute;
   bottom: 28px;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
+  display: none;
   gap: 10px;
   align-items: center;
 }
@@ -718,42 +500,37 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   background: var(--color-sage-deep);
   transform: scale(1.4);
 }
-
-/* Word reveal — start visible, animate in on load */
-.hp-word {
-  opacity: 1;
-  display: inline-block;
-  transform: translateY(0);
-  transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
-}
-.hp-word.is-revealed { opacity: 1; transform: translateY(0); }
+.hp-word { display: inline-block; }
 .hp-diagram-kw.hp-word { display: inline-block; vertical-align: baseline; }
-.hp-diagram-eye { display: none; }
 
 /* ============================================================
    SENTENCE — MOBILE
    ============================================================ */
 @media (max-width: 860px) {
-  .hp-diagram-outer { height: 440vh; }
   .hp-diagram-sticky {
-    position: sticky !important; top: 0 !important;
-    height: 100svh !important; overflow: hidden !important;
-    padding: 0 !important; justify-content: flex-start !important;
+    position: relative !important;
+    top: auto !important;
+    height: 100svh !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    justify-content: flex-start !important;
   }
-  .hp-diagram-stage,
-  .hp-diagram-dots,
-  .hp-diagram-progress-wrap { display: none !important; }
+  .hp-diagram-stage { display: none !important; }
+  .hp-diagram-dots { display: flex !important; }
   .hp-diagram-mobile {
-    display: flex; flex-direction: column;
-    width: 100%; height: 100%; overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding-top: 14vh;
+    box-sizing: border-box;
   }
   .hp-mob-sentence-wrap {
     flex-shrink: 0;
     padding: 32px 28px 36px;
     text-align: center;
     border-bottom: 1px solid var(--color-rule);
-    will-change: transform;
-    transform-origin: top center;
   }
   .hp-mob-sentence-text {
     font-family: var(--font-display);
@@ -768,60 +545,7 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   .hp-mob-word { display: inline; }
   .hp-mob-kw {
     display: inline;
-    border-bottom: 1px solid transparent;
-    transition: color 400ms, border-color 400ms, opacity 520ms;
-  }
-  .hp-mob-kw.is-kw-active {
-    color: var(--color-sage-deep);
-    border-bottom-color: var(--color-sage-deep);
-  }
-  .hp-mob-branch-area { flex: 1; position: relative; overflow: hidden; }
-  .hp-mob-branch {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column; align-items: center;
-    justify-content: flex-start;
-    padding: 36px 28px 28px;
-    opacity: 0;
-    transition: opacity 360ms var(--ease-standard);
-    pointer-events: none;
-  }
-  .hp-mob-branch.is-active { opacity: 1; pointer-events: all; }
-  .hp-mob-branch-label {
-    font-family: var(--font-ui); font-size: 10px; font-weight: 500;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--color-sage-deep); margin-bottom: 18px; flex-shrink: 0;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .hp-mob-branch-label::before,
-  .hp-mob-branch-label::after {
-    content: ""; display: inline-block;
-    width: 16px; height: 1px; background: var(--color-sage-deep);
-  }
-  .hp-mob-leaf {
-    font-family: var(--font-ui); font-size: 14px; line-height: 1.45;
-    color: var(--color-ink-soft);
-    padding: 11px 0; border-bottom: 1px solid var(--color-rule);
-    width: 100%; text-align: center;
-    opacity: 1; transform: translateY(0);
-    transition: opacity 380ms var(--ease-out), transform 380ms var(--ease-out);
-  }
-  .hp-mob-leaf.is-revealed { opacity: 1; transform: translateY(0); }
-  .hp-mob-stat {
-    display: block;
-    font-family: var(--font-display); font-weight: 300;
-    font-size: clamp(2rem, 8vw, 2.75rem); letter-spacing: -0.04em;
-    color: var(--color-ink); line-height: 1; margin-bottom: 4px;
-  }
-  .hp-journey--how .hp-how__head { padding-top: 28px !important; }
-}
-@media (min-width: 861px) { .hp-diagram-mobile { display: none; } }
-
-/* ---- Mobile sentence — scroll progress underline + layout ---- */
-@media (max-width: 860px) {
-  .hp-diagram-dots { display: flex !important; }
-  .hp-diagram-mobile { padding-top: 14vh; box-sizing: border-box; }
-  /* Growing underline driven by --ul CSS custom property set by JS */
-  .hp-mob-kw {
+    cursor: pointer;
     border-bottom: none !important;
     background-image: linear-gradient(
       to right,
@@ -834,195 +558,157 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
     padding-bottom: 3px;
     transition: color 240ms;
   }
-}
-
-/* ============================================================
-   IMMERSIVE SCROLL JOURNEY
-   ============================================================ */
-.hp-journey__dots { display: none; }
-.hp-journey--how { background: var(--color-sand); }
-.hp-journey--impact { background: var(--color-bg-tint); }
-.hp-journey__dot {
-  width: 5px; height: 5px;
-  border-radius: 999px;
-  background: var(--color-rule);
-  transition: background 240ms, transform 240ms;
-}
-.hp-journey__dot.is-active {
-  background: var(--color-sage-deep);
-  transform: scale(1.5);
-}
-
-@media (max-width: 820px) {
-  .hp-journey { position: relative; }
-  .hp-journey__sticky {
-    position: sticky;
-    top: 0;
-    height: 100svh;
+  .hp-mob-kw.is-kw-active { color: var(--color-sage-deep); }
+  .hp-mob-hint {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: opacity 400ms;
+  }
+  .hp-mob-hint.is-hidden { opacity: 0; pointer-events: none; }
+  .hp-mob-branch-area {
+    flex: 1;
+    position: relative;
     overflow: hidden;
+  }
+  .hp-mob-branch {
+    position: absolute;
+    inset: 0;
     display: flex;
     flex-direction: column;
-    will-change: transform;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 36px 28px 28px;
+    opacity: 0;
+    transition: opacity 360ms var(--ease-standard);
+    pointer-events: none;
   }
-  .hp-journey--how .hp-how {
-    padding: 0; max-width: 100%; flex: 1;
-    display: flex; flex-direction: column; overflow: hidden;
-  }
-  .hp-journey--how .hp-how__head { padding: 52px 20px 24px; margin-bottom: 0; flex-shrink: 0; }
-  .hp-journey--how .hp-how__steps {
-    display: flex; flex-direction: row; gap: 24px;
-    padding-inline: 20px; overflow: visible; flex: 1;
-    align-items: flex-start; will-change: transform; transition: transform 0ms;
-  }
-  .hp-journey--how .hp-how__step { flex: 0 0 calc(100vw - 40px); max-width: none; overflow-y: auto; }
-  .hp-journey--how .hp-how__img-wrap { aspect-ratio: 4/3; }
-  .hp-journey--collections .hp-collections {
-    padding: 0; max-width: 100%; flex: 1;
-    display: flex; flex-direction: column; overflow: hidden;
-  }
-  .hp-journey--collections .hp-collections__head {
-    padding: 52px 20px 20px; margin-bottom: 0;
-    flex-direction: column; align-items: flex-start; gap: 12px;
-    border-bottom: 1px solid var(--color-rule);
-  }
-  .hp-journey--collections .hp-collections__shop { display: none; }
-  .hp-journey--collections .hp-tiles {
-    display: flex; flex-direction: row; gap: 24px;
-    padding-inline: 20px; overflow: visible; flex: 1;
-    align-items: flex-start; will-change: transform; transition: transform 0ms;
-  }
-  .hp-journey--collections .hp-tile { flex: 0 0 calc(100vw - 40px); max-width: none; }
-  .hp-journey--collections .hp-tile__img-wrap { aspect-ratio: 4/3; }
-  .hp-journey__dots {
-    display: flex; gap: 8px;
-    justify-content: center;
-    padding: 16px 20px 20px;
+  .hp-mob-branch.is-active { opacity: 1; pointer-events: all; }
+  .hp-mob-branch-label {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-sage-deep);
+    margin-bottom: 18px;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hp-mob-branch-label::before,
+  .hp-mob-branch-label::after {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 1px;
+    background: var(--color-sage-deep);
+  }
+  .hp-mob-leaf {
+    font-family: var(--font-ui);
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--color-ink-soft);
+    padding: 11px 0;
+    border-bottom: 1px solid var(--color-rule);
+    width: 100%;
+    text-align: center;
+  }
+  .hp-mob-stat {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2rem, 8vw, 2.75rem);
+    letter-spacing: -0.04em;
+    color: var(--color-ink);
+    line-height: 1;
+    margin-bottom: 4px;
   }
 }
-@media (min-width: 821px) {
-  .hp-journey__sticky { display: contents; }
-}
+@media (min-width: 861px) { .hp-diagram-mobile { display: none; } }
 
 /* ============================================================
-   FOUNDERS JOURNEY (mobile)
-   ============================================================ */
-@media (max-width: 820px) {
-  .hp-journey--founders .hp-founders {
-    display: flex !important; flex-direction: row;
-    padding: 0 !important; padding-inline: 20px !important;
-    max-width: 100%; gap: 24px;
-    overflow: visible; will-change: transform;
-    height: 100%; align-items: flex-start;
-  }
-  .hp-journey--founders .hp-founders__img-wrap {
-    flex: 0 0 calc(100vw - 40px);
-    aspect-ratio: 3/4; align-self: center;
-  }
-  .hp-journey--founders .hp-founders__text {
-    flex: 0 0 calc(100vw - 40px);
-    max-width: none; padding: 20vh 0 40px; overflow-y: auto;
-  }
-  .hp-journey--founders .hp-reveal {
-    opacity: 1 !important; transform: none !important; transition: none !important;
-  }
-}
-@media (min-width: 821px) {
-  .hp-journey--founders .hp-journey__dots { display: none !important; }
-}
-
-/* ============================================================
-   INVITE JOURNEY (mobile)
-   ============================================================ */
-.hp-invite--photo .hp-invite__scrim {
-  background: linear-gradient(180deg,
-    rgba(0,0,0,0.55) 0%,
-    rgba(0,0,0,0.30) 35%,
-    rgba(0,0,0,0.75) 100%);
-}
-@media (max-width: 820px) {
-  .hp-journey--invite .hp-invite { padding: 0; border-top: 0; height: 100%; overflow: hidden; }
-  .hp-invite-track { display: flex; flex-direction: row; height: 100%; will-change: transform; }
-  .hp-invite-card { flex: 0 0 100vw; height: 100%; overflow: hidden; }
-  .hp-invite-card--photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
-  .hp-invite-card--text {
-    background: var(--color-ink);
-    display: flex; flex-direction: column;
-    justify-content: flex-end;
-    padding: 48px var(--page-pad-mobile) 60px; gap: 28px;
-  }
-  .hp-invite-card--text .gn-eyebrow { color: rgba(232,225,203,0.6); }
-  .hp-invite-card--text .hp-invite__quote {
-    color: var(--color-bg); max-width: 100%;
-    font-size: clamp(1.7rem, 6vw, 2.2rem);
-  }
-  .hp-invite-card--text .hp-invite__cta {
-    background: var(--color-bg); color: var(--color-ink); border-color: var(--color-bg);
-  }
-  .hp-invite-card--text .hp-invite__cta--ghost {
-    background: transparent; color: rgba(232,225,203,0.85);
-    border-color: rgba(232,225,203,0.4);
-  }
-  .hp-journey--invite .hp-journey__dots {
-    position: absolute; bottom: 20px; left: 50%;
-    transform: translateX(-50%); z-index: 2;
-  }
-}
-@media (min-width: 821px) {
-  .hp-journey--invite .hp-journey__dots { display: none !important; }
-}
-
-/* ============================================================
-   UNIT LIME — sticky fill
+   UNIT LIME — sticky fill (260vh runway, nav-offset text)
    ============================================================ */
 .hp-unit-lime {
   background: var(--color-ink);
   padding: 88px 32px;
 }
 .hp-unit-lime__line {
-  font-family: var(--font-display); font-weight: 300;
+  font-family: var(--font-display);
+  font-weight: 300;
   font-size: clamp(2.25rem, 6vw, 5rem);
-  line-height: 1.05; letter-spacing: -0.028em;
-  color: var(--color-bg); margin: 0;
+  line-height: 1.05;
+  letter-spacing: -0.028em;
+  color: var(--color-bg);
+  margin: 0;
 }
 .hp-unit-lime__eq { font-style: italic; padding: 0 6px; }
 .hp-unit-lime__sub {
-  font-family: var(--font-ui); font-size: 13px; font-style: italic;
-  color: rgba(232,225,203,0.6); margin: 0; letter-spacing: 0.04em;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(232,225,203,0.6);
+  margin: 0;
+  letter-spacing: 0.04em;
 }
 .hp-unit-lime__cta {
-  font-family: var(--font-ui); font-size: 13px; font-weight: 500;
-  letter-spacing: 0.04em; text-transform: lowercase;
-  padding: 14px 24px; background: var(--color-bg); color: var(--color-ink);
-  text-decoration: none; border: none;
-  display: inline-flex; align-items: center; gap: 8px;
-  margin-top: 20px; align-self: flex-start;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  padding: 14px 24px;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  text-decoration: none;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  align-self: flex-start;
   transition: background 160ms;
 }
 .hp-unit-lime__cta:hover { background: var(--color-bg-tint); color: var(--color-ink); }
 .hp-unit-outer {
   position: relative;
-  height: 160vh;
+  height: 260vh;
 }
 .hp-unit-outer .hp-unit-lime {
-  position: sticky; top: 0;
-  height: 100vh; overflow: hidden;
-  display: flex; align-items: flex-start;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
   padding: 0;
 }
 .hp-unit-fill {
   position: absolute;
-  bottom: 0; left: 0; right: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: 0%;
   background: var(--color-lime);
   will-change: height;
   z-index: 0;
 }
 .hp-unit-outer .hp-unit-lime__inner {
-  position: relative; z-index: 1;
+  position: relative;
+  z-index: 1;
   width: 100%;
   margin: 0 auto;
-  padding-top: 80px;
+  padding-top: 136px;
   padding-inline: var(--page-pad);
   max-width: var(--page-max);
   padding-bottom: 0;
@@ -1030,35 +716,57 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
 .hp-unit-lime__sub { margin-top: 32px; }
 @media (max-width: 820px) {
   .hp-unit-lime { padding: 64px var(--page-pad-mobile); }
-  .hp-unit-outer .hp-unit-lime__inner { padding-top: 56px; padding-inline: var(--page-pad-mobile); }
+  .hp-unit-outer .hp-unit-lime__inner {
+    padding-top: 56px;
+    padding-inline: var(--page-pad-mobile);
+  }
 }
 
 /* ============================================================
-   TRANSITION (homepage override)
+   TRANSITION / PRODUCT HERO (fullscreen override)
    ============================================================ */
 .hp-transition {
-  height: 100vh; min-height: 0; max-height: none; background: #2a2a26;
+  height: 100vh;
+  min-height: 0;
+  max-height: none;
+  background: #2a2a26;
 }
 .hp-transition__img { object-position: center 30%; }
 .hp-transition__scrim {
   background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.6) 100%);
 }
 .hp-transition__text {
-  position: absolute; left: 0; right: 0; bottom: 52px;
-  max-width: var(--page-max); margin: 0 auto; padding-inline: var(--page-pad); color: var(--color-bg);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 52px;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding-inline: var(--page-pad);
+  color: var(--color-bg);
 }
 .hp-transition__sub {
-  font-family: var(--font-ui); font-size: 11px; font-weight: 500;
-  letter-spacing: 0.2em; text-transform: uppercase;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: rgba(232,225,203,0.72);
-  display: inline-flex; align-items: center; gap: 12px; margin-bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 .hp-transition__sub::after { content: ""; width: 24px; height: 1px; background: rgba(255,255,255,0.55); }
 .hp-transition__headline {
-  font-family: var(--font-display); font-weight: 300;
+  font-family: var(--font-display);
+  font-weight: 300;
   font-size: clamp(2.5rem, 6vw, 5.5rem);
-  line-height: 1.02; letter-spacing: -0.028em;
-  color: var(--color-bg); margin: 0; text-shadow: 0 1px 32px rgba(0,0,0,0.3);
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  color: var(--color-bg);
+  margin: 0;
+  text-shadow: 0 1px 32px rgba(0,0,0,0.3);
   text-wrap: balance;
 }
 @media (max-width: 720px) {
@@ -1067,56 +775,10 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
 }
 
 /* ============================================================
-   SCHOOLS
+   COLLECTIONS — mobile responsive (tiles stack via global.css)
    ============================================================ */
-.hp-schools {
-  background: var(--color-bg-tint);
-  padding: 96px 0;
-}
-.hp-schools__inner {
-  max-width: var(--page-max); margin: 0 auto; padding-inline: var(--page-pad);
-  display: grid; gap: 64px;
-}
-.hp-schools__head { display: grid; gap: 16px; max-width: 520px; }
-.hp-schools__title {
-  font-family: var(--font-display); font-weight: 300;
-  font-size: clamp(2rem, 4.5vw, 4rem);
-  line-height: 1.05; letter-spacing: -0.028em;
-  color: var(--color-ink); margin: 0;
-}
-.hp-schools__list {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 0; border-top: 1px solid var(--color-rule);
-}
-.hp-schools__school {
-  padding: 32px 0 32px;
-  border-right: 1px solid var(--color-rule);
-  padding-right: 32px; margin-right: 32px;
-  display: flex; flex-direction: column; gap: 8px;
-}
-.hp-schools__school:last-child { border-right: 0; padding-right: 0; margin-right: 0; }
-.hp-schools__num {
-  font-family: var(--font-display); font-style: italic; font-weight: 300;
-  font-size: 14px; color: var(--color-sage-deep); letter-spacing: 0.06em;
-}
-.hp-schools__name {
-  font-family: var(--font-display); font-weight: 300;
-  font-size: clamp(1.25rem, 2vw, 1.625rem);
-  letter-spacing: -0.015em; color: var(--color-ink); line-height: 1.15;
-}
-.hp-schools__loc {
-  font-family: var(--font-ui); font-size: 13px;
-  color: var(--color-ink-faint); letter-spacing: 0.02em;
-}
 @media (max-width: 820px) {
-  .hp-schools { padding: 64px 0; }
-  .hp-schools__inner { padding-inline: var(--page-pad-mobile); gap: 40px; }
-  .hp-schools__list { grid-template-columns: 1fr; }
-  .hp-schools__school {
-    border-right: 0; padding-right: 0; margin-right: 0;
-    border-bottom: 1px solid var(--color-rule);
-  }
-  .hp-schools__school:last-child { border-bottom: 0; }
+  .hp-collections__head { flex-wrap: wrap; gap: 16px; }
 }
 
 /* ============================================================
@@ -1129,20 +791,33 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   padding: 40px 32px;
 }
 .hp-press__inner {
-  max-width: var(--page-max); margin: 0 auto;
-  display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
 }
 .hp-press__label {
-  font-family: var(--font-ui); font-size: 10px; font-weight: 500;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--color-ink-faint); white-space: nowrap; flex-shrink: 0;
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .hp-press__pubs { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
 .hp-press__pub {
-  font-family: var(--font-display); font-weight: 300;
+  font-family: var(--font-display);
+  font-weight: 300;
   font-size: clamp(0.9rem, 1.6vw, 1.25rem);
-  letter-spacing: -0.01em; color: var(--color-ink-soft);
-  text-decoration: none; border: none; transition: color 160ms;
+  letter-spacing: -0.01em;
+  color: var(--color-ink-soft);
+  text-decoration: none;
+  border: none;
+  transition: color 160ms;
 }
 .hp-press__pub:hover { color: var(--color-ink); }
 .hp-press__sep { font-family: var(--font-ui); font-size: 12px; color: var(--color-rule); user-select: none; }
@@ -1154,36 +829,6 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   .hp-press__pub:last-child { border-bottom: 0; }
   .hp-press__sep { display: none; }
 }
-
-/* ============================================================
-   IMPACT JOURNEY (mobile)
-   ============================================================ */
-@media (max-width: 820px) {
-  .hp-journey--impact .hp-schools,
-  .hp-journey--impact .hp-tangibility {
-    flex: 0 0 100vw; max-width: none;
-    height: 100%; overflow-y: hidden;
-    background: var(--color-bg-tint);
-    padding-left: var(--page-pad-mobile) !important; padding-right: var(--page-pad-mobile) !important;
-    box-sizing: border-box;
-  }
-  .hp-journey--impact .hp-schools { padding-top: 52px; }
-  .hp-journey--impact .hp-tangibility { padding-top: 52px; }
-  .hp-journey--impact .hp-schools__inner { padding-inline: 0 !important; }
-  .hp-journey--impact .hp-tangibility__inner { padding-inline: 0 !important; grid-template-columns: 1fr; gap: 24px; }
-  .hp-journey--impact .hp-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
-  #impact-track { gap: 0 !important; }
-}
-@media (min-width: 821px) {
-  .hp-journey--impact .hp-journey__dots { display: none !important; }
-  #impact-track { display: block !important; }
-}
-
-/* ============================================================
-   UTILITY — show/hide by breakpoint
-   ============================================================ */
-@media (min-width: 821px) { .hp-m-only { display: none !important; } }
-@media (max-width: 820px) { .hp-d-only { display: none !important; } }
 </style>
 
 <script is:inline>
@@ -1200,7 +845,7 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
 })();
 
 /* ============================================================
-   HERO SCROLL JOURNEY
+   HERO SCROLL JOURNEY — text travels full viewport height
    ============================================================ */
 (function () {
   var outer   = document.getElementById('hero-outer');
@@ -1221,48 +866,26 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
     var scrollable = outer.offsetHeight - window.innerHeight;
     if (scrollable <= 0) return;
     var p = clamp(-outer.getBoundingClientRect().top / scrollable, 0, 1);
+
     img.style.transform = 'scale(' + lerp(1.07, 1.0, ease(prog(p, 0, 0.4))) + ')';
+
     var oa = lerp(0.6, 0.2, ease(prog(p, 0, 0.35)));
     overlay.style.background = 'linear-gradient(180deg,rgba(0,0,0,' + oa + ') 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 55%,rgba(0,0,0,' + (oa + 0.35) + ') 100%)';
-    /* Hero text always fully visible — no scroll-gated fade */
+
     eyebrow.style.opacity   = '1';
     eyebrow.style.transform = 'translateY(0)';
     title.style.opacity   = '1';
     title.style.transform = 'translateY(0)';
+
     if (cue) cue.style.opacity = 1 - ease(prog(p, 0, 0.18));
+
     if (text) {
-      var rp = ease(prog(p, 0.58, 1.0));
-      text.style.transform = 'translateY(-' + (rp * window.innerHeight * 0.4) + 'px)';
+      var rp    = ease(prog(p, 0, 1.0));
+      var textH = text.offsetHeight;
+      text.style.transform = 'translateY(-' + (rp * Math.max(0, window.innerHeight - textH)) + 'px)';
     }
   }
 
-  window.addEventListener('scroll', update, { passive: true });
-  update();
-})();
-
-/* ============================================================
-   SENTENCE — WORD-BY-WORD REVEAL (desktop)
-   ============================================================ */
-(function () {
-  if (!window.matchMedia('(min-width: 861px)').matches) return;
-  var wordThresholds = [
-    { id: 'word-we',         threshold: 0.04 },
-    { id: 'dkw-sustainably', threshold: 0.10 },
-    { id: 'dkw-raise-funds', threshold: 0.38 },
-    { id: 'dkw-education',   threshold: 0.60 },
-    { id: 'word-insa',       threshold: 0.78 }
-  ];
-  var outer = document.getElementById('diagram');
-  if (!outer) return;
-  function update() {
-    var scrollable = outer.offsetHeight - window.innerHeight;
-    if (scrollable <= 0) return;
-    var p = Math.max(0, Math.min(1, -outer.getBoundingClientRect().top / scrollable));
-    wordThresholds.forEach(function (cfg) {
-      var el = document.getElementById(cfg.id);
-      if (el) el.classList.toggle('is-revealed', p >= cfg.threshold);
-    });
-  }
   window.addEventListener('scroll', update, { passive: true });
   update();
 })();
@@ -1277,7 +900,6 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
     els.forEach(function (el) { el.classList.add('is-visible'); });
     return;
   }
-  /* Trigger as soon as element enters viewport — no scroll threshold */
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
@@ -1290,157 +912,70 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
 })();
 
 /* ============================================================
-   IMMERSIVE SCROLL JOURNEY (mobile)
+   INTERACTIVE SENTENCE — hover reveals (desktop)
    ============================================================ */
 (function () {
-  var mq = window.matchMedia('(max-width: 820px)');
-  if (!mq.matches) return;
-
-  var journeys = [
-    { outer: 'journey-how',         track: 'how-track',         cards: 3 },
-    { outer: 'journey-collections', track: 'collections-track', cards: 3 },
-    { outer: 'founders',            track: 'founders-track',    cards: 2 },
-    { outer: 'journey-invite',      track: 'invite-track',      cards: 2, fullScreen: true, endRevealVw: 20 },
-    { outer: 'journey-impact',      track: 'impact-track',      cards: 2, fullScreen: true }
+  if (!window.matchMedia('(min-width: 861px)').matches) return;
+  var hint = document.getElementById('diagram-hint');
+  var hoveredKey = null;
+  var CONFIGS = [
+    { key: 'sustainably', kwId: 'dkw-sustainably', grpId: 'dgrp-sustainably' },
+    { key: 'raise-funds', kwId: 'dkw-raise-funds', grpId: 'dgrp-raise-funds' },
+    { key: 'education',   kwId: 'dkw-education',   grpId: 'dgrp-education'   }
   ];
-
-  var exitVh   = 25;  // extra svh of sticky range for hold + lift
-  var holdFrac = 0.25; // 25% of exit zone = hold, 75% = lift
-
-  function easeOut3(t) { return 1 - Math.pow(1 - t, 3); }
-
-  journeys.forEach(function (cfg) {
-    var outer  = document.getElementById(cfg.outer);
-    var track  = document.getElementById(cfg.track);
-    if (!outer || !track) return;
-
-    var n      = cfg.cards;
-    var dots   = outer.querySelectorAll('.hp-journey__dot');
-    var sticky = outer.querySelector('.hp-journey__sticky');
-    var totalVh = n * 100 + exitVh;
-    outer.style.height = totalVh + 'svh';
-    var hEnd = (n * 100) / totalVh; // scroll fraction where horizontal phase ends
-
-    function update() {
-      var rect       = outer.getBoundingClientRect();
-      var scrollable = outer.offsetHeight - window.innerHeight;
-      if (scrollable <= 0) return;
-      var progress = Math.max(0, Math.min(1, -rect.top / scrollable));
-      var cardW    = cfg.fullScreen ? window.innerWidth : (window.innerWidth - 40 + 24);
-
-      // — Horizontal phase (progress 0 → hEnd) —
-      var hProgress = Math.min(progress, hEnd) / hEnd; // 0→1 over horizontal range
-      var tx = -hProgress * (n - 1) * cardW;
-      if (cfg.endRevealVw) {
-        // Cap so endRevealVw% of the previous card stays visible
-        var capTx = -((n - 1) * cardW) + (window.innerWidth * cfg.endRevealVw / 100);
-        tx = Math.max(tx, capTx);
-      }
-      track.style.transform = 'translateX(' + tx + 'px)';
-
-      // Dots: lock on final card during exit zone
-      var activeIdx = Math.min(n - 1, Math.round(hProgress * (n - 1)));
-      dots.forEach(function (d, i) { d.classList.toggle('is-active', i === activeIdx); });
-
-      // — Hold + lift phase (progress hEnd → 1) —
-      if (sticky) {
-        if (progress > hEnd) {
-          var exitP    = (progress - hEnd) / (1 - hEnd); // 0→1 over exit zone
-          var liftP    = Math.max(0, (exitP - holdFrac) / (1 - holdFrac));
-          var liftPx   = easeOut3(liftP) * window.innerHeight * 1.05;
-          sticky.style.transform = 'translateY(-' + liftPx + 'px)';
-        } else {
-          sticky.style.transform = '';
-        }
-      }
-    }
-
-    window.addEventListener('scroll', update, { passive: true });
-    update();
+  function applyState() {
+    CONFIGS.forEach(function (cfg) {
+      var active = hoveredKey === cfg.key;
+      var grp = document.getElementById(cfg.grpId);
+      var kw  = document.getElementById(cfg.kwId);
+      if (grp) grp.classList.toggle('is-active', active);
+      if (kw)  kw.classList.toggle('is-active', active);
+    });
+    if (hint) hint.classList.toggle('is-hidden', !!hoveredKey);
+  }
+  CONFIGS.forEach(function (cfg) {
+    var kw = document.getElementById(cfg.kwId);
+    if (!kw) return;
+    kw.addEventListener('mouseenter', function () { hoveredKey = cfg.key; applyState(); });
+    kw.addEventListener('mouseleave', function () { hoveredKey = null; applyState(); });
+    kw.addEventListener('focus',      function () { hoveredKey = cfg.key; applyState(); });
+    kw.addEventListener('blur',       function () { hoveredKey = null; applyState(); });
   });
+  applyState();
 })();
 
 /* ============================================================
-   MOBILE SENTENCE — scroll-driven, equal thirds per branch
+   MOBILE SENTENCE — tap keyword to reveal branch
    ============================================================ */
 (function () {
   if (!window.matchMedia('(max-width: 860px)').matches) return;
-  var outer = document.getElementById('diagram');
-  if (!outer) return;
-
-  var phases = [
-    { start: 0.0,  end: 0.34, branchId: 'mob-branch-s', kwId: 'mob-sustainably', dotIdx: 0 },
-    { start: 0.34, end: 0.67, branchId: 'mob-branch-r', kwId: 'mob-raise-funds', dotIdx: 1 },
-    { start: 0.67, end: 1.0,  branchId: 'mob-branch-e', kwId: 'mob-education',   dotIdx: 2 },
+  var keywords = [
+    { kwId: 'mob-sustainably', branchId: 'mob-branch-s', dotIdx: 0 },
+    { kwId: 'mob-raise-funds', branchId: 'mob-branch-r', dotIdx: 1 },
+    { kwId: 'mob-education',   branchId: 'mob-branch-e', dotIdx: 2 }
   ];
+  var dots = document.querySelectorAll('#diagram .hp-diagram-dot');
+  var hint = document.getElementById('mob-hint');
 
-  var dots = outer.querySelectorAll('.hp-diagram-dot');
-
-  function update() {
-    var scrollable = outer.offsetHeight - window.innerHeight;
-    if (scrollable <= 0) return;
-    var p = Math.max(0, Math.min(1, -outer.getBoundingClientRect().top / scrollable));
-
-    var activeIdx = 0;
-    for (var i = phases.length - 1; i >= 0; i--) {
-      if (p >= phases[i].start) { activeIdx = i; break; }
-    }
-
-    phases.forEach(function (ph, idx) {
-      var active   = idx === activeIdx;
-      var branchEl = document.getElementById(ph.branchId);
-      var kwEl     = document.getElementById(ph.kwId);
-      if (branchEl) branchEl.classList.toggle('is-active', active);
-      if (kwEl)     kwEl.classList.toggle('is-kw-active', active);
-      if (dots[ph.dotIdx]) dots[ph.dotIdx].classList.toggle('is-active', active);
-      /* Progressive underline: grows while active, stays full when past */
-      if (kwEl) {
-        var ul = p < ph.start  ? 0
-               : p >= ph.end   ? 100
-               : ((p - ph.start) / (ph.end - ph.start)) * 100;
-        kwEl.style.setProperty('--ul', ul + '%');
+  function activate(idx) {
+    keywords.forEach(function (cfg, i) {
+      var kw = document.getElementById(cfg.kwId);
+      var br = document.getElementById(cfg.branchId);
+      var active = i === idx;
+      if (kw) {
+        kw.classList.toggle('is-kw-active', active);
+        kw.style.setProperty('--ul', active ? '100%' : '0%');
       }
+      if (br) br.classList.toggle('is-active', active);
+      if (dots[cfg.dotIdx]) dots[cfg.dotIdx].classList.toggle('is-active', active);
     });
+    if (hint) hint.classList.add('is-hidden');
   }
 
-  var scheduled = false;
-  function schedule() {
-    if (scheduled) return;
-    scheduled = true;
-    requestAnimationFrame(function () { scheduled = false; update(); });
-  }
-
-  window.addEventListener('scroll', schedule, { passive: true });
-  update();
-})();
-
-/* ============================================================
-   COUNTER ANIMATION
-   ============================================================ */
-(function () {
-  var nodes = document.querySelectorAll('.hp-counter__num');
-  function ease(t) { return 1 - Math.pow(1 - t, 3); }
-  function animate(el) {
-    if (el.dataset.animated) return;
-    el.dataset.animated = '1';
-    var target = parseInt(el.dataset.target, 10) || 0;
-    var duration = parseInt(el.dataset.duration, 10) || 1800;
-    var start = null;
-    function frame(ts) {
-      if (start === null) start = ts;
-      var t = Math.min(1, (ts - start) / duration);
-      el.textContent = Math.round(target * ease(t)).toLocaleString('en-US');
-      if (t < 1) requestAnimationFrame(frame);
-      else el.textContent = target.toLocaleString('en-US');
-    }
-    requestAnimationFrame(frame);
-  }
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) { if (e.isIntersecting) { animate(e.target); io.unobserve(e.target); } });
-    }, { threshold: 0.35 });
-    nodes.forEach(function(n) { io.observe(n); });
-  } else { nodes.forEach(animate); }
+  keywords.forEach(function (cfg, idx) {
+    var kw = document.getElementById(cfg.kwId);
+    if (kw) kw.addEventListener('click', function () { activate(idx); });
+  });
 })();
 
 /* ============================================================
@@ -1458,71 +993,5 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   }
   window.addEventListener('scroll', update, { passive: true });
   update();
-})();
-
-/* ============================================================
-   INTERACTIVE SENTENCE — leaf reveal on scroll (desktop)
-   ============================================================ */
-(function () {
-  if (!window.matchMedia('(min-width: 861px)').matches) return;
-  var outer = document.getElementById('diagram');
-  var hint  = document.getElementById('diagram-hint');
-  if (!outer) return;
-
-  var CONFIGS = [
-    { key: 'sustainably', kwId: 'dkw-sustainably', grpId: 'dgrp-sustainably', start: 0.12, end: 0.32 },
-    { key: 'raise-funds', kwId: 'dkw-raise-funds', grpId: 'dgrp-raise-funds', start: 0.36, end: 0.56 },
-    { key: 'education',   kwId: 'dkw-education',   grpId: 'dgrp-education',   start: 0.60, end: 0.80 }
-  ];
-
-  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
-
-  function getProgress() {
-    var scrollable = outer.offsetHeight - window.innerHeight;
-    if (scrollable <= 0) return 0;
-    return clamp(-outer.getBoundingClientRect().top / scrollable, 0, 1);
-  }
-
-  var hoveredKey = null;
-
-  function applyState() {
-    var p = getProgress();
-    CONFIGS.forEach(function (cfg) {
-      var local = clamp((p - cfg.start) / (cfg.end - cfg.start), 0, 1);
-      var scrollRevealed = local > 0;
-      var active = hoveredKey ? hoveredKey === cfg.key : scrollRevealed;
-      var grp = document.getElementById(cfg.grpId);
-      var kw  = document.getElementById(cfg.kwId);
-      if (grp) grp.classList.toggle('is-active', active);
-      if (kw)  kw.classList.toggle('is-active', active);
-    });
-    if (hint && (getProgress() > 0.05 || hoveredKey)) hint.classList.add('is-hidden');
-  }
-
-  CONFIGS.forEach(function (cfg) {
-    var kw = document.getElementById(cfg.kwId);
-    if (!kw) return;
-    kw.addEventListener('mouseenter', function () {
-      hoveredKey = cfg.key;
-      applyState();
-    });
-    kw.addEventListener('mouseleave', function () {
-      hoveredKey = null;
-      applyState();
-    });
-  });
-
-  var scheduled = false;
-  function schedule() {
-    if (scheduled) return;
-    scheduled = true;
-    window.requestAnimationFrame(function () {
-      scheduled = false;
-      applyState();
-    });
-  }
-
-  window.addEventListener('scroll', schedule, { passive: true });
-  applyState();
 })();
 </script>
