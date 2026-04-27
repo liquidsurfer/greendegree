@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { routes } from '../config/routes.ts';
+import { brand } from '../config/brand.ts';
 
 interface Props {
   title: string;
@@ -9,6 +10,18 @@ interface Props {
 
 const { title, description = 'green° — cape town. sustainability, upcycling and education.' } = Astro.props;
 const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html';
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'NGO',
+  name: 'green°',
+  url: brand.siteUrl,
+  logo: `${brand.siteUrl}/favicon.svg`,
+  sameAs: [brand.social.instagramHref],
+  email: brand.email.anne,
+  description: 'Cape Town non-profit upcycling kites, denim and parachutes into bags. 100% of profits supply stationery to primary schools in the Western Cape, South Africa.',
+  areaServed: 'ZA',
+};
 ---
 
 <!doctype html>
@@ -37,6 +50,7 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html
     <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Fraunces-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <slot name="head" />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   </head>
   <body>
 

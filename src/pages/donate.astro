@@ -1,8 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { brand } from '../config/brand.ts';
+
+const donateSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'DonateAction',
+  name: 'Donate to green°',
+  description: 'Every donation funds stationery for children at three primary schools in the Western Cape, South Africa.',
+  url: `${brand.siteUrl}/donate`,
+  recipient: {
+    '@type': 'NGO',
+    name: 'green°',
+    url: brand.siteUrl,
+  },
+};
 ---
 
-<Layout title="donate — green°" description="Support green°. Every donation funds stationery for children at three Cape Flats primary schools. Secure card payments via Yoco.">
+<Layout title="donate — green°" description="Support green°. Every donation funds stationery for children at three primary schools in the Western Cape, South Africa. Secure card payments via Yoco.">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(donateSchema)} />
 
 <style is:global>
   /* Donate page: full-viewport, no scroll */
