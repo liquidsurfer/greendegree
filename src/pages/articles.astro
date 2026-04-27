@@ -1,9 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
-import logoGreenEconomy from '../assets/images/logo-green-economy-media.png';
-import logoGoodThingsGuy from '../assets/images/logo-good-things-guy.png';
-import logoTwyg from '../assets/images/logo-twyg.png';
+import imgGreenEconomy from '../assets/images/article-green-economy-media.jpg';
+import imgGoodThingsGuy from '../assets/images/article-good-things-guy.jpg';
+import imgTwyg from '../assets/images/article-twyg.jpg';
 ---
 
 <Layout title="articles — green°" description="green° in the press — read how South Africa's sustainability and community media covered the story of upcycling, education, and community in the Western Cape.">
@@ -26,7 +26,7 @@ import logoTwyg from '../assets/images/logo-twyg.png';
      rel="noopener noreferrer"
      aria-label="Read 'Parachutes to Purpose: Crafting Change with Creativity' on Green Economy Media (opens in new tab)">
     <div class="ar-article__logo">
-      <Image src={logoGreenEconomy} alt="Green Economy Media" width={120} format="webp" />
+      <Image src={imgGreenEconomy} alt="Green Economy Media article thumbnail" width={400} format="webp" />
     </div>
     <div class="ar-article__body">
       <div class="ar-article__meta">
@@ -48,7 +48,7 @@ import logoTwyg from '../assets/images/logo-twyg.png';
      rel="noopener noreferrer"
      aria-label="Read 'Parachutes to Purpose: How Green Degree is Crafting Change' on Good Things Guy (opens in new tab)">
     <div class="ar-article__logo">
-      <Image src={logoGoodThingsGuy} alt="Good Things Guy" width={120} format="webp" />
+      <Image src={imgGoodThingsGuy} alt="Good Things Guy article thumbnail" width={400} format="webp" />
     </div>
     <div class="ar-article__body">
       <div class="ar-article__meta">
@@ -70,7 +70,7 @@ import logoTwyg from '../assets/images/logo-twyg.png';
      rel="noopener noreferrer"
      aria-label="Read 'How Green Degree Supports Education Programmes Through Upcycled Denim' on Twyg (opens in new tab)">
     <div class="ar-article__logo">
-      <Image src={logoTwyg} alt="Twyg" width={120} format="webp" />
+      <Image src={imgTwyg} alt="Twyg article thumbnail" width={400} format="webp" />
     </div>
     <div class="ar-article__body">
       <div class="ar-article__meta">
@@ -160,19 +160,18 @@ import logoTwyg from '../assets/images/logo-twyg.png';
 }
 .ar-article:hover::after { opacity: 1; }
 
-/* Logo column */
+/* Thumbnail column */
 .ar-article__logo {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding-top: 4px;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 4px;
 }
 .ar-article__logo img {
-  max-width: 120px;
-  max-height: 72px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Body column */
@@ -258,7 +257,6 @@ import logoTwyg from '../assets/images/logo-twyg.png';
 @media (max-width: 820px) {
   .ar-grid { padding: 0 var(--page-pad-mobile) 80px; }
   .ar-article { grid-template-columns: 1fr; gap: 20px; padding: 36px 0; }
-  .ar-article__logo img { max-width: 80px; max-height: 48px; }
   .ar-article__cta { display: none; }
 }
 
