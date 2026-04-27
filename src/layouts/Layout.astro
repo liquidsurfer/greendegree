@@ -9,7 +9,10 @@ interface Props {
 }
 
 const { title, description = 'green° — cape town. sustainability, upcycling and education.' } = Astro.props;
-const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html';
+const isHome     = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html';
+const isDonate   = Astro.url.pathname === '/donate' || Astro.url.pathname === '/donate/';
+const isArticles = Astro.url.pathname === '/articles' || Astro.url.pathname === '/articles/';
+const isLeaf     = !isHome;
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -58,9 +61,9 @@ const organizationSchema = {
       <div class="g-bar__inner">
         <a href="/" class="g-bar__brand" aria-label="green° — home">green<span class="gn-deg">°</span></a>
         <nav class="g-bar__links" aria-label="primary">
+          <a href={routes.about} class="g-bar__link">about</a>
           <a href={routes.ourStory} class="g-bar__link">our story</a>
           <a href={routes.shop} class="g-bar__link">shop</a>
-          <a href={routes.about} class="g-bar__link">about</a>
           <a href={routes.contact} class="g-bar__link">contact</a>
         </nav>
         <a href={routes.donate} class="g-bar__donate">donate</a>
@@ -68,72 +71,43 @@ const organizationSchema = {
     </header>
 
     <div class="g-bot" id="g-bot">
-      <button class="g-bot__menu" id="g-bot-menu" type="button" aria-label="open menu" aria-expanded="false" aria-controls="g-menu">
-        <span class="g-bot__menu-icon" aria-hidden="true">
-          <span class="g-bot__bar"></span>
-          <span class="g-bot__bar"></span>
-          <span class="g-bot__bar"></span>
-        </span>
-        <span class="g-bot__menu-label">explore</span>
-      </button>
-      <a href={routes.donate} class="g-bot__donate">donate →</a>
+      {isLeaf
+        ? <button class="g-bot__menu" type="button" aria-label="go back"
+            onclick="goBack()">
+            <span class="g-bot__menu-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5m0 0l6-6m-6 6l6 6"/>
+              </svg>
+            </span>
+            <span class="g-bot__menu-label">back</span>
+          </button>
+        : <button class="g-bot__menu" id="g-bot-menu" type="button" aria-label="open menu" aria-expanded="false" aria-controls="g-menu">
+            <span class="g-bot__menu-icon" aria-hidden="true">
+              <span class="g-bot__bar"></span>
+              <span class="g-bot__bar"></span>
+              <span class="g-bot__bar"></span>
+            </span>
+            <span class="g-bot__menu-label">explore</span>
+          </button>
+      }
+      {!isDonate && <a href={routes.donate} class="g-bot__donate">
+        {Array.from('donate →').map((char, i) => (
+          <span class="g-bot__donate-char" style={`--ri:${7 - i}`}>{char === ' ' ? ' ' : char}</span>
+        ))}
+      </a>}
     </div>
 
     <aside class="g-menu" id="g-menu" aria-hidden="true" role="dialog" aria-modal="true" aria-label="site menu">
       <nav class="g-menu__links" aria-label="primary">
         <a href={routes.home} class="g-menu__link" data-close>home</a>
+        <a href={routes.about} class="g-menu__link" data-close>about</a>
         <a href={routes.ourStory} class="g-menu__link" data-close>our story</a>
         <a href={routes.shop} class="g-menu__link" data-close>shop</a>
-        <a href={routes.about} class="g-menu__link" data-close>about</a>
         <a href={routes.contact} class="g-menu__link" data-close>contact</a>
       </nav>
-      <a href={routes.donate} class="g-menu__cta" data-close>donate →</a>
     </aside>
 
     <slot />
-
-    <div class="g-scroll-cue" id="g-scroll-cue" aria-hidden="true">
-      <svg viewBox="0 0 24 24" width="26" height="26" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 4v15m0 0l-6-6m6 6l6-6"/>
-      </svg>
-    </div>
-
-    <style>
-      .g-scroll-cue {
-        position: fixed;
-        bottom: 28px;
-        right: var(--page-pad, 32px);
-        z-index: 50;
-        color: var(--color-ink, #1a1a17);
-        opacity: 0;
-        transition: opacity 400ms ease;
-        pointer-events: none;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 10px;
-      }
-      @media (max-width: 720px) {
-        .g-scroll-cue { right: var(--page-pad-mobile, 20px); }
-      }
-      .g-scroll-cue::before {
-        content: "scroll";
-        font-family: var(--font-ui, 'Inter', sans-serif);
-        font-size: 10px;
-        font-weight: 500;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        opacity: 0.5;
-      }
-      .g-scroll-cue svg {
-        animation: hp-cue 2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-        opacity: 0.65;
-      }
-      .g-scroll-cue.g-scroll-cue--visible { opacity: 1; }
-      @media (prefers-reduced-motion: reduce) {
-        .g-scroll-cue svg { animation: none; }
-      }
-    </style>
 
     <footer class="hp-foot" id="foot">
       <div class="hp-foot__inner">
@@ -142,15 +116,12 @@ const organizationSchema = {
           <p class="hp-foot__blurb">made in cape town from upcycled kites, denim, and parachutes. every bag sold funds a filled pencil case for a child at a western cape primary school.</p>
         </div>
         <div class="hp-foot__col hp-foot__col--nav">
-          <nav class="hp-foot__nav" aria-label="footer navigation">
-            <a href={routes.ourStory} class="hp-foot__navlink">our story</a>
-            <a href={routes.shop} class="hp-foot__navlink">shop</a>
-            <a href={routes.about} class="hp-foot__navlink">about</a>
-            <a href={routes.articles} class="hp-foot__navlink">articles</a>
-            <a href={routes.contact} class="hp-foot__navlink">contact</a>
-            <a href={routes.donate} class="hp-foot__navlink">donate</a>
-          </nav>
-          <button class="hp-foot__top" id="hp-foot-top" type="button" aria-label="scroll to top of page">↑ top</button>
+          {isArticles
+            ? <button class="hp-foot__press hp-foot__press--back" type="button" onclick="goBack()">← back</button>
+            : <a href={routes.articles} class="hp-foot__press">in the headlines</a>
+          }
+          <a href="https://www.instagram.com/greendegree_/" class="hp-foot__press" target="_blank" rel="noopener noreferrer">instagram</a>
+          <a href={routes.contact} class="hp-foot__press">contact us</a>
         </div>
       </div>
       <div class="hp-foot__legal">
@@ -165,6 +136,14 @@ const organizationSchema = {
     </footer>
 
     <script is:inline>
+    function goBack() {
+      document.body.style.transition = 'opacity 110ms ease';
+      document.body.style.opacity = '0';
+      setTimeout(function () {
+        history.length > 1 ? history.back() : (window.location.href = '/');
+      }, 110);
+    }
+
     (function () {
       var html = document.documentElement;
 
@@ -187,7 +166,11 @@ const organizationSchema = {
       var menu = document.getElementById('g-menu');
       if (!fab || !menu) return;
 
+      var closingTimer = null;
+
       function openMenu() {
+        if (closingTimer) { clearTimeout(closingTimer); closingTimer = null; }
+        html.classList.remove('menu-closing');
         html.classList.add('menu-open');
         menu.setAttribute('aria-hidden', 'false');
         fab.setAttribute('aria-expanded', 'true');
@@ -195,6 +178,11 @@ const organizationSchema = {
       }
       function closeMenu() {
         html.classList.remove('menu-open');
+        html.classList.add('menu-closing');
+        closingTimer = setTimeout(function () {
+          html.classList.remove('menu-closing');
+          closingTimer = null;
+        }, 360);
         menu.setAttribute('aria-hidden', 'true');
         fab.setAttribute('aria-expanded', 'false');
         fab.setAttribute('aria-label', 'open menu');
@@ -210,32 +198,6 @@ const organizationSchema = {
         if (e.key === 'Escape' && html.classList.contains('menu-open')) closeMenu();
       });
 
-      var topBtn = document.getElementById('hp-foot-top');
-      if (topBtn) {
-        topBtn.addEventListener('click', function () {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      }
-    })();
-
-    (function () {
-      var cue = document.getElementById('g-scroll-cue');
-      if (!cue) return;
-      var hasHeroScroll = !!document.getElementById('nav-reveal-sentinel');
-      function updateCue() {
-        var scrolled = window.scrollY;
-        var atBottom = scrolled + window.innerHeight >= document.body.scrollHeight - 120;
-        var canScroll = document.body.scrollHeight > window.innerHeight + 40;
-        var heroCueGone = !hasHeroScroll || document.documentElement.classList.contains('nav-revealed');
-        if (canScroll && !atBottom && heroCueGone) {
-          cue.classList.add('g-scroll-cue--visible');
-        } else {
-          cue.classList.remove('g-scroll-cue--visible');
-        }
-      }
-      updateCue();
-      window.addEventListener('scroll', updateCue, { passive: true });
-      window.addEventListener('resize', updateCue, { passive: true });
     })();
     </script>
 

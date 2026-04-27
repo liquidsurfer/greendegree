@@ -296,6 +296,45 @@ const donateSchema = {
   .dn-note { display: none; }
   .dn-fill-label { left: 12px; }
 }
+
+.dn-cue {
+  position: fixed;
+  bottom: 28px;
+  right: 40px;
+  z-index: 10;
+  color: var(--color-ink-faint);
+  pointer-events: none;
+  opacity: 0;
+  animation: dn-cue-fadein 600ms ease 2.5s forwards;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 10px;
+}
+.dn-cue::before {
+  content: "fill";
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+.dn-cue svg {
+  animation: hp-cue 2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  transform: rotate(0deg);
+}
+@keyframes dn-cue-fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@media (max-width: 640px) {
+  .dn-cue { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dn-cue { animation: none; opacity: 1; }
+  .dn-cue svg { animation: none; }
+}
 </style>
 
 <div class="dn-fill" id="dn-fill"></div>
@@ -334,6 +373,12 @@ const donateSchema = {
 
 <div class="dn-fill-label" id="dn-fill-label">growing</div>
 <div class="dn-note">R150 per pencil case &middot; 100% goes to the children</div>
+
+<div class="dn-cue" aria-hidden="true">
+  <svg viewBox="0 0 24 24" width="22" height="22" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 20V5m0 0l-6 6m6-6l6 6"/>
+  </svg>
+</div>
 
 <div class="dn-success" id="dn-success" aria-live="polite" aria-hidden="true">
   <p class="dn-success__title">thank you</p>
