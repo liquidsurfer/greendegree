@@ -16,10 +16,10 @@ const MOCK_PRODUCTS: Product[] = [
   {
     id: 'mock-1',
     name: 'Cooler Bag',
-    description: 'A sturdy, insulated cooler bag handcrafted from rescued kite fabric. Each one is unique — the colours and patterns are determined by whatever kites we collected that season.',
+    description: 'A sturdy, insulated cooler bag handcrafted from collected kite fabric. Each one is unique — the colours and patterns are determined by whatever kites we collected that season.',
     price: 1000,
     collection: 'Kite',
-    materials: 'Rescued kite ripstop nylon, recycled insulating liner',
+    materials: 'Collected kite ripstop nylon, recycled insulating liner',
     colourPattern: 'lumo lime',
     slug: 'cooler-bag-lumo-lime',
     imageUrl: '/images/product-cooler-boxes.jpg',
