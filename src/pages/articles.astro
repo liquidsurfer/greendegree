@@ -1,5 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import logoGreenEconomy from '../assets/images/logo-green-economy-media.png';
+import logoGoodThingsGuy from '../assets/images/logo-good-things-guy.png';
+import logoTwyg from '../assets/images/logo-twyg.png';
 ---
 
 <Layout title="articles — green°" description="green° in the press — read how South Africa's sustainability and community media covered the story of upcycling, education, and community in the Western Cape.">
@@ -16,43 +20,70 @@ import Layout from '../layouts/Layout.astro';
 <!-- Articles -->
 <main class="ar-grid">
 
-  <a class="ar-article" href="https://greeneconomy.media/parachutes-to-purpose-crafting-change-with-creativity/" target="_blank" rel="noopener">
-    <div class="ar-article__meta">
-      <span class="ar-article__pub">Green Economy Media</span>
-      <span class="ar-article__date">2024</span>
-      <span class="ar-article__tag">sustainability</span>
+  <a class="ar-article"
+     href="https://greeneconomy.media/parachutes-to-purpose-crafting-change-with-creativity/"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Read 'Parachutes to Purpose: Crafting Change with Creativity' on Green Economy Media (opens in new tab)">
+    <div class="ar-article__logo">
+      <Image src={logoGreenEconomy} alt="Green Economy Media" width={120} format="webp" />
     </div>
-    <div class="ar-article__content">
-      <h2 class="ar-article__title">Parachutes to Purpose: Crafting Change with Creativity</h2>
-      <p class="ar-article__excerpt">How two Cape Town women turned discarded kite sails and denim into a movement — repurposing waste into pencil cases, bags and livelihoods for communities in the Western Cape.</p>
+    <div class="ar-article__body">
+      <div class="ar-article__meta">
+        <span class="ar-article__pub">Green Economy Media</span>
+        <span class="ar-article__date">2024</span>
+        <span class="ar-article__tag">sustainability</span>
+      </div>
+      <div class="ar-article__content">
+        <h2 class="ar-article__title">Parachutes to Purpose: Crafting Change with Creativity</h2>
+        <p class="ar-article__excerpt">How two Cape Town women turned discarded kite sails and denim into a movement — repurposing waste into pencil cases, bags and livelihoods for communities in the Western Cape.</p>
+      </div>
+      <span class="ar-article__cta">read article</span>
     </div>
-    <span class="ar-article__cta">read article</span>
   </a>
 
-  <a class="ar-article" href="https://www.goodthingsguy.com/environment/parachutes-to-purpose-how-green-degree-is-crafting-change/" target="_blank" rel="noopener">
-    <div class="ar-article__meta">
-      <span class="ar-article__pub">Good Things Guy</span>
-      <span class="ar-article__date">2024</span>
-      <span class="ar-article__tag">environment</span>
+  <a class="ar-article"
+     href="https://www.goodthingsguy.com/environment/parachutes-to-purpose-how-green-degree-is-crafting-change/"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Read 'Parachutes to Purpose: How Green Degree is Crafting Change' on Good Things Guy (opens in new tab)">
+    <div class="ar-article__logo">
+      <Image src={logoGoodThingsGuy} alt="Good Things Guy" width={120} format="webp" />
     </div>
-    <div class="ar-article__content">
-      <h2 class="ar-article__title">Parachutes to Purpose: How Green Degree is Crafting Change</h2>
-      <p class="ar-article__excerpt">The story of green° — from a living room idea to 2,550 children equipped with stationery every year, via recycled kites, donated denim and a sewing café in Masiphumelele.</p>
+    <div class="ar-article__body">
+      <div class="ar-article__meta">
+        <span class="ar-article__pub">Good Things Guy</span>
+        <span class="ar-article__date">2024</span>
+        <span class="ar-article__tag">environment</span>
+      </div>
+      <div class="ar-article__content">
+        <h2 class="ar-article__title">Parachutes to Purpose: How Green Degree is Crafting Change</h2>
+        <p class="ar-article__excerpt">The story of green° — from a living room idea to 2,550 children equipped with stationery every year, via recycled kites, donated denim and a sewing café in Masiphumelele.</p>
+      </div>
+      <span class="ar-article__cta">read article</span>
     </div>
-    <span class="ar-article__cta">read article</span>
   </a>
 
-  <a class="ar-article" href="https://twyg.co.za/how-green-degree-supports-education-programmes-through-upcycled-denim/" target="_blank" rel="noopener">
-    <div class="ar-article__meta">
-      <span class="ar-article__pub">Twyg</span>
-      <span class="ar-article__date">2024</span>
-      <span class="ar-article__tag">upcycling</span>
+  <a class="ar-article"
+     href="https://twyg.co.za/how-green-degree-supports-education-programmes-through-upcycled-denim/"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Read 'How Green Degree Supports Education Programmes Through Upcycled Denim' on Twyg (opens in new tab)">
+    <div class="ar-article__logo">
+      <Image src={logoTwyg} alt="Twyg" width={120} format="webp" />
     </div>
-    <div class="ar-article__content">
-      <h2 class="ar-article__title">How Green Degree Supports Education Programmes Through Upcycled Denim</h2>
-      <p class="ar-article__excerpt">Twyg explores the green° model: waste fabric in, filled pencil cases out — and how conscious consumerism funds a year's worth of stationery for Western Cape primary school children.</p>
+    <div class="ar-article__body">
+      <div class="ar-article__meta">
+        <span class="ar-article__pub">Twyg</span>
+        <span class="ar-article__date">2024</span>
+        <span class="ar-article__tag">upcycling</span>
+      </div>
+      <div class="ar-article__content">
+        <h2 class="ar-article__title">How Green Degree Supports Education Programmes Through Upcycled Denim</h2>
+        <p class="ar-article__excerpt">Twyg explores the green° model: waste fabric in, filled pencil cases out — and how conscious consumerism funds a year's worth of stationery for Western Cape primary school children.</p>
+      </div>
+      <span class="ar-article__cta">read article</span>
     </div>
-    <span class="ar-article__cta">read article</span>
   </a>
 
 </main>
@@ -105,8 +136,8 @@ import Layout from '../layouts/Layout.astro';
 }
 .ar-article {
   display: grid;
-  grid-template-columns: 1fr 2fr auto;
-  gap: 32px 48px;
+  grid-template-columns: 160px 1fr;
+  gap: 48px;
   align-items: start;
   padding: 48px 0;
   border-top: 1px solid var(--color-rule);
@@ -129,7 +160,29 @@ import Layout from '../layouts/Layout.astro';
 }
 .ar-article:hover::after { opacity: 1; }
 
-.ar-article__meta { display: flex; flex-direction: column; gap: 8px; padding-top: 4px; }
+/* Logo column */
+.ar-article__logo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 4px;
+}
+.ar-article__logo img {
+  max-width: 120px;
+  max-height: 72px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Body column */
+.ar-article__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ar-article__meta { display: flex; flex-direction: column; gap: 8px; }
 .ar-article__pub {
   font-family: var(--font-ui);
   font-size: 11px;
@@ -193,18 +246,19 @@ import Layout from '../layouts/Layout.astro';
   text-transform: lowercase;
   color: var(--color-ink-soft);
   white-space: nowrap;
-  padding-top: 4px;
   display: flex;
   align-items: center;
   gap: 6px;
   transition: color 200ms;
+  align-self: flex-start;
 }
 .ar-article:hover .ar-article__cta { color: var(--color-ink); }
 .ar-article__cta::after { content: "→"; font-size: 14px; }
 
 @media (max-width: 820px) {
   .ar-grid { padding: 0 var(--page-pad-mobile) 80px; }
-  .ar-article { grid-template-columns: 1fr; gap: 16px; padding: 36px 0; }
+  .ar-article { grid-template-columns: 1fr; gap: 20px; padding: 36px 0; }
+  .ar-article__logo img { max-width: 80px; max-height: 48px; }
   .ar-article__cta { display: none; }
 }
 
