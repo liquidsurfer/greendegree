@@ -2,7 +2,7 @@ export const routes = {
   home:     '/',
   ourStory: '/our-story',
   shop:     '/shop',
-  about:    '/about',
+  impact:   '/impact',
   articles: '/articles',
   contact:  '/contact',
   donate:   '/donate',

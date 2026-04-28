@@ -16,12 +16,6 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
 <Layout title="green° — cape town. sustainability, upcycling and education." description="green° upcycles donated kites, denim and parachutes into handcrafted bags in Cape Town. 100% of profits supply stationery to children at three primary schools in the Western Cape, South Africa.">
   <link slot="head" rel="preload" href={heroPreload.src} as="image" type="image/webp" />
 
-<!-- LOADER -->
-<div class="gd-loader" id="gd-loader">
-  <div class="gd-loader__brand">green<span class="gn-deg">°</span></div>
-  <div class="gd-loader__rule"></div>
-</div>
-
 <!-- HERO -->
 <div class="hp-hero-outer" id="hero-outer">
   <section class="hp-hero">
@@ -142,7 +136,7 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
     <div class="hp-unit-lime__inner">
       <p class="hp-unit-lime__line">every bag sold<span class="hp-unit-lime__eq">→</span>fills pencil cases.</p>
       <p class="hp-unit-lime__sub">over 12,800+ pencil cases handed out since december 2019.</p>
-      <a href={routes.donate} class="hp-unit-lime__cta">donate →</a>
+      <a href={routes.impact} class="hp-unit-lime__cta">see the impact →</a>
     </div>
     <div class="hp-lime__cue" id="lime-cue" aria-hidden="true">
       <svg viewBox="0 0 24 24" width="22" height="22" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -232,46 +226,6 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
 </Layout>
 
 <style is:global>
-/* ============================================================
-   LOADER
-   ============================================================ */
-.gd-loader {
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  background: var(--color-bg);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 700ms var(--ease-standard);
-  pointer-events: all;
-}
-.gd-loader.is-done {
-  opacity: 0;
-  pointer-events: none;
-}
-.gd-loader__brand {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(3rem, 8vw, 6rem);
-  letter-spacing: -0.03em;
-  color: var(--color-ink);
-  line-height: 1;
-}
-.gd-loader__brand .gn-deg { color: var(--color-lime); }
-.gd-loader__rule {
-  height: 1px;
-  background: var(--color-sage-deep);
-  margin-top: 28px;
-  width: 0;
-  animation: loader-rule 1s cubic-bezier(0.16,1,0.3,1) 400ms forwards;
-}
-@keyframes loader-rule {
-  from { width: 0; }
-  to   { width: clamp(80px, 18vw, 200px); }
-}
-
 /* ============================================================
    HERO — SCROLL JOURNEY
    ============================================================ */
@@ -869,15 +823,25 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
 
 <script is:inline>
 /* ============================================================
-   LOADER
+   SKIP INTRO — jump to zoomed state when arriving via nav
    ============================================================ */
 (function () {
-  var loader = document.getElementById('gd-loader');
-  if (!loader) return;
-  setTimeout(function () {
-    loader.classList.add('is-done');
-    setTimeout(function () { loader.style.display = 'none'; }, 800);
-  }, 1400);
+  if (!sessionStorage.getItem('gd-skip-intro')) return;
+  sessionStorage.removeItem('gd-skip-intro');
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  document.documentElement.classList.add('nav-revealed');
+  /* kill the fade-in animation so text appears instantly */
+  ['hp-hero__eyebrow', 'hp-hero__title'].forEach(function (cls) {
+    var el = document.querySelector('.hp-hero-outer .' + cls);
+    if (el) { el.style.animation = 'none'; el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }
+  });
+  var outer = document.getElementById('hero-outer');
+  if (!outer) return;
+  var mult = window.innerWidth >= 821 ? 0.68 : 0.63;
+  requestAnimationFrame(function () {
+    var to = (outer.offsetHeight - window.innerHeight) * mult;
+    if (to > 0) window.scrollTo(0, Math.round(to));
+  });
 })();
 
 /* ============================================================

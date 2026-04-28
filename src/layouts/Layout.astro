@@ -52,6 +52,7 @@ const organizationSchema = {
     <!-- Font preloads -->
     <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Fraunces-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <style>.g-menu { transform: translateX(-100%); }</style>
     <slot name="head" />
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   </head>
@@ -61,7 +62,7 @@ const organizationSchema = {
       <div class="g-bar__inner">
         <a href="/" class="g-bar__brand" aria-label="green° — home">green<span class="gn-deg">°</span></a>
         <nav class="g-bar__links" aria-label="primary">
-          <a href={routes.about} class="g-bar__link">about</a>
+          <a href={routes.impact} class="g-bar__link">impact</a>
           <a href={routes.ourStory} class="g-bar__link">our story</a>
           <a href={routes.shop} class="g-bar__link">shop</a>
           <a href={routes.contact} class="g-bar__link">contact</a>
@@ -70,37 +71,35 @@ const organizationSchema = {
       </div>
     </header>
 
-    <div class="g-bot" id="g-bot">
-      {isLeaf
-        ? <button class="g-bot__menu" type="button" aria-label="go back"
-            onclick="goBack()">
-            <span class="g-bot__menu-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 12H5m0 0l6-6m-6 6l6 6"/>
-              </svg>
-            </span>
-            <span class="g-bot__menu-label">back</span>
-          </button>
-        : <button class="g-bot__menu" id="g-bot-menu" type="button" aria-label="open menu" aria-expanded="false" aria-controls="g-menu">
-            <span class="g-bot__menu-icon" aria-hidden="true">
-              <span class="g-bot__bar"></span>
-              <span class="g-bot__bar"></span>
-              <span class="g-bot__bar"></span>
-            </span>
-            <span class="g-bot__menu-label">explore</span>
-          </button>
-      }
-      {!isDonate && <a href={routes.donate} class="g-bot__donate">
-        {Array.from('donate →').map((char, i) => (
-          <span class="g-bot__donate-char" style={`--ri:${7 - i}`}>{char === ' ' ? ' ' : char}</span>
-        ))}
-      </a>}
-    </div>
+    {!isDonate && (
+      <a href={routes.donate} class="g-fab g-fab--donate" aria-label="donate">donate →</a>
+    )}
+
+    {isDonate ? (
+      <button class="g-fab g-fab--menu" type="button" aria-label="go back" onclick="goBack()">
+        <span class="g-fab__back" aria-hidden="true">←</span>
+      </button>
+    ) : (
+      <button
+        class="g-fab g-fab--menu"
+        id="g-bot-menu"
+        type="button"
+        aria-label="open menu"
+        aria-expanded="false"
+        aria-controls="g-menu"
+      >
+        <span class="g-fab__icon" aria-hidden="true">
+          <span class="g-fab__bar"></span>
+          <span class="g-fab__bar"></span>
+          <span class="g-fab__bar"></span>
+        </span>
+      </button>
+    )}
 
     <aside class="g-menu" id="g-menu" aria-hidden="true" role="dialog" aria-modal="true" aria-label="site menu">
       <nav class="g-menu__links" aria-label="primary">
         <a href={routes.home} class="g-menu__link" data-close>home</a>
-        <a href={routes.about} class="g-menu__link" data-close>about</a>
+        <a href={routes.impact} class="g-menu__link" data-close>impact</a>
         <a href={routes.ourStory} class="g-menu__link" data-close>our story</a>
         <a href={routes.shop} class="g-menu__link" data-close>shop</a>
         <a href={routes.contact} class="g-menu__link" data-close>contact</a>
@@ -192,10 +191,19 @@ const organizationSchema = {
         html.classList.contains('menu-open') ? closeMenu() : openMenu();
       });
       menu.querySelectorAll('[data-close]').forEach(function (a) {
-        a.addEventListener('click', closeMenu);
+        a.addEventListener('click', function () {
+          if (a.getAttribute('href') === '/') sessionStorage.setItem('gd-skip-intro', '1');
+          closeMenu();
+        });
       });
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && html.classList.contains('menu-open')) closeMenu();
+      });
+
+      /* any brand-logo click sets the skip flag so home lands zoomed in */
+      var brand = document.querySelector('.g-bar__brand');
+      if (brand) brand.addEventListener('click', function () {
+        sessionStorage.setItem('gd-skip-intro', '1');
       });
 
     })();

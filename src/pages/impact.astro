@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import { routes } from '../config/routes.ts';
+import imgHero        from '../assets/images/classroom-wide-bw.jpg';
 import imgHowCollect  from '../assets/images/how-01-collect.avif';
 import imgHowCreate   from '../assets/images/how-02-create.jpg';
 import imgHowContrib  from '../assets/images/how-03-contribute.jpg';
@@ -9,17 +10,47 @@ import imgTangibility from '../assets/images/10-tangibility-flatlay.jpg';
 ---
 
 <Layout
-  title="about — green°"
-  description="how green° works — the process, the schools we support, and what every bag sale means for a child."
+  title="impact — green°"
+  description="the numbers behind green° — pencil cases delivered, jeans upcycled, kites given a second life."
 >
 
-<header class="ab-head">
-  <div class="ab-head__inner">
-    <span class="gn-eyebrow">about green°</span>
-    <h1 class="ab-head__title">how it works.</h1>
-    <p class="ab-head__sub">we collect donated materials, create unique bags, and put 100% of profits into pencil cases and stationery for three cape town schools.</p>
+<!-- HERO -->
+<section class="hp-hero ip-hero">
+  <Image class="hp-hero__img" src={imgHero} alt="children at Capricorn Primary holding up their new green° denim pencil cases" width={1600} format="webp" />
+  <div class="hp-hero__overlay" aria-hidden="true"></div>
+  <div class="hp-hero__text">
+    <div>
+      <div class="hp-hero__eyebrow">impact</div>
+      <h1 class="hp-hero__title">the impact.</h1>
+    </div>
   </div>
-</header>
+</section>
+
+<!-- SCHOOLS -->
+<section class="hp-schools" id="schools">
+  <div class="hp-schools__inner">
+    <div class="hp-schools__head">
+      <h2 class="hp-schools__title">3 schools.<br>one community.</h2>
+    </div>
+    <div class="hp-schools__list">
+      <div class="hp-schools__school">
+        <div class="hp-schools__num">01</div>
+        <div class="hp-schools__name">Capricorn Primary</div>
+        <div class="hp-schools__loc">Capricorn, Western Cape</div>
+      </div>
+      <div class="hp-schools__school">
+        <div class="hp-schools__num">02</div>
+        <div class="hp-schools__name">Caravelle Primary</div>
+        <div class="hp-schools__loc">Strandfontein</div>
+      </div>
+      <div class="hp-schools__school">
+        <div class="hp-schools__num">03</div>
+        <div class="hp-schools__name">Westlake Primary</div>
+        <div class="hp-schools__loc">Westlake, Southern Suburbs</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- PROCESS -->
 <section class="hp-how" id="process">
@@ -55,33 +86,6 @@ import imgTangibility from '../assets/images/10-tangibility-flatlay.jpg';
   </div>
 </section>
 
-<!-- SCHOOLS -->
-<section class="hp-schools" id="schools">
-  <div class="hp-schools__inner">
-    <div class="hp-schools__head">
-      <span class="gn-eyebrow">the schools</span>
-      <h2 class="hp-schools__title">three schools.<br>one cape town.</h2>
-    </div>
-    <div class="hp-schools__list">
-      <div class="hp-schools__school">
-        <div class="hp-schools__num">01</div>
-        <div class="hp-schools__name">Capricorn Primary</div>
-        <div class="hp-schools__loc">Capricorn, Western Cape</div>
-      </div>
-      <div class="hp-schools__school">
-        <div class="hp-schools__num">02</div>
-        <div class="hp-schools__name">Caravelle Primary</div>
-        <div class="hp-schools__loc">Strandfontein</div>
-      </div>
-      <div class="hp-schools__school">
-        <div class="hp-schools__num">03</div>
-        <div class="hp-schools__name">Westlake Primary</div>
-        <div class="hp-schools__loc">Westlake, Southern Suburbs</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- TANGIBILITY -->
 <section class="hp-tangibility" id="one-set">
   <div class="hp-tangibility__inner">
@@ -105,7 +109,7 @@ import imgTangibility from '../assets/images/10-tangibility-flatlay.jpg';
 </section>
 
 <!-- COUNTERS -->
-<section class="hp-counters" id="impact">
+<section class="hp-counters" id="counters">
   <div class="hp-counters__inner">
     <div class="hp-counters__grid">
       <article class="hp-counter">
@@ -128,38 +132,33 @@ import imgTangibility from '../assets/images/10-tangibility-flatlay.jpg';
 </Layout>
 
 <style is:global>
-/* ---- About page header ---- */
-.ab-head {
-  background: var(--color-bg-tint);
-  padding: 120px var(--page-pad) 96px;
-  border-bottom: 1px solid var(--color-rule);
+/* ---- Impact hero — modifier over .hp-hero ---- */
+.ip-hero { height: 100svh; max-height: 100svh; }
+.ip-hero .hp-hero__img {
+  object-position: center 28%;
+  transform: scale(1.08) translateY(0px);
+  will-change: transform;
 }
-.ab-head__inner {
-  max-width: var(--page-max);
-  margin: 0 auto;
-  display: grid;
-  gap: 24px;
-  max-width: 720px;
-}
-.ab-head__title {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(3rem, 7vw, 6rem);
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: var(--color-ink);
-  margin: 0;
-}
-.ab-head__sub {
-  font-family: var(--font-ui);
-  font-size: 16px;
-  line-height: 1.65;
-  color: var(--color-ink-soft);
-  margin: 0;
-  max-width: 52ch;
-}
+
+/* ---- Process step carousel on mobile ---- */
 @media (max-width: 820px) {
-  .ab-head { padding: 80px var(--page-pad-mobile) 64px; }
+  .hp-how { padding-inline: 0; }
+  .hp-how__head { padding-inline: var(--page-pad-mobile); }
+  .hp-how__steps {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 0;
+    padding: 0 var(--page-pad-mobile) 32px;
+    scrollbar-width: none;
+  }
+  .hp-how__steps::-webkit-scrollbar { display: none; }
+  .hp-how__step {
+    flex: 0 0 82%;
+    max-width: 340px;
+    scroll-snap-align: start;
+  }
 }
 
 /* ---- Schools ---- */
@@ -236,6 +235,22 @@ import imgTangibility from '../assets/images/10-tangibility-flatlay.jpg';
 </style>
 
 <script is:inline>
+/* Hero parallax */
+(function () {
+  var hero = document.querySelector('.ip-hero');
+  var img  = hero && hero.querySelector('.hp-hero__img');
+  if (!hero || !img) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function update() {
+    var top = hero.getBoundingClientRect().top;
+    if (top > window.innerHeight) return;
+    var offset = (-top / window.innerHeight) * 40;
+    img.style.transform = 'scale(1.08) translateY(' + offset + 'px)';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
 /* Section fade-in reveals */
 (function () {
   var els = document.querySelectorAll('.hp-reveal');
