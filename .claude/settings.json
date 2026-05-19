@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(functions/api/charge.js)",
+      "Write(functions/api/charge.js)"
+    ]
+  }
+}
