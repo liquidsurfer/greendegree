@@ -42,6 +42,7 @@ export async function onRequestPost(context) {
   const data = await yocoRes.json();
 
   if (!yocoRes.ok) {
+    console.error('Yoco error:', data);
     return json({ error: 'Payment provider error' }, 502);
   }
 
