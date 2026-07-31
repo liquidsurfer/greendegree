@@ -687,7 +687,10 @@ img { display: block; }
 .hp-counter__num {
   font-family: var(--font-display);
   font-weight: 300;
-  font-size: clamp(5rem, 13vw, 12rem);
+  /* The cap has to keep the three min-content columns inside --page-max: 1fr is
+     minmax(auto, 1fr), so numerals wider than their share push the band — and
+     the stamp above the footer — off the right rail. 12rem overflowed by 31px. */
+  font-size: clamp(5rem, 13vw, 11rem);
   line-height: 0.9;
   letter-spacing: -0.05em;
   color: var(--color-ink);
