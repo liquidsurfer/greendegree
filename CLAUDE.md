@@ -11,21 +11,6 @@ When starting any task:
 
 This prevents agents from trampling each other's work when running in parallel.
 
-## Stack
-
-- Astro + Tailwind CSS v4
-- Bun (use `bun run dev`, `bun run build`)
-- Dev server: `http://localhost:4321`
-
-## Pages
-
-| Route | File | Status |
-|---|---|---|
-| `/` | `src/pages/index.astro` | Done |
-| `/our-story` | `src/pages/our-story.astro` | Done |
-| `/articles` | `src/pages/articles.astro` | Done |
-| `/donate` | `src/pages/donate.astro` | Done |
-
 ## Brand contacts
 
 - Instagram: https://www.instagram.com/greendegree_/
