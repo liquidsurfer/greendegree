@@ -37,6 +37,12 @@
   --page-max: 1140px;
   --page-pad: 32px;
   --page-pad-mobile: 20px;
+  /* Optical alignment. Type sits on the rail by its ink, not its metrics:
+     large Fraunces glyphs carry a left side bearing (~0.034em for digits at
+     wght 300), and tracked-out UI type carries a trailing letter-space. Cancel
+     both when an element's edge has to meet the rail. */
+  --optical-lsb-display: 0.034em;
+  --optical-track-ui: 0.2em;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -654,7 +660,7 @@ img { display: block; }
   box-sizing: border-box;
 }
 .hp-counters__inner {
-  max-width: 1600px;
+  max-width: var(--page-max);
   width: 100%;
   margin: 0 auto;
   flex: 1;
@@ -686,6 +692,9 @@ img { display: block; }
   letter-spacing: -0.05em;
   color: var(--color-ink);
   font-variant-numeric: tabular-nums;
+  /* Pull the glyph's left side bearing off the axis so the ink of the
+     numeral — not its blank bearing — lands on the same edge as the label. */
+  margin-left: calc(-1 * var(--optical-lsb-display));
 }
 .hp-counter__label {
   font-family: var(--font-ui);
@@ -699,10 +708,12 @@ img { display: block; }
 .hp-counters__stamp {
   font-family: var(--font-ui);
   font-size: 11px;
-  letter-spacing: 0.2em;
+  letter-spacing: var(--optical-track-ui);
   text-transform: uppercase;
   color: var(--color-ink-faint);
   margin: 0;
+  /* Trailing letter-space would hold the last glyph short of the right rail. */
+  margin-right: calc(-1 * var(--optical-track-ui));
   text-align: right;
 }
 @media (max-width: 900px) {
@@ -852,7 +863,6 @@ img { display: block; }
   font-size: 12px;
   color: var(--color-ink-faint);
 }
-.hp-foot__dot { width: 6px; height: 6px; border-radius: 999px; background: var(--color-lime); }
 .hp-foot__copy { flex: 1; }
 .hp-foot__tos { color: var(--color-ink-faint); border: 0; }
 .hp-foot__tos:hover { color: var(--color-ink); }
