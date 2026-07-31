@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://greendegree.co.za/sitemap-index.xml
+Sitemap: https://greendegree.org/sitemap-index.xml

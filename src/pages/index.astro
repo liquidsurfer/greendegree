@@ -163,33 +163,33 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
       <h2 class="hp-collections__title">three collections.</h2>
       <p class="hp-collections__intro">kites become beach bags. denim becomes jackets. parachutes become hand bags.</p>
     </div>
-    <a href={routes.shop} class="hp-collections__shop">shop</a>
+    <span class="hp-collections__soon">online shop — coming soon</span>
   </div>
   <div class="hp-tiles">
-    <a class="hp-tile" href={routes.shop}>
+    <div class="hp-tile">
       <div class="hp-tile__img-wrap">
         <Image class="hp-tile__img" src={imgKiteTrio} alt="three kite-fabric cooler bags in orange, pink and blue" width={1200} format="webp" />
       </div>
       <div class="hp-tile__name">kite collection</div>
       <div class="hp-tile__meta">beach bags, coolers, and smaller carry — cut and stitched from recycled kitesurfing sails.</div>
       <div class="hp-tile__price">beach bags R 750  ·  coolers R 1,000  ·  smaller R 350–500</div>
-    </a>
-    <a class="hp-tile" href={routes.shop}>
+    </div>
+    <div class="hp-tile">
       <div class="hp-tile__img-wrap">
         <Image class="hp-tile__img" src={imgDenim} alt="patched denim jacket — close up on buttons and lining" width={1200} format="webp" />
       </div>
       <div class="hp-tile__name">denim collection</div>
       <div class="hp-tile__meta">one-of-a-kind patched jackets, cut from donated jeans. no two alike.</div>
       <div class="hp-tile__price">R 2,000–3,500</div>
-    </a>
-    <a class="hp-tile" href={routes.shop}>
+    </div>
+    <div class="hp-tile">
       <div class="hp-tile__img-wrap">
         <Image class="hp-tile__img" src={imgParachute} alt="crocheted tote made from strips of recycled plastic — yellow, green, blue and white" width={1200} format="webp" />
       </div>
       <div class="hp-tile__name">parachute collection</div>
       <div class="hp-tile__meta">moon bags and space bags from donated parachutes — crocheted and stitched in the workshop.</div>
       <div class="hp-tile__price">moon bags R 500  ·  space bags R 2,500</div>
-    </a>
+    </div>
   </div>
 </section>
 
@@ -204,7 +204,6 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
     </blockquote>
     <div class="hp-invite__cta-row">
       <a class="hp-invite__cta" href={routes.donate}>donate</a>
-      <a class="hp-invite__cta hp-invite__cta--ghost" href={routes.shop}>shop</a>
     </div>
   </div>
 </section>
