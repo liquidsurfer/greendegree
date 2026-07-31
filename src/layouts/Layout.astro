@@ -62,8 +62,8 @@ const organizationSchema = {
       <div class="g-bar__inner">
         <a href="/" class="g-bar__brand" aria-label="green° — home">green<span class="gn-deg">°</span></a>
         <nav class="g-bar__links" aria-label="primary">
-          <a href={routes.impact} class="g-bar__link">impact</a>
           <a href={routes.ourStory} class="g-bar__link">our story</a>
+          <a href={routes.impact} class="g-bar__link">impact</a>
           <a href={routes.contact} class="g-bar__link">contact</a>
         </nav>
         <a href={routes.donate} class="g-bar__donate">donate</a>
@@ -98,8 +98,8 @@ const organizationSchema = {
     <aside class="g-menu" id="g-menu" aria-hidden="true" role="dialog" aria-modal="true" aria-label="site menu">
       <nav class="g-menu__links" aria-label="primary">
         <a href={routes.home} class="g-menu__link" data-close>home</a>
-        <a href={routes.impact} class="g-menu__link" data-close>impact</a>
         <a href={routes.ourStory} class="g-menu__link" data-close>our story</a>
+        <a href={routes.impact} class="g-menu__link" data-close>impact</a>
         <a href={routes.contact} class="g-menu__link" data-close>contact</a>
       </nav>
     </aside>
@@ -115,7 +115,7 @@ const organizationSchema = {
         <div class="hp-foot__col hp-foot__col--nav">
           {isArticles
             ? <button class="hp-foot__press hp-foot__press--back" type="button" onclick="goBack()">← back</button>
-            : <a href={routes.articles} class="hp-foot__press">in the headlines</a>
+            : <a href={routes.articles} class="hp-foot__press">press</a>
           }
           <a href="https://www.instagram.com/greendegree_/" class="hp-foot__press" target="_blank" rel="noopener noreferrer">instagram</a>
           <a href={routes.contact} class="hp-foot__press">contact us</a>
