@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 import { brand } from '../config/brand.ts';
+import imgSnapScan from '../assets/images/snapscan-qr.png';
 
 const donateSchema = {
   '@context': 'https://schema.org',
@@ -19,19 +21,23 @@ const donateSchema = {
 <Layout title="donate — green°" description="Support green°. Every donation funds stationery for children at three primary schools in the Western Cape, South Africa. Secure card payments via Yoco.">
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(donateSchema)} />
 
-<style is:global>
-  /* Donate page: full-viewport, no scroll */
-  body.dn-page { overflow: hidden; }
-</style>
-
 <style>
 /* ============================================================
-   DONATE PAGE — immersive pencil case funder
-   The lime fills the page as generosity grows.
+   DONATE PAGE — pencil case funder, then the SnapScan rail
+   The lime fills the calculator panel as generosity grows.
+   The panel is a contained 100vh viewport rather than a page
+   scroll lock, so the SnapScan block and the global footer
+   stay reachable below it.
    ============================================================ */
 
+.dn-viewport {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
 .dn-fill {
-  position: fixed;
+  position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 0%;
   background: var(--color-lime);
@@ -43,7 +49,7 @@ const donateSchema = {
 .dn-stage {
   position: relative;
   z-index: 1;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -218,7 +224,7 @@ const donateSchema = {
 .dn-cta__arrow { font-size: 18px; }
 
 .dn-fill-label {
-  position: fixed;
+  position: absolute;
   bottom: 0%;
   left: 40px;
   z-index: 5;
@@ -249,7 +255,7 @@ const donateSchema = {
 }
 
 .dn-note {
-  position: fixed;
+  position: absolute;
   bottom: 28px;
   right: 40px;
   font-family: var(--font-ui);
@@ -260,7 +266,7 @@ const donateSchema = {
 }
 
 .dn-success {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 20;
   display: flex;
@@ -298,7 +304,7 @@ const donateSchema = {
 }
 
 .dn-cue {
-  position: fixed;
+  position: absolute;
   bottom: 28px;
   right: 40px;
   z-index: 10;
@@ -335,8 +341,58 @@ const donateSchema = {
   .dn-cue { animation: none; opacity: 1; }
   .dn-cue svg { animation: none; }
 }
+
+/* ============================================================
+   SNAPSCAN — second rail, carried over from the original site
+   ============================================================ */
+.dn-snap {
+  background: var(--color-bg);
+  padding: 104px var(--page-pad);
+  border-top: 1px solid var(--color-rule);
+}
+.dn-snap__inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 64px;
+  align-items: center;
+}
+.dn-snap__eyebrow { display: inline-block; margin-bottom: 24px; }
+.dn-snap__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+  margin: 0 0 20px;
+}
+.dn-snap__lead,
+.dn-snap__closing {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-ink-soft);
+  margin: 0;
+  max-width: 44ch;
+}
+.dn-snap__closing { margin-top: 12px; font-style: italic; color: var(--color-sage-deep); }
+.dn-snap__code {
+  background: #fff;
+  padding: 18px;
+  border: 1px solid var(--color-rule);
+  line-height: 0;
+}
+.dn-snap__code img { width: 240px; height: auto; }
+@media (max-width: 820px) {
+  .dn-snap { padding: 72px var(--page-pad-mobile); }
+  .dn-snap__inner { grid-template-columns: 1fr; gap: 40px; justify-items: start; }
+  .dn-snap__code img { width: 200px; }
+}
 </style>
 
+<div class="dn-viewport">
 <div class="dn-fill" id="dn-fill"></div>
 
 <main class="dn-stage">
@@ -384,11 +440,25 @@ const donateSchema = {
   <p class="dn-success__title">thank you</p>
   <p class="dn-success__sub" id="dn-success-sub">your pencil cases are on their way</p>
 </div>
+</div>
+
+<!-- SNAPSCAN — second rail, and the one the original site used -->
+<section class="dn-snap" aria-labelledby="dn-snap-title">
+  <div class="dn-snap__inner">
+    <div class="dn-snap__copy">
+      <span class="gn-eyebrow dn-snap__eyebrow">another way to give</span>
+      <h2 class="dn-snap__title" id="dn-snap-title">or donate via snapscan<span class="gn-deg">.</span></h2>
+      <p class="dn-snap__lead">Please use the code below to donate via SnapScan.</p>
+      <p class="dn-snap__closing">Your support is SO appreciated.</p>
+    </div>
+    <div class="dn-snap__code">
+      <Image src={imgSnapScan} alt="SnapScan QR code for donating to green°" width={320} format="webp" />
+    </div>
+  </div>
+</section>
 
 <script is:inline>
 (function () {
-  document.body.classList.add('dn-page');
-
   var RATE = 150;
   var MAX  = 50;
 
@@ -466,7 +536,10 @@ const donateSchema = {
       .then(function (r) { return r.json(); })
       .then(function (data) {
         if (data.redirectUrl) {
-          window.location.href = data.redirectUrl;
+          /* replace(), not href: pushing a history entry here leaves /donate
+             sandwiched inside Yoco's own redirect chain, so pressing back
+             bounces between the two instead of leaving the site. */
+          window.location.replace(data.redirectUrl);
         } else {
           setLoading(false);
           alert('Could not start checkout. Please try again.');
