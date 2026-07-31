@@ -295,6 +295,78 @@ const donateSchema = {
   letter-spacing: 0.04em;
 }
 
+/* Shown when Yoco bounces the donor back via failureUrl. Sand rather
+   than lime: the card was declined, but the donor did nothing wrong. */
+.dn-fail {
+  position: absolute;
+  inset: 0;
+  z-index: 21;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px var(--page-pad);
+  text-align: center;
+  background: var(--color-bg-tint);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms;
+}
+.dn-fail.is-shown { opacity: 1; pointer-events: auto; }
+.dn-fail:focus { outline: none; }
+.dn-fail__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3rem, 10vw, 7rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--color-ink);
+}
+.dn-fail__sub {
+  font-family: var(--font-ui);
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+  letter-spacing: 0.04em;
+  max-width: 46ch;
+}
+.dn-fail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+.dn-fail__btn {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  padding: 16px 32px;
+  background: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-ink);
+  transition: background 200ms, color 200ms, border-color 200ms;
+  cursor: pointer;
+}
+.dn-fail__btn:hover { background: var(--color-sand); }
+.dn-fail__btn--primary {
+  background: var(--color-ink);
+  color: var(--color-bg);
+}
+.dn-fail__btn--primary:hover {
+  background: var(--color-sage-deep);
+  border-color: var(--color-sage-deep);
+}
+
+@media (max-width: 640px) {
+  .dn-fail { padding: 40px var(--page-pad-mobile); }
+  .dn-fail__actions { flex-direction: column; align-self: stretch; }
+  .dn-fail__btn { width: 100%; }
+}
+
 @media (max-width: 640px) {
   .dn-stage { padding: 80px var(--page-pad-mobile) 100px; }
   .dn-controls { gap: 16px; }
@@ -440,10 +512,19 @@ const donateSchema = {
   <p class="dn-success__title">thank you</p>
   <p class="dn-success__sub" id="dn-success-sub">your pencil cases are on their way</p>
 </div>
+
+<div class="dn-fail" id="dn-fail" role="alert" aria-hidden="true" tabindex="-1">
+  <p class="dn-fail__title">no luck</p>
+  <p class="dn-fail__sub">That payment didn&rsquo;t go through, and nothing was taken from your account. Card payments are giving us trouble at the moment &mdash; SnapScan is working perfectly if you&rsquo;d like to try that instead.</p>
+  <div class="dn-fail__actions">
+    <button type="button" class="dn-fail__btn dn-fail__btn--primary" id="dn-fail-snap">donate via snapscan</button>
+    <button type="button" class="dn-fail__btn" id="dn-fail-retry">try card again</button>
+  </div>
+</div>
 </div>
 
 <!-- SNAPSCAN — second rail, and the one the original site used -->
-<section class="dn-snap" aria-labelledby="dn-snap-title">
+<section class="dn-snap" id="dn-snap" aria-labelledby="dn-snap-title">
   <div class="dn-snap__inner">
     <div class="dn-snap__copy">
       <span class="gn-eyebrow dn-snap__eyebrow">another way to give</span>
@@ -563,6 +644,33 @@ const donateSchema = {
     successEl.classList.add('is-shown');
     history.replaceState(null, '', '/donate');
   }
+
+  // Yoco sends declined donors back to failureUrl. Without this they land on
+  // a pristine donate page with no idea the payment didn't take.
+  var failEl = document.getElementById('dn-fail');
+
+  function hideFail() {
+    failEl.classList.remove('is-shown');
+    failEl.setAttribute('aria-hidden', 'true');
+  }
+
+  if (params.get('failed') === 'true') {
+    failEl.setAttribute('aria-hidden', 'false');
+    failEl.classList.add('is-shown');
+    failEl.focus();
+    history.replaceState(null, '', window.location.pathname);
+  }
+
+  document.getElementById('dn-fail-retry').addEventListener('click', hideFail);
+
+  document.getElementById('dn-fail-snap').addEventListener('click', function () {
+    hideFail();
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.getElementById('dn-snap').scrollIntoView({
+      behavior: reduce ? 'auto' : 'smooth',
+      block: 'start',
+    });
+  });
 
   decBtn.addEventListener('click', function () { update(count - 1); });
   incBtn.addEventListener('click', function () { update(count + 1); });
