@@ -3,9 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import { routes } from '../config/routes.ts';
 import imgHero        from '../assets/images/classroom-wide-bw.jpg';
-import imgHowCollect  from '../assets/images/how-01-collect.avif';
-import imgHowCreate   from '../assets/images/how-02-create.jpg';
-import imgHowContrib  from '../assets/images/how-03-contribute.jpg';
 import imgTangibility from '../assets/images/10-tangibility-flatlay.jpg';
 ---
 
@@ -31,6 +28,7 @@ import imgTangibility from '../assets/images/10-tangibility-flatlay.jpg';
   <div class="hp-schools__inner">
     <div class="hp-schools__head">
       <h2 class="hp-schools__title">3 schools.<br>one community.</h2>
+      <p class="hp-schools__sub">Every bag sold helps fund stationery for the pupils in our three schools.</p>
     </div>
     <div class="hp-schools__list">
       <div class="hp-schools__school">
@@ -52,54 +50,23 @@ import imgTangibility from '../assets/images/10-tangibility-flatlay.jpg';
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="hp-how" id="process">
-  <div class="hp-how__head">
-    <span class="gn-eyebrow">the process</span>
-    <h2 class="hp-how__title">collect, create, contribute.</h2>
-  </div>
-  <div class="hp-how__steps">
-    <article class="hp-how__step">
-      <div class="hp-how__num">01</div>
-      <div class="hp-how__img-wrap">
-        <Image class="hp-how__img" src={imgHowCollect} alt="a pile of donated denim, waiting to be sorted" width={800} format="webp" />
-      </div>
-      <h3 class="hp-how__step-title">donated kites, paragliders and denims</h3>
-      <p class="hp-how__step-line">upcycle — transform waste.</p>
-    </article>
-    <article class="hp-how__step">
-      <div class="hp-how__num">02</div>
-      <div class="hp-how__img-wrap">
-        <Image class="hp-how__img" src={imgHowCreate} alt="an artisan's hands laying out bright kite sail ready for cutting" width={800} format="webp" />
-      </div>
-      <h3 class="hp-how__step-title">hand-made unique lifestyle products</h3>
-      <p class="hp-how__step-line">create employment.<br>upskill people.</p>
-    </article>
-    <article class="hp-how__step">
-      <div class="hp-how__num">03</div>
-      <div class="hp-how__img-wrap">
-        <Image class="hp-how__img" src={imgHowContrib} alt="children at a western cape primary holding up denim pencil cases" width={800} format="webp" />
-      </div>
-      <h3 class="hp-how__step-title">2,500 children each year</h3>
-      <p class="hp-how__step-line">support 3 schools with stationery every year.<br>contribute to local economy.</p>
-    </article>
-  </div>
-</section>
-
 <!-- TANGIBILITY -->
 <section class="hp-tangibility" id="one-set">
   <div class="hp-tangibility__inner">
     <div class="hp-tangibility__text">
       <span class="gn-eyebrow hp-reveal">what "one set" means</span>
-      <h3 class="hp-tangibility__title hp-reveal hp-reveal--delay-1">a denim pencil case, one set of stationery, for the year</h3>
+      <h3 class="hp-tangibility__title hp-reveal hp-reveal--delay-1">a denim pencil case, one set of grade-appropriate stationery, for the year</h3>
       <p class="hp-tangibility__body hp-reveal hp-reveal--delay-2">we take profits from sales, and fill pencil cases.</p>
       <ul class="hp-kit-list">
-        <li>1 denim pencil case</li>
+        <li>denim pencil case</li>
         <li>colouring crayons</li>
         <li>pens</li>
         <li>pencils</li>
         <li>erasers</li>
         <li>sharpener</li>
+        <li>highlighters</li>
+        <li>glue</li>
+        <li>maths set</li>
       </ul>
     </div>
     <div class="hp-tangibility__img-wrap hp-reveal hp-reveal--delay-1">
@@ -140,27 +107,6 @@ import imgTangibility from '../assets/images/10-tangibility-flatlay.jpg';
   will-change: transform;
 }
 
-/* ---- Process step carousel on mobile ---- */
-@media (max-width: 820px) {
-  .hp-how { padding-inline: 0; }
-  .hp-how__head { padding-inline: var(--page-pad-mobile); }
-  .hp-how__steps {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 0;
-    padding: 0 var(--page-pad-mobile) 32px;
-    scrollbar-width: none;
-  }
-  .hp-how__steps::-webkit-scrollbar { display: none; }
-  .hp-how__step {
-    flex: 0 0 82%;
-    max-width: 340px;
-    scroll-snap-align: start;
-  }
-}
-
 /* ---- Schools ---- */
 .hp-schools {
   background: var(--color-bg-tint);
@@ -174,6 +120,14 @@ import imgTangibility from '../assets/images/10-tangibility-flatlay.jpg';
   gap: 64px;
 }
 .hp-schools__head { display: grid; gap: 16px; max-width: 520px; }
+.hp-schools__sub {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+  margin: 0;
+  max-width: 48ch;
+}
 .hp-schools__title {
   font-family: var(--font-display);
   font-weight: 300;
