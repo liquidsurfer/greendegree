@@ -173,7 +173,6 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
     <div class="hp-unit-lime__inner">
       <p class="hp-unit-lime__line">every bag sold<span class="hp-unit-lime__eq">→</span>fills pencil cases.</p>
       <p class="hp-unit-lime__sub">over 12,800+ pencil cases handed out since december 2019.</p>
-      <a href={routes.impact} class="hp-unit-lime__cta">see the impact →</a>
     </div>
     <div class="hp-lime__cue" id="lime-cue" aria-hidden="true">
       <svg viewBox="0 0 24 24" width="22" height="22" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -226,6 +225,18 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
       <div class="hp-tile__name">parachute collection</div>
       <div class="hp-tile__meta">crocheted hand bags from donated parachutes — stitched in the workshop.</div>
       <div class="hp-tile__price">R 500–2,500</div>
+    </div>
+  </div>
+</section>
+
+<!-- SEE THE IMPACT -->
+<section class="hp-see" id="see-impact">
+  <div class="hp-see__inner">
+    <span class="gn-eyebrow">the impact</span>
+    <h2 class="hp-see__title">see what it adds up to.</h2>
+    <p class="hp-see__sub">pencil cases delivered, denim upcycled, kites given a second life.</p>
+    <div class="hp-invite__cta-row">
+      <a class="hp-invite__cta" href={routes.impact}>see the impact →</a>
     </div>
   </div>
 </section>
@@ -677,25 +688,6 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
   margin: 0;
   letter-spacing: 0.04em;
 }
-.hp-unit-lime__cta {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: lowercase;
-  padding: 14px 24px;
-  background: var(--color-bg);
-  color: var(--color-ink);
-  text-decoration: none;
-  border: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 20px;
-  align-self: flex-start;
-  transition: background 160ms;
-}
-.hp-unit-lime__cta:hover { background: var(--color-bg-tint); color: var(--color-ink); }
 .hp-unit-outer {
   position: relative;
   height: 260vh;
@@ -795,6 +787,62 @@ const heroPreload = await getImage({ src: imgHero, format: 'webp', width: 1920 }
    ============================================================ */
 @media (max-width: 820px) {
   .hp-collections__head { flex-wrap: wrap; gap: 16px; }
+}
+
+/* ============================================================
+   SEE THE IMPACT — closing bridge to /impact
+
+   Grounded in --color-lime: the unit-lime fill above resolves to a
+   full lime viewport at the end of its runway, so this band reads as
+   that fill having completed. Sits between the tile grid and the
+   full-bleed invite photo, giving the page a flat-colour beat between
+   two image-heavy sections.
+   ============================================================ */
+.hp-see {
+  background: var(--color-lime);
+  padding: 128px var(--page-pad) 120px;
+}
+.hp-see__inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  display: grid;
+  gap: 28px;
+  justify-items: start;
+}
+/* The eyebrow's sage-deep would sit green-on-green here; ink instead.
+   The rule is a ::after with its own background, so it needs the pair. */
+.hp-see .gn-eyebrow { color: var(--color-ink); }
+.hp-see .gn-eyebrow::after { background: var(--color-ink); }
+.hp-see__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.028em;
+  color: var(--color-ink);
+  margin: 0;
+}
+.hp-see__sub {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+  margin: 0;
+  max-width: 48ch;
+}
+/* Re-ground the shared button for lime, the same way .hp-invite--photo
+   re-grounds it for the photo scrim. Sage-deep on lime would be muddy. */
+.hp-see .hp-invite__cta {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-bg);
+}
+.hp-see .hp-invite__cta:hover {
+  background: transparent;
+  color: var(--color-ink);
+}
+@media (max-width: 720px) {
+  .hp-see { padding: 88px var(--page-pad-mobile) 80px; }
 }
 
 /* ============================================================
