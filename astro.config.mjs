@@ -12,6 +12,11 @@ export default defineConfig({
     // the sitemap so search engines don't surface them.
     sitemap({ filter: (page) => !new URL(page).pathname.startsWith('/shop') }),
   ],
+  // Astro 7 changed the default to 'jsx', which deletes the newlines between
+  // inline elements instead of collapsing them to a space. The homepage hero
+  // sentence (.hp-diagram-sentence / .hp-mob-sentence-text) is written one word
+  // per line and relies on those newlines rendering as spaces.
+  compressHTML: true,
   devToolbar: { enabled: false },
   vite: {
     plugins: [tailwindcss()],
